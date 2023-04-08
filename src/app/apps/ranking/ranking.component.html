@@ -1,0 +1,31 @@
+<table class="styled-table">
+  <thead>
+    <div class="buttomenu">
+      <button class="menu" mat-button [matMenuTriggerFor]="menu">
+        Filter by tokens
+      </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="getUsersSortedByTokensAscending()" mat-menu-item>
+          Filter ascending
+        </button>
+        <button (click)="getUsersSortedByTokensDescending()" mat-menu-item>
+          Filtern descending
+        </button>
+      </mat-menu>
+    </div>
+    <tr>
+      <th>Place</th>
+      <th>Name</th>
+      <th>Tokens</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let user of users; let i = index">
+      <tr [ngClass]="{ 'current-user': user.id === userId }">
+        <td>{{ i + 1 }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.tokens }}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

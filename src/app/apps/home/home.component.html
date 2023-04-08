@@ -1,0 +1,92 @@
+<main>
+  <div class="wrapper">
+    <div class="sidebar">
+      <h2>Your Statistics</h2>
+      <h2>Username: {{user.username}}</h2>
+      <table>
+        <tr>
+          <td>Tokens</td>
+          <td>{{ tokens }}</td>
+        </tr>
+        <tr>
+          <td>Badges</td>
+          <td>
+            <ul>
+              <li *ngFor="let badge of badgeList">{{ badge.name }}</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <section class="hero">
+      <h1>Culture Challenge App</h1>
+      <p>Get rewarded for your done quests and progress towards your goals!</p>
+    </section>
+  </div>
+
+  <div class="container">
+    <h1>General Culture Quiz</h1>
+    <p>Welcome to our quiz! Answer the following questions to earn tokens.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Tokens Earned</th>
+          <th>Badge To Earn</th>
+          <th>Answer</th>
+          <th>Submit answer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let quest of questList">
+          <td>{{ quest.description }}</td>
+          <td>{{ quest.questRewardTokens }}</td>
+          <td>{{ quest.badges!.name }}</td>
+          <td>
+            <input
+              placeholder="Type your answer here"
+              class="name"
+              type="text"
+              id="name"
+              name="name"
+              #answer1
+            />
+            <span class="good" *ngIf="checkAnswer(answer1.value, quest.answer ? quest.answer : '')">
+              Congratulations, you answered correctly!
+              <button class="reward" *ngIf="!rewarded" (click)="resolveQuest(quest.id,userId)">Get reward</button>
+            </span>
+            <span class="wrong" *ngIf="!checkAnswer(answer1.value, quest.answer ? quest.answer : '') && answer1.value">
+              Incorrect answer!
+            </span>
+          </td>
+          <td><button class="submitanswer" (click)="checkAnswer(answer1.value, quest.answer ? quest.answer : '')">Submit</button>
+          </td>
+        </tr> 
+      </tbody>
+    </table>
+    <div>
+      <h1>Create a new quest</h1>
+      <p>Fill in the form below to create a new quest.</p>
+      <p>You can create a quest only if you have enough tokens and badges to celebrate winners.</p>
+    </div>
+    <form (ngSubmit)="onCreateQuestSubmit(answer,description,questRewardTokens,badges)">
+      <div>
+        <label for="answer">Answer:</label>
+        <input placeholder="Type here" type="text" id="answer" name="answer" [(ngModel)]="answer" required>
+      </div>
+      <div>
+        <label for="description">Description:</label>
+        <input placeholder="Type here" id="description" name="description" [(ngModel)]="description" required>
+      </div>
+      <div>
+        <label for="questRewardTokens">Quest Reward Tokens:</label>
+        <input placeholder="Type here"  type="number" id="questRewardTokens" name="questRewardTokens" [(ngModel)]="questRewardTokens" required>
+      </div>
+      <div>
+        <label for="badges">Badges:</label>
+        <input placeholder="Type here"  type="text" id="badges" name="badges" [(ngModel)]="badges">
+      </div>
+      <button class="create-quest-button">Create Quest</button>
+    </form>
+    </div>
+</main>

@@ -1,0 +1,163 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.submain {
+  display: flex;
+  justify-content: center;
+  height: 550px;
+  width: 25%;
+  padding-top: 30px;
+  border-radius: 60px;
+  background-color: rgba(255, 255, 255, 0.152);
+}
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.imgs {
+  padding-top: 20px;
+  justify-content: center;
+  display: flex;
+}
+.container-image {
+  background-color: rgba(223, 221, 221, 0.705);
+  border-radius: 150px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 115px;
+  width: 115px;
+  margin-bottom: 20px;
+}
+.profile {
+  height: 100px;
+  width: 100px;
+  border-radius: 130px;
+}
+input {
+  width: 300px;
+  height: 50px;
+  border-radius: 60px;
+  box-shadow: inset 0px 0px 25px 0px #888;
+  border: none;
+  outline: none;
+  background-color: #fff;
+}
+.test {
+  margin-top: 25%;
+}
+.name {
+  padding-left: 15px;
+  font-size: 20px;
+}
+.second-input {
+  padding-top: 25px;
+}
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.groupsubmit {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.groupsubmit button {
+  width: 100%;
+  height: 50px;
+  margin: 0 auto;
+  border-radius: 25px;
+  background-color: grey;
+  color: white;
+  font-size: 20px;
+  border: none;
+}
+
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-top: 5%;
+  font-size: 20px;
+}
+.register a {
+  color: white;
+  font-size: 15px;
+}
+
+.alert {
+  color: rgb(255, 9, 9);
+  font-weight: bold;
+  text-align: center;
+  font-size: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .submain {
+    width: 70%;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .submain {
+    width: 80%;
+    height: 40%;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  .container-image {
+    height: 80px;
+    width: 80px;
+    border-radius: 80px;
+  }
+
+  .profile {
+    height: 60px;
+    width: 60px;
+    border-radius: 60px;
+  }
+
+  .name {
+    padding-left: 10px;
+    font-size: 15px;
+  }
+
+  .groupsubmit button {
+    font-size: 16px;
+    height: 40px;
+  }
+
+  .register {
+    font-size: 16px;
+    margin-top: 8%;
+  }
+
+  .register a {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .submain {
+    width: 70%;
+  }
+
+  input {
+    width: 100%;
+  }
+}

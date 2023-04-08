@@ -1,0 +1,66 @@
+<div class="container aa">
+  <div class="submain">
+    <div>
+      <div class="imgs">
+        <div class="container-image">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            alt="profile"
+            class="profile"
+          />
+        </div>
+      </div>
+      <form (ngSubmit)="onSubmit()">
+        <div>
+          <input
+            placeholder="Username"
+            class="name"
+            type="text"
+            id="name"
+            name="name"
+            required
+            minlength="4"
+            [(ngModel)]="username"
+            #name="ngModel"
+          />
+        </div>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+          <div *ngIf="name.errors?.['required']">Name is required.</div>
+          <div *ngIf="name.errors?.['minlength']">
+            Name must be at least 4 characters long.
+          </div>
+        </div>
+        <div class="second-input">
+          <input
+            placeholder="Password"
+            class="name"
+            type="password"
+            id="password"
+            name="password"
+            required
+            minlength="4"
+            [(ngModel)]="password"
+            #name1="ngModel"
+          />
+        </div>
+        <div
+          *ngIf="name1.invalid && (name1.dirty || name1.touched)"
+          class="alert"
+        >
+          <div *ngIf="name1.errors?.['required']">Password is required.</div>
+          <div *ngIf="name1.errors?.['minlength']">
+            Password must be at least 4 characters long.
+          </div>
+        </div>
+        <div class="groupsubmit">
+          <button type="submit" [disabled]="!name1.valid || !name.valid">
+            Login
+          </button>
+        </div>
+        <div class="register">
+          <a href="/auth/register">Go to Register</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

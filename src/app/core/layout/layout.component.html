@@ -1,0 +1,13 @@
+<header>
+    <nav>
+      <div class="heading">
+        <h4>Culture Challenge</h4>
+      </div>
+      <ul class="nav-links">
+        <li><a [routerLink]="['/app/home']" class="active">Home</a></li>
+        <li><a [routerLink]="['/app/ranking']">Ranking</a></li>
+        <li><a (click)="logout()">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+<router-outlet></router-outlet>
