@@ -10,17 +10,23 @@ import { AuthService } from 'src/app/libs/AuthService/auth.service';
 export class LoginComponent {
   public username!: string;
   public password!: string;
+  public loginFailed=false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   public async onSubmit() {
-    const rez = await this.authService
-      .login(this.username, this.password)
-      .toPromise();
-    if (rez) {
-      this.router.navigateByUrl('/app/home');
+    try {
+      const result = await this.authService.login(this.username, this.password).toPromise();
+      if (result) {
+        this.router.navigateByUrl('/app/home');
+      } else {
+        this.loginFailed = true;
+      }
+    } catch (error) {
+      this.loginFailed = true;
     }
   }
+  
 
   public async logout() {
     this.authService.logout();

@@ -5,4 +5,5 @@ export class User{
     tokens?: number;
     leaderboard?: string;
     email?: string;
+    accessToken?: any;
 }

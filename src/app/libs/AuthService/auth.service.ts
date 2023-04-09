@@ -22,10 +22,12 @@ export class AuthService {
 
   public login(username: string, password: string) {
     return this.http
-      .post<any>(this.basePath + '/login', { username, password })
+      .post<any>(this.basePath + '/auth/login', { username, password })
       .pipe(
         map((user: any) => {
           user.authData = window.btoa(username + ':' + password);
+          user.accessToken=user.accessToken;
+          localStorage.setItem('token',JSON.stringify(user.accessToken));
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.userSubject.next(user);
           return user;
@@ -34,7 +36,7 @@ export class AuthService {
   }
 
   public register(username: string, password: string, email: string) {
-    return this.http.post<any>(this.basePath + '/register', {
+    return this.http.post<any>(this.basePath + '/auth/register', {
       username,
       password,
       email,
@@ -49,5 +51,9 @@ export class AuthService {
 
   public getUser(): any {
     return this.userSubject.value;
+  }
+
+  public getAuthtoken():any{
+    return JSON.parse(localStorage.getItem('token') || '{}')
   }
 }

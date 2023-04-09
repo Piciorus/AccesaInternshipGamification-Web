@@ -52,6 +52,10 @@
             Password must be at least 4 characters long.
           </div>
         </div>
+
+        <div *ngIf="loginFailed" class="alert">
+          Incorrect username or password.
+        </div>
         <div class="groupsubmit">
           <button type="submit" [disabled]="!name1.valid || !name.valid">
             Login

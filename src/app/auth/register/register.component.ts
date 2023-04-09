@@ -11,16 +11,19 @@ export class RegisterComponent {
   public username!: string;
   public password!: string;
   public email!: string;
-  public registrationSuccess!:boolean;
+  public registrationSuccess = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   public async onSubmit() {
-    const result = await this.authService
-      .register(this.username, this.password, this.email)
-      .toPromise();
+    try {
+      const result = await this.authService
+        .register(this.username, this.password, this.email)
+        .toPromise();
+
       this.registrationSuccess = true;
-      // this.router.navigateByUrl('/home');
-    
+    } catch (error) {
+      this.registrationSuccess = false;
+    }
   }
 }
