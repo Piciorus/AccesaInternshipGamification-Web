@@ -5,5 +5,7 @@ export class Quest{
     answer?: string;
     description?: string;
     questRewardTokens?: string;
-    badges?: Badge;
+    rewarded?:boolean;
+    difficulty?: string;
+    threshold?:number;
 }

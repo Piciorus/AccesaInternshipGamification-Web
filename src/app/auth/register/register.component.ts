@@ -13,14 +13,11 @@ export class RegisterComponent {
   public email!: string;
   public registrationSuccess = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private readonly authService: AuthService, private router: Router) {}
 
-  public async onSubmit() {
+  public onSubmit() {
     try {
-      const result = await this.authService
-        .register(this.username, this.password, this.email)
-        .toPromise();
-
+      this.authService.register(this.username, this.password, this.email);
       this.registrationSuccess = true;
     } catch (error) {
       this.registrationSuccess = false;

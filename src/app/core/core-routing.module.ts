@@ -19,6 +19,11 @@ const routes: Routes = [
           import('../apps/ranking/ranking.module').then((m) => m.RankingModule),
       },
       {
+        path: 'quests',
+        loadChildren: () =>
+          import('../apps/quests/quests.module').then((m) => m.QuestsModule),
+      },
+      {
         path: '**',
         redirectTo: 'error',
       },

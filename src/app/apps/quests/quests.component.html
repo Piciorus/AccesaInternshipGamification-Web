@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="text">
+    <h1>Create a new quest</h1>
+    <p class="createnew">Fill in the form below to create a new quest.</p>
+    <p class="createnew">
+      You can create a quest only if you have enough tokens and badges to
+      celebrate winners.
+    </p>
+  </div>
+  <form
+    class="example-form"
+    (ngSubmit)="
+      onCreateQuestSubmit(
+        answer,
+        description,
+        questRewardTokens,
+        difficulty,
+        threshold
+      )
+    "
+  >
+    <mat-form-field class="example-full-width">
+      <mat-label>Answer</mat-label>
+      <input
+        matInput
+        placeholder="Type here"
+        type="text"
+        id="answer"
+        name="answer"
+        [(ngModel)]="answer"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <input
+        matInput
+        placeholder="Type here"
+        id="description"
+        type="text"
+        name="description"
+        [(ngModel)]="description"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Quest Reward Tokens</mat-label>
+      <input
+        matInput
+        placeholder="Type here"
+        type="number"
+        id="questRewardTokens"
+        name="questRewardTokens"
+        [(ngModel)]="questRewardTokens"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Difficulty</mat-label>
+      <input
+        matInput
+        placeholder="Type here"
+        type="text"
+        id="badges"
+        name="badges"
+        [(ngModel)]="difficulty"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Threshold</mat-label>
+      <input
+        matInput
+        placeholder="Type here"
+        type="text"
+        id="Threshold"
+        name="Threshold"
+        [(ngModel)]="threshold"
+        required
+      />
+    </mat-form-field>
+
+    <button class="create-quest-button" mat-raised-button color="primary">
+      Create Quest
+    </button>
+  </form>
+</div>

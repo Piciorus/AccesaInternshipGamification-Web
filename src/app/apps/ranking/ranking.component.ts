@@ -15,7 +15,7 @@ export class RankingComponent {
   public userId: any;
   public currentUserIndex: number | undefined; 
 
-  constructor(private userService: UserService,private authService:AuthService) {}
+  constructor(private readonly userService: UserService,private readonly authService:AuthService) {}
 
   ngOnInit(): void {
     this.getAllUser();
@@ -23,19 +23,19 @@ export class RankingComponent {
     this.userId = this.user.id;
   }
 
-  public getAllUser() {
+  public getAllUser():void {
     this.userService.getAllUsers().subscribe((response) => {
       this.users = response;
     });
   }
 
-  public getUsersSortedByTokensAscending() {
+  public getUsersSortedByTokensAscending():void {
     this.userService.getUsersSortedByTokensAscending().subscribe((response) => {
       this.users = response;
     });
   }
 
-  public getUsersSortedByTokensDescending() {
+  public getUsersSortedByTokensDescending():void {
     this.userService.getUsersSortedByTokensDescending().subscribe((response) => {
       this.users = response;
     });

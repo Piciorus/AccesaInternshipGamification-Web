@@ -20,13 +20,15 @@ export class QuestService {
     answer: string,
     description: string,
     questRewardTokens: number,
-    badges: string
+    difficulty: string,
+    threshold: number
   ): Observable<any> {
     return this.http.post(this.basePath + '/createQuest', {
       answer,
       description,
       questRewardTokens,
-      badges,
+      difficulty,
+      threshold
     });
   }
 
@@ -35,5 +37,9 @@ export class QuestService {
       this.basePath + '/resolveQuest/' + idQuest + "/" + idUser,
       {}
     );
+  }
+
+  public updateRewarded(idQuest:number,rewarded:boolean):Observable<any>{
+    return this.http.put(this.basePath + '/updateRewarded/' + idQuest, rewarded);
   }
 }

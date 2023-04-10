@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from './core/layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptorService } from './libs/Interceptors/TokenBasedInterceptor';
+import { QuestsComponent } from './apps/quests/quests.component';
 
 @NgModule({
   declarations: [

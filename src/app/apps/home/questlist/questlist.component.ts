@@ -1,53 +1,49 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import useId from '@mui/material/utils/useId';
 import { AuthService } from 'src/app/libs/AuthService/auth.service';
 import { Badge } from 'src/app/libs/Models/Badge';
 import { Quest } from 'src/app/libs/Models/Quest';
-import { User } from 'src/app/libs/Models/User';
 import { BadgeService } from 'src/app/libs/Services/Badge/badge.service';
 import { QuestService } from 'src/app/libs/Services/Quest/quest.service';
 import { UserService } from 'src/app/libs/Services/User/user.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-questlist',
+  templateUrl: './questlist.component.html',
+  styleUrls: ['./questlist.component.scss'],
 })
-export class HomeComponent {
+export class QuestlistComponent {
   public questList: Array<Quest> = [];
   public badgeList: Array<Badge> = [];
-  public user: any;
-  public tokens: any;
-  public answer: any;
-  public description: any;
-  public badges: any;
-  public questRewardTokens: any;
-  public userId: any;
-  public difficulty: any;
+  public barBadge: Array<Badge> = [];
   public threshold: any;
   public rewarded = false;
-  public progress: number = 0;
-  public countQuest = 0;
   public thresholdUser: any;
-  public barBadge: Array<Badge> = [];
-  public emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  public tokens: any;
+  public userId: any;
+  public user: any;
 
-  constructor(
-    private readonly badgeService: BadgeService,
+  public constructor(
     private readonly questService: QuestService,
-    private readonly authService: AuthService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly badgeService: BadgeService,
+    private readonly authService:AuthService
   ) {}
 
   public ngOnInit(): void {
     this.getQuests();
     this.getUser();
-    this.getBadges();
     const storedTokens = localStorage.getItem('tokens');
     if (storedTokens) {
       this.tokens = storedTokens;
     }
+  }
+
+  public getUser(): void {
+    this.user = this.authService.getUser();
+    this.tokens = this.user.tokens;
+    this.userId = this.user.id;
+    this.thresholdUser = this.user.threshold;
+    this.getBadgeFromUser(this.userId);
   }
 
   public getQuests(): void {
@@ -62,38 +58,6 @@ export class HomeComponent {
     } else {
       return false;
     }
-  }
-
-  public getUser(): void {
-    this.user = this.authService.getUser();
-    this.tokens = this.user.tokens;
-    this.userId = this.user.id;
-    this.thresholdUser = this.user.threshold;
-    this.getBadgeFromUser(this.userId);
-  }
-
-  public getBadgeFromUser(idUser: number): void {
-    this.badgeService.getBadgesFromUser(idUser).subscribe((response) => {
-      this.badgeList = response;
-    });
-  }
-
-  public logout(): void {
-    this.authService.logout();
-  }
-
-
-  public updateTokens(idUser: number, tokens: number): void {
-    this.userService.updateTokens(idUser, tokens).subscribe((response) => {
-      this.tokens = response.tokens;
-      localStorage.setItem('tokens', response.tokens);
-    });
-  }
-
-  public rewardBadge(idBadge: number, idUser: number): void {
-    this.userService.rewardBadge(idBadge, idUser).subscribe((response) => {
-      this.getBadgeFromUser(idUser);
-    });
   }
 
   public resolveQuest(idQuest: number, idUser: number): void {
@@ -118,11 +82,10 @@ export class HomeComponent {
     });
   }
 
-  
-
-  public getBadges(): void {
-    this.badgeService.getAllBadges().subscribe((response) => {
-      this.barBadge = response;
+  public updateTokens(idUser: number, tokens: number): void {
+    this.userService.updateTokens(idUser, tokens).subscribe((response) => {
+      this.tokens = response.tokens;
+      localStorage.setItem('tokens', response.tokens);
     });
   }
 
@@ -143,5 +106,17 @@ export class HomeComponent {
         this.rewardBadge(badgeId, this.userId);
       }
     }
+  }
+
+  public rewardBadge(idBadge: number, idUser: number): void {
+    this.userService.rewardBadge(idBadge, idUser).subscribe((response) => {
+      this.getBadgeFromUser(idUser);
+    });
+  }
+
+  public getBadgeFromUser(idUser: number): void {
+    this.badgeService.getBadgesFromUser(idUser).subscribe((response) => {
+      this.badgeList = response;
+    });
   }
 }

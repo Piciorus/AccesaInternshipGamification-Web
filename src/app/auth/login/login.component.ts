@@ -10,13 +10,18 @@ import { AuthService } from 'src/app/libs/AuthService/auth.service';
 export class LoginComponent {
   public username!: string;
   public password!: string;
-  public loginFailed=false;
+  public loginFailed = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private readonly authService: AuthService,
+    private router: Router
+  ) {}
 
-  public async onSubmit() {
+  public async onSubmit(): Promise<void> {
     try {
-      const result = await this.authService.login(this.username, this.password).toPromise();
+      const result = await this.authService
+        .login(this.username, this.password)
+        .toPromise();
       if (result) {
         this.router.navigateByUrl('/app/home');
       } else {
@@ -26,15 +31,12 @@ export class LoginComponent {
       this.loginFailed = true;
     }
   }
-  
 
-  public async logout() {
+  public async logout(): Promise<void> {
     this.authService.logout();
   }
 
-  public goToRegister() {
+  public goToRegister(): void {
     this.router.navigateByUrl('/auth/register');
   }
-
-  
 }

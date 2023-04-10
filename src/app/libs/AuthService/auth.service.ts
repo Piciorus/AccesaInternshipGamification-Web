@@ -25,8 +25,6 @@ export class AuthService {
       .post<any>(this.basePath + '/auth/login', { username, password })
       .pipe(
         map((user: any) => {
-          user.authData = window.btoa(username + ':' + password);
-          user.accessToken=user.accessToken;
           localStorage.setItem('token',JSON.stringify(user.accessToken));
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.userSubject.next(user);
@@ -45,7 +43,8 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('tokens');
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokens')
     this.router.navigateByUrl('/auth/login');
   }
 

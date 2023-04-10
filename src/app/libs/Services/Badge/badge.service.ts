@@ -15,4 +15,8 @@ export class BadgeService {
   public getBadgesFromUser(idUser: number): Observable<any> {
     return this.http.get(this.basePath + '/getBadgesByUserId/' + idUser);
   }
+
+  public getAllBadges():Observable<any>{
+    return this.http.get(this.basePath + '/getAllBadges');
+  }
 }

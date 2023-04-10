@@ -1,0 +1,57 @@
+.example-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+}
+.example-full-width {
+  font-size: 20px;
+  width: 50%;
+}
+.createnew {
+  font-size: 2rem;
+}
+.text{
+    margin-left: 30px;
+}
+
+.create-quest-button {
+  font-size: 1.7rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media only screen and (min-width: 480px) {
+  .container {
+    font-size: 1rem;
+  }
+  .example-form {
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    font-size: 1.2rem;
+  }
+  .example-form {
+    width: 60%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .container {
+    font-size: 1.5rem;
+  }
+  .example-form {
+    width: 50%;
+  }
+}

@@ -1,10 +1,16 @@
 nav {
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
+  flex-wrap: wrap;
+
   justify-content: space-around;
   align-items: center;
-  min-height: 8vh;
   background-color: rgb(0, 61, 61);
   font-family: "Montserrat", sans-serif;
+  width: 100%;
+  z-index: 9999;
 }
 
 .heading {
@@ -12,6 +18,60 @@ nav {
   text-transform: uppercase;
   letter-spacing: 5px;
   font-size: 20px;
+}
+.username {
+  position: absolute;
+  top: 1;
+  right: 0;
+  padding: 1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+@media (max-width: 576px) {
+  .username {
+    position: static;
+    padding: 0.5rem;
+    background-color: transparent;
+  }
+
+  .nav-links li:not(:last-child) {
+    display: none;
+  }
+
+  .nav-links li:nth-last-child(2) {
+    display: block;
+  }
+
+  .nav-links li:last-child {
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .username {
+    position: absolute;
+    top: 1;
+    right: 0;
+    padding: 0.75rem;
+  }
+
+  .nav-links li:not(:last-child) {
+    display: none;
+  }
+
+  .nav-links li:last-child {
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 769px) {
+  .username {
+    position: absolute;
+    top: 1;
+    right: 0;
+    padding: 1rem;
+  }
 }
 
 .nav-links {
@@ -51,7 +111,7 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 175%;
+    width: 100%;
     background-color: rgb(0, 61, 61);
     font-family: "Montserrat", sans-serif;
   }

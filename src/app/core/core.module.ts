@@ -7,18 +7,13 @@ import { AngularMaterialModule } from 'src/shared/angular-material.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from '../libs/Interceptors/TokenBasedInterceptor';
 
-
 @NgModule({
-  declarations: [
-    LayoutComponent
-  ],
+  declarations: [LayoutComponent],
   imports: [
     CommonModule,
     CoreRoutingModule,
     FormsModule,
-    AngularMaterialModule
-  
+    AngularMaterialModule,
   ],
-  
 })
-export class CoreModule { }
+export class CoreModule {}
