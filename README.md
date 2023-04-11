@@ -40,7 +40,7 @@ Run ng serve to start the frontend server. The server will run on http://localho
 After run the spring boot application and the web application.Open the http://localhost:4200. 
 When the application starts the login page is displayed.Go to register page to create an account and after that login.Then you are redirected to the home page where the questions you can answer are displayed.In the navigation bar there are buttons to the ranking and questions pages. In ranking you can see the ranking and where you are,based on the tokens you own. In questions you can add a new question.
 
-## 💻 API architecture
+## 🗝️ API architecture
 
 
 The following is the top-level directory structure:
@@ -64,7 +64,7 @@ The following is the top-level directory structure:
 ⚙️ Client: The client refers to the user interface or the front-end of the application. It is responsible for presenting data and information to the user and for accepting user inputs.
 
 
-## 🖥️ WEB architecture
+## 🗝️ WEB architecture
 The following is the top-level directory structure:
 
 * Assets - global static assets like photos, svgs
@@ -75,4 +75,12 @@ The following is the top-level directory structure:
     * Auth:contains the login and register component
     * Core:contains the layout with the header and routing to all components
     * Libs:contains the services,models,interceptors,used for communicate with the backend
+
+## 💻 User Interface
+![alt text](https://github.com/Piciorus/Photos/blob/main/login.png)<br/><br/><br/>
+![alt text](https://github.com/Piciorus/Photos/blob/main/registerpng.png)<br/><br/><br/>
+![alt text](https://github.com/Piciorus/Photos/blob/main/home1.png)<br/><br/><br/>
+![alt text](https://github.com/Piciorus/Photos/blob/main/ranking1.png)<br/><br/><br/>
+![alt text](https://github.com/Piciorus/Photos/blob/main/quest1.png)<br/><br/><br/>
+
 
