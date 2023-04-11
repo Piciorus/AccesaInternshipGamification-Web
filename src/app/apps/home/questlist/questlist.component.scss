@@ -9,16 +9,17 @@
 table {
   margin: 0 auto;
   border-collapse: collapse;
-  width: 70%;
+  width: auto;
   margin-bottom: 2rem;
   border-top: none;
+  border: 1px solid;
   display: block;
   height: 400px;
   overflow: auto;
 }
-
-
-
+tbody {
+  overflow: auto;
+}
 h1 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
@@ -29,13 +30,6 @@ p {
   margin-bottom: 1rem;
 }
 
-//   table {
-//     border-collapse: collapse;
-//     width: 100%;
-//     margin-bottom: 2rem;
-//     border-style: solid;
-//     border-width: thin;
-//   }
 .name {
   padding-left: 10px;
   font-size: 20px;
@@ -45,14 +39,16 @@ td {
   padding: 1rem;
   font-size: 1.5rem;
   text-align: left;
+  // border: 0.5px solid;
 }
 
 th {
   background-color: #f2f2f2;
+  border-bottom: 1px solid;
 }
 
 tr:hover {
-  background-color: #f5f5f5;
+  background-color: #7b7b7b66;
 }
 .submitanswer {
   padding: 1rem 3rem;
@@ -64,4 +60,29 @@ tr:hover {
   cursor: pointer;
 }
 
+.reward {
+  background-color: yellow;
+  padding: 1rem 3rem;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
 
+.wrong {
+  color: red;
+}
+
+.good {
+  color: green;
+}
+
+.submitanswer {
+  padding: 1rem 3rem;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}

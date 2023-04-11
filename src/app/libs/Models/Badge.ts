@@ -1,4 +1,4 @@
-export class Badge{
-    id?: number;
-    name?: string;
+export class Badge {
+  id?: number;
+  name?: string;
 }

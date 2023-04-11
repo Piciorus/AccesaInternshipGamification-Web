@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/libs/AuthService/auth.service';
+import { AuthService } from 'src/app/libs/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -13,11 +13,13 @@ export class RegisterComponent {
   public email!: string;
   public registrationSuccess = false;
 
-  constructor(private readonly authService: AuthService, private router: Router) {}
+  constructor(private readonly authService: AuthService) {}
 
-  public onSubmit() {
+  public onSubmit(): void {
     try {
-      this.authService.register(this.username, this.password, this.email);
+      this.authService
+        .register(this.username, this.password, this.email)
+        .subscribe();
       this.registrationSuccess = true;
     } catch (error) {
       this.registrationSuccess = false;

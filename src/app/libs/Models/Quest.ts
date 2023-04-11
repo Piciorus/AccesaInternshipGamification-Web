@@ -1,11 +1,10 @@
-import { Badge } from "./Badge";
-
-export class Quest{
-    id!: number;
-    answer?: string;
-    description?: string;
-    questRewardTokens?: string;
-    rewarded?:boolean;
-    difficulty?: string;
-    threshold?:number;
+export class Quest {
+  id!: number;
+  answer?: string;
+  description?: string;
+  questRewardTokens?: number;
+  rewarded?: boolean;
+  difficulty?: string;
+  threshold?: number;
+  rewardTokens?: number;
 }

@@ -2,7 +2,7 @@
   <h1>General Culture Quiz</h1>
   <p>Welcome to our quiz! Answer the following questions to earn tokens.</p>
   <table>
-    <thead style="position: sticky; top: 0">
+    <thead style="position: sticky; top: 0; z-index: 2">
       <tr>
         <th>Question</th>
         <th>Tokens Earned</th>
@@ -35,7 +35,7 @@
             <button
               class="reward"
               *ngIf="!quest.rewarded"
-              (click)="resolveQuest(quest.id, userId)"
+              (click)="resolveQuest(quest.id)"
             >
               Get reward
             </button>
@@ -50,14 +50,15 @@
             Incorrect answer!
           </span>
         </td>
-        <td>
+        <td style="z-index: 1">
           <button
+            mat-raised-button
+            color="primary"
             [disabled]="quest.rewarded"
-            class="submitanswer"
-            (click)="
-              checkAnswer(answer1.value, quest.answer ? quest.answer : '')
-            "
+            (click)="checkAnswer1(answer1.value, quest.id)"
           >
+            <!-- checkAnswer(answer1.value, quest.answer ? quest.answer : '') -->
+
             Submit
           </button>
         </td>

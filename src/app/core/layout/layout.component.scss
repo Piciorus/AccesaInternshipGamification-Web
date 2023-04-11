@@ -7,7 +7,7 @@ nav {
 
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(0, 61, 61);
+  background-color: rgb(53, 102, 102);
   font-family: "Montserrat", sans-serif;
   width: 100%;
   z-index: 9999;
@@ -135,16 +135,4 @@ nav {
     display: flex;
     justify-content: space-around;
   }
-}
-
-@media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
-}
-
-@media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {
-}
-
-@media screen and (max-device-width: 640px) {
-}
-
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 }

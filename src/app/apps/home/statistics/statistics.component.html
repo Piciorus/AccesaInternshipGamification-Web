@@ -1,0 +1,42 @@
+<div class="wrapper">
+  <div class="sidebar">
+    <h2>Your Statistics</h2>
+    <table>
+      <tr>
+        <td>Tokens</td>
+        <td>{{ statistics?.tokens }}</td>
+      </tr>
+      <tr>
+        <td>Badges</td>
+        <td>
+          <ul>
+            <li *ngFor="let badge of badgeList">
+              {{ badge && badge?.name ? badge.name : "" }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>Threshold</td>
+        <td>{{ statistics?.thresholdUser }}</td>
+      </tr>
+    </table>
+    <ul *ngIf="barBadge && barBadge.length > 0">
+      <li *ngIf="statistics?.thresholdUser < 30">
+        <h2>Badge Progress {{ barBadge[0].name }}</h2>
+      </li>
+      <li *ngIf="statistics?.thresholdUser >= 30 && statistics?.thresholdUser < 70">
+        <h2>Badge Progress {{ barBadge[1].name }}</h2>
+      </li>
+      <li *ngIf="statistics?.thresholdUser >= 70">
+        <h2>Badge Progress {{ barBadge[2].name }}</h2>
+      </li>
+    </ul>
+    <mat-progress-bar
+      mode="determinate"
+      [value]="statistics?.thresholdUser"
+    ></mat-progress-bar>
+  
+  </div>
+</div>
+  

@@ -5,9 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { RankingRoutingModule } from './ranking-routing.module';
 import { AngularMaterialModule } from 'src/shared/angular-material.module';
 
-
 @NgModule({
   declarations: [RankingComponent],
-  imports: [CommonModule, FormsModule, RankingRoutingModule,AngularMaterialModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RankingRoutingModule,
+    AngularMaterialModule,
+  ],
 })
 export class RankingModule {}

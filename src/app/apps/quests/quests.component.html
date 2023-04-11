@@ -7,18 +7,7 @@
       celebrate winners.
     </p>
   </div>
-  <form
-    class="example-form"
-    (ngSubmit)="
-      onCreateQuestSubmit(
-        answer,
-        description,
-        questRewardTokens,
-        difficulty,
-        threshold
-      )
-    "
-  >
+  <form [formGroup]="questForm" class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Answer</mat-label>
       <input
@@ -26,8 +15,7 @@
         placeholder="Type here"
         type="text"
         id="answer"
-        name="answer"
-        [(ngModel)]="answer"
+        formControlName="answer"
         required
       />
     </mat-form-field>
@@ -39,8 +27,7 @@
         placeholder="Type here"
         id="description"
         type="text"
-        name="description"
-        [(ngModel)]="description"
+        formControlName="description"
         required
       />
     </mat-form-field>
@@ -51,9 +38,8 @@
         matInput
         placeholder="Type here"
         type="number"
-        id="questRewardTokens"
-        name="questRewardTokens"
-        [(ngModel)]="questRewardTokens"
+        id="rewardTokens"
+        formControlName="rewardTokens"
         required
       />
     </mat-form-field>
@@ -64,9 +50,8 @@
         matInput
         placeholder="Type here"
         type="text"
-        id="badges"
-        name="badges"
-        [(ngModel)]="difficulty"
+        id="Difficulty"
+        formControlName="difficulty"
         required
       />
     </mat-form-field>
@@ -76,15 +61,20 @@
       <input
         matInput
         placeholder="Type here"
-        type="text"
-        id="Threshold"
-        name="Threshold"
-        [(ngModel)]="threshold"
+        type="number"
+        id="threshold"
+        formControlName="threshold"
         required
       />
     </mat-form-field>
 
-    <button class="create-quest-button" mat-raised-button color="primary">
+    <button
+      type="submit"
+      class="create-quest-button"
+      mat-raised-button
+      color="primary"
+      (click)="onCreateQuestSubmit()"
+    >
       Create Quest
     </button>
   </form>

@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { User } from '../Models/User';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class AuthService {
       .post<any>(this.basePath + '/auth/login', { username, password })
       .pipe(
         map((user: any) => {
-          localStorage.setItem('token',JSON.stringify(user.accessToken));
+          localStorage.setItem('token', JSON.stringify(user.accessToken));
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.userSubject.next(user);
           return user;
@@ -41,18 +41,29 @@ export class AuthService {
     });
   }
 
-  public logout() {
+  public logout():void{
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
-    localStorage.removeItem('tokens')
+    localStorage.removeItem('tokens');
     this.router.navigateByUrl('/auth/login');
+  }
+
+  public getMe(): Observable<User> {
+    return this.http.get(
+      this.basePath + '/getUserById/' + this.userSubject.getValue().id
+    );
+  }
+
+  public setUser(user: User): void {
+    this.userSubject.next(user);
+    localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
   public getUser(): any {
     return this.userSubject.value;
   }
 
-  public getAuthtoken():any{
-    return JSON.parse(localStorage.getItem('token') || '{}')
+  public getAuthtoken(): any {
+    return JSON.parse(localStorage.getItem('token') || '{}');
   }
 }

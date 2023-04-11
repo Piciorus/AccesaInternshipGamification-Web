@@ -5,7 +5,6 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthRoutingModule } from './auth-routing.module';
-import { HomeComponent } from '../apps/home/home.component';
 
 
 @NgModule({
