@@ -11,7 +11,7 @@ import { Quest } from '../models/quest';
 export class QuestService {
   private basePath = environment.apiUrl;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   public getQuests(): Observable<any> {
     return this.http.get(this.basePath + '/getAllQuests');

@@ -13,7 +13,7 @@ import { UserService } from 'src/app/libs/services/user.service';
 export class QuestlistComponent {
   @Input() questList: Array<Quest> = [];
   @Output() public newItemEvent: EventEmitter<any> = new EventEmitter<any>();
-  public correctAnswer=false;
+  public correctAnswer = false;
   public errorMessage: string;
 
   public constructor(
@@ -42,23 +42,32 @@ export class QuestlistComponent {
   }
 
   public updateThreshold(idUser: number, threshold: number): void {
-    this.userService.updateThreshold(idUser, threshold).pipe(take(1)).subscribe();
+    this.userService
+      .updateThreshold(idUser, threshold)
+      .pipe(take(1))
+      .subscribe();
   }
 
   public updateRewarded(idQuest: number, rewarded: boolean): void {
-    this.questService.updateRewarded(idQuest, rewarded).pipe(take(1)).subscribe(() => {
-      this.getQuests();
-    });
+    this.questService
+      .updateRewarded(idQuest, rewarded)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.getQuests();
+      });
   }
 
-  public checkAnswer(answer:string,questId:number):void{
-    this.questService.checkAnswer(this.authService.getUser().id,answer,questId).pipe(take(1)).subscribe((response:any) => {
-      if(response){
-        this.resolveQuest(questId);
-        this.errorMessage = '';
-      } else {
-        this.errorMessage = "Incorect answer"
-      }
-    })
+  public checkAnswer(answer: string, questId: number): void {
+    this.questService
+      .checkAnswer(this.authService.getUser().id, answer, questId)
+      .pipe(take(1))
+      .subscribe((response: any) => {
+        if (response) {
+          this.resolveQuest(questId);
+          this.errorMessage = '';
+        } else {
+          this.errorMessage = 'Incorrect answer!';
+        }
+      });
   }
 }
