@@ -2,7 +2,7 @@
 
 ## 🚀 Description
 
-This is a gamification application.The purpose of the app is to improve knowledge by answering questions.Every user can answer to questions and can create questions. He receives tokens and badges depending on his progress.The questions are on different levels of difficulty.The questions are on different levels of difficulty. Users must hurry to answer the questions because when a question is answered by a user, that question is no longer valid.
+This is a gamification application.The purpose of the app is to improve knowledge by answering questions.Every user can answer to questions and can create questions if has enough tokens. He receives tokens and badges depending on his progress.The questions are on different levels of difficulty. Users must hurry to answer the questions because when a question is answered by a user, that question is no longer valid.
 
 ## 🖥️ Technologies
 * `Angular`
