@@ -76,10 +76,14 @@ The following is the top-level directory structure:
     * Core:contains the layout with the header and routing to all components
     * Libs:contains the services,models,interceptors,used for communicate with the backend
 
+![alt text](https://github.com/Piciorus/Photos/blob/main/diagram1.png)<br/><br/><br/>
+
 ## 💻 User Interface
 ![alt text](https://github.com/Piciorus/Photos/blob/main/login.png)<br/><br/><br/>
 ![alt text](https://github.com/Piciorus/Photos/blob/main/registerpng.png)<br/><br/><br/>
-![alt text](https://github.com/Piciorus/Photos/blob/main/home1.png)<br/><br/><br/>
+![alt text](https://github.com/Piciorus/Photos/blob/main/registerpng.png)<br/><br/><br/>
+![alt text](https://github.com/Piciorus/Photos/blob/main/login3.png)<br/><br/><br/>
+![alt text](https://github.com/Piciorus/Photos/blob/main/home2.png)<br/><br/><br/>
 ![alt text](https://github.com/Piciorus/Photos/blob/main/ranking1.png)<br/><br/><br/>
 ![alt text](https://github.com/Piciorus/Photos/blob/main/quest1.png)<br/><br/><br/>
 
