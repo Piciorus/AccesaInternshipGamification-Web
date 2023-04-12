@@ -20,14 +20,14 @@ Node.js and npm installed
 
 Angular CLI installed
 
-API:
+### API:
 
 Clone the project repository from the Git hosting service of your choice.Link is [here](https://github.com/Piciorus/AccesaInternshipGamification-API).
 Navigate to the backend directory of the project in your terminal or command prompt.
 Run ./mvnw clean install to build the project and download the necessary dependencies.
 Run ./mvnw spring-boot:run to start the server. The server will run on http://localhost:8080 by default.The server port can be changed by modifying the server.port property in the application.properties file.
 
-WEB:
+### WEB:
 
 Clone the project repository from the Git hosting service of your choice.Link is [here](https://github.com/Piciorus/AccesaInternshipGamification-Web).
 Navigate to the frontend directory of the project in your terminal or command prompt.
@@ -45,13 +45,13 @@ When the application starts the login page is displayed.Go to register page to c
 
 The following is the top-level directory structure:
 * Domain
-   * Entities-persist information in the database
-   * Mapper-converts entities to models and reverse
-   * Models-consist of Data Transfer Objects
-* Repository-store models in database
-* Service-consist in business logic layer
-* Controller-this is presentation layer,where are defined endpoints
-* Config-contain the configuration files for the entire application
+   * Entities - persist information in the database
+   * Mapper - converts entities to models and reverse
+   * Models - consist of Data Transfer Objects
+* Repository - store models in database
+* Service - consist in business logic layer
+* Controller - this is presentation layer,where are defined endpoints
+* Config - contain the configuration files for the entire application
 	
 ⚙️ Database layer: The database layer stores data in a structured format that can be easily accessed and queried by the application layer.The application layer sends requests for data to the database layer through the data access layer. 
 
@@ -69,8 +69,8 @@ The following is the top-level directory structure:
 
 * Assets - global static assets like photos, svgs
 * Environments- store environment-specific settings for an application..
-* Shared-contains reusable code that can be used across multiple components, modules or services in the application.
-* App- contains following folders:
+* Shared - contains reusable code that can be used across multiple components, modules or services in the application.
+* App - contains following folders:
     * Apps:contains all the components from the application,organized in modules.
     * Auth:contains the login and register component
     * Core:contains the layout with the header and routing to all components
