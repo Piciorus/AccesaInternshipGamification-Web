@@ -1,9 +1,16 @@
-<main style="background-image: url('https://img.freepik.com/free-vector/white-abstract-wallpaper_23-2148830026.jpg?w=2000');  background-repeat: no-repeat;
-  background-size: cover; height: 100%;
-">
-  <app-statistics [statistics]="statistics"></app-statistics>
-  <app-questlist
-    [questList]="questList"
-    (newItemEvent)="updateStatistics($event)"
-  ></app-questlist>
+<main
+  style="
+    background-image: url('https://img.freepik.com/free-vector/white-abstract-wallpaper_23-2148830026.jpg?w=2000');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+  "
+>
+  <div class="home-container">
+    <app-statistics [statistics]="statistics"></app-statistics>
+    <app-questlist
+      [questList]="questList"
+      (newItemEvent)="updateStatistics($event)"
+    ></app-questlist>
+  </div>
 </main>

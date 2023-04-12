@@ -13,6 +13,8 @@ import { UserService } from 'src/app/libs/services/user.service';
 export class QuestlistComponent {
   @Input() questList: Array<Quest> = [];
   @Output() public newItemEvent: EventEmitter<any> = new EventEmitter<any>();
+  public correctAnswer=false;
+  public errorMessage: string;
 
   public constructor(
     private readonly questService: QuestService,
@@ -27,14 +29,6 @@ export class QuestlistComponent {
       .subscribe((response: any) => {
         this.questList = response;
       });
-  }
-
-  public checkAnswer(answer: string, result: string): boolean {
-    if (answer == result) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   public resolveQuest(idQuest: number): void {
@@ -57,10 +51,13 @@ export class QuestlistComponent {
     });
   }
 
-  public checkAnswer1(answer:string,questId:number):void{
+  public checkAnswer(answer:string,questId:number):void{
     this.questService.checkAnswer(this.authService.getUser().id,answer,questId).pipe(take(1)).subscribe((response:any) => {
       if(response){
         this.resolveQuest(questId);
+        this.errorMessage = '';
+      } else {
+        this.errorMessage = "Incorect answer"
       }
     })
   }

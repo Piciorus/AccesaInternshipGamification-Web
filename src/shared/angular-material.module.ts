@@ -6,9 +6,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatInputModule} from '@angular/material/input';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
-  exports: [MatButtonModule, MatToolbarModule, MatTableModule, MatMenuModule,MatInputModule,MatProgressBarModule
+  exports: [MatButtonModule, MatToolbarModule, MatTableModule, MatMenuModule,MatInputModule,MatProgressBarModule,MatProgressSpinnerModule
   ],
 })
 export class AngularMaterialModule {}

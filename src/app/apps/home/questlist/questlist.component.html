@@ -1,8 +1,9 @@
 <div class="container">
   <h1>General Culture Quiz</h1>
   <p>Welcome to our quiz! Answer the following questions to earn tokens.</p>
+  <p style="color: red">{{ errorMessage }}</p>
   <table>
-    <thead style="position: sticky; top: 0; z-index: 2">
+    <thead style="position: sticky; top: 0; z-index: 2;">
       <tr>
         <th>Question</th>
         <th>Tokens Earned</th>
@@ -27,38 +28,18 @@
             name="name"
             #answer1
           />
-          <span
-            class="good"
-            *ngIf="checkAnswer(answer1.value, quest.answer ? quest.answer : '')"
-          >
+          <span class="good" *ngIf="quest.rewarded">
             Congratulations, you answered correctly!
-            <button
-              class="reward"
-              *ngIf="!quest.rewarded"
-              (click)="resolveQuest(quest.id)"
-            >
-              Get reward
-            </button>
           </span>
-          <span
-            class="wrong"
-            *ngIf="
-              !checkAnswer(answer1.value, quest.answer ? quest.answer : '') &&
-              answer1.value
-            "
-          >
-            Incorrect answer!
-          </span>
+          <span class="wrong" *ngIf="correctAnswer"> Incorrect answer! </span>
         </td>
         <td style="z-index: 1">
           <button
             mat-raised-button
             color="primary"
             [disabled]="quest.rewarded"
-            (click)="checkAnswer1(answer1.value, quest.id)"
+            (click)="checkAnswer(answer1.value, quest.id)"
           >
-            <!-- checkAnswer(answer1.value, quest.answer ? quest.answer : '') -->
-
             Submit
           </button>
         </td>

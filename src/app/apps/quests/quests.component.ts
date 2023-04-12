@@ -31,18 +31,19 @@ export class QuestsComponent implements OnInit {
   public onCreateQuestSubmit(): void {
     if(this.questForm?.invalid) return;
     const questToSave: Quest = this.questForm.value;
-    this.questService.createQuest(questToSave).subscribe((response) => {
+    this.questService.createQuest(questToSave,this.authService.getUser().id).subscribe((response) => {
       this.questList.push(response);
-      this.updateTokens(this.authService.getUser().id, this.quest.questRewardTokens || 0);
+      this.questForm.get('answer')?.setValue('');
+      this.questForm.get('description')?.setValue('');
+      this.questForm.get('rewardTokens')?.setValue('');
+      this.questForm.get('difficulty')?.setValue('');
+      this.questForm.get('threshold')?.setValue('');
+
     });
   }
 
   public ngOnInit(): void {
     this.questForm = this.initForm();
-  }
-
-  public updateTokens(idUser: number, tokens: number): void {
-    this.userService.updateTokens(idUser, tokens).subscribe((response) => {});
   }
 
   private initForm(): FormGroup {

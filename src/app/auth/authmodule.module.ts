@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthRoutingModule } from './auth-routing.module';
+import { AngularMaterialModule } from 'src/shared/angular-material.module';
 
 
 @NgModule({
@@ -13,6 +14,9 @@ import { AuthRoutingModule } from './auth-routing.module';
     ReactiveFormsModule,
     FormsModule, 
     RouterModule, 
-    AuthRoutingModule],
+    AuthRoutingModule,
+    AngularMaterialModule
+    
+  ],
 })
 export class AuthModule { }

@@ -17,8 +17,8 @@ export class QuestService {
     return this.http.get(this.basePath + '/getAllQuests');
   }
 
-  public createQuest(quest: Quest): Observable<any> {
-    return this.http.post(this.basePath + '/createQuest', quest);
+  public createQuest(quest: Quest,idUser:number): Observable<any> {
+    return this.http.post(this.basePath + '/createQuest/' + idUser, quest);
   }
 
   public resolveQuest(idQuest: number, idUser: number): Observable<any> {

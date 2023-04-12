@@ -13,7 +13,7 @@ import { QuestsRoutingModule } from './quests-routing.module';
     QuestsRoutingModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
 })
 export class QuestsModule {}

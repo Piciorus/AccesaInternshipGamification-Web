@@ -19,17 +19,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    const statistics: any = {
-      tokens: this.authService.getUser().tokens,
-      thresholdUser: this.authService.getUser().threshold,
-    };
-    this.statistics = statistics;
-    this.questService
-      .getQuests()
-      .pipe(take(1))
-      .subscribe((res) => {
-        this.questList = res;
-      });
+    this.updateStatistics('updateStatistics');
   }
 
   public updateStatistics(event: any): void {
@@ -37,8 +27,8 @@ export class HomeComponent implements OnInit {
       this.questService
         .getQuests()
         .pipe(take(1))
-        .subscribe((res) => {
-          this.questList = res;
+        .subscribe((response) => {
+          this.questList = response;
         });
       this.authService
         .getMe()

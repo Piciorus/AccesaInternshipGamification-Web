@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/libs/auth/auth.service';
 })
 export class LayoutComponent {
   public username!: string;
-  public user:any;
+  public user: any;
 
   constructor(private readonly authService: AuthService) {}
 
@@ -16,12 +16,12 @@ export class LayoutComponent {
     this.authService.logout();
   }
 
-  ngOnInit():void{
+  ngOnInit(): void {
     this.getUser();
   }
 
-  public getUser():void{
+  public getUser(): void {
     this.user = this.authService.getUser();
-    this.username=this.user.username;
+    this.username = this.user.username;
   }
 }
