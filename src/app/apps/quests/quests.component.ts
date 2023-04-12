@@ -18,6 +18,7 @@ import { UserService } from 'src/app/libs/services/user.service';
 export class QuestsComponent implements OnInit {
   public quest: Quest = new Quest();
   public questForm: FormGroup;
+  public errorMessage: string;
 
   public questList: Array<Quest> = [];
 
@@ -29,17 +30,22 @@ export class QuestsComponent implements OnInit {
   ) {}
 
   public onCreateQuestSubmit(): void {
-    if(this.questForm?.invalid) return;
+    if (this.questForm?.invalid) return;
     const questToSave: Quest = this.questForm.value;
-    this.questService.createQuest(questToSave,this.authService.getUser().id).subscribe((response) => {
-      this.questList.push(response);
-      this.questForm.get('answer')?.setValue('');
-      this.questForm.get('description')?.setValue('');
-      this.questForm.get('rewardTokens')?.setValue('');
-      this.questForm.get('difficulty')?.setValue('');
-      this.questForm.get('threshold')?.setValue('');
-
-    });
+    this.questService
+      .createQuest(questToSave, this.authService.getUser().id)
+      .subscribe((response) => {
+        if (response) {
+          this.errorMessage = '';
+        }
+        this.questList.push(response);
+        this.questForm.get('answer')?.setValue('');
+        this.questForm.get('description')?.setValue('');
+        this.questForm.get('rewardTokens')?.setValue('');
+        this.questForm.get('difficulty')?.setValue('');
+        this.questForm.get('threshold')?.setValue('');
+      });
+    this.errorMessage = 'Not enough tokens!';
   }
 
   public ngOnInit(): void {
