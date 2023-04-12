@@ -81,7 +81,6 @@ The following is the top-level directory structure:
 ## 💻 User Interface
 ![alt text](https://github.com/Piciorus/Photos/blob/main/login.png)<br/><br/><br/>
 ![alt text](https://github.com/Piciorus/Photos/blob/main/registerpng.png)<br/><br/><br/>
-![alt text](https://github.com/Piciorus/Photos/blob/main/registerpng.png)<br/><br/><br/>
 ![alt text](https://github.com/Piciorus/Photos/blob/main/login3.png)<br/><br/><br/>
 ![alt text](https://github.com/Piciorus/Photos/blob/main/home2.png)<br/><br/><br/>
 ![alt text](https://github.com/Piciorus/Photos/blob/main/ranking1.png)<br/><br/><br/>
