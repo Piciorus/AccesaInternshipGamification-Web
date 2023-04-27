@@ -2,7 +2,7 @@
 
 ## 🚀 Description
 
-This is a gamification application.The purpose of the app is to improve knowledge by answering questions.Every user can answer to questions and can create questions. He receives tokens and badges depending on his progress.The questions are on different levels of difficulty.The questions are on different levels of difficulty. Users must hurry to answer the questions because when a question is answered by a user, that question is no longer valid.
+This is a gamification application.The purpose of the app is to improve knowledge by answering questions.Every user can answer to questions and can create questions if has enough tokens. He receives tokens and badges depending on his progress.The questions are on different levels of difficulty. Users must hurry to answer the questions because when a question is answered by a user, that question is no longer valid.
 
 ## 🖥️ Technologies
 * `Angular`
@@ -25,7 +25,7 @@ Angular CLI installed
 Clone the project repository from the Git hosting service of your choice.Link is [here](https://github.com/Piciorus/AccesaInternshipGamification-API).
 Navigate to the backend directory of the project in your terminal or command prompt.
 Run ./mvnw clean install to build the project and download the necessary dependencies.
-Run ./mvnw spring-boot:run to start the server. The server will run on http://localhost:8080 by default.The server port can be changed by modifying the server.port property in the application.properties file.
+Run ./mvnw spring-boot:run to start the server. The server will run on http://localhost:8080 by default.The server port can be changed by modifying the server.port property in the application.properties file.You have to create a new database and to write the name in spring.datasource.url at database=? in application.properties file.After that when the application start the tables are generated.
 
 ### WEB:
 
