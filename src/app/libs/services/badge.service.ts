@@ -13,10 +13,10 @@ export class BadgeService {
   constructor(private http: HttpClient) {}
 
   public getBadgesFromUser(idUser: number): Observable<any> {
-    return this.http.get(this.basePath + '/getBadgesByUserId/' + idUser);
+    return this.http.get(this.basePath + '/badge/getBadgesByUserId/' + idUser);
   }
 
   public getAllBadges(): Observable<any> {
-    return this.http.get(this.basePath + '/getAllBadges');
+    return this.http.get(this.basePath + '/badge/getAllBadges');
   }
 }

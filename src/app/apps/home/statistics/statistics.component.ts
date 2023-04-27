@@ -34,7 +34,7 @@ export class StatisticsComponent {
   private getBadgeFromUser(): void {
     const user: User = this.authService.getUser();
     this.badgeList.push(this.barBadge[0]);
-    if(user.threshold && user.threshold >= 60) this.badgeList.push(this.barBadge[1]);
-    if(user.threshold && user.threshold >= 90) this.badgeList.push(this.barBadge[2]); 
+    if(user.threshold && user.threshold >= 60) this.badgeList.push(this.barBadge[2]);
+    if(user.threshold && user.threshold >= 90) this.badgeList.push(this.barBadge[1]); 
   }
 }

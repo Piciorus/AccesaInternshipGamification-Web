@@ -13,11 +13,10 @@ table {
   margin-bottom: 2rem;
   border-top: none;
   border: 1px solid rgb(53, 102, 102);
-  border-radius:10px;
+  border-radius: 10px;
   display: block;
   height: 500px;
   overflow: auto;
-  
 }
 tbody {
   overflow: auto;
@@ -41,14 +40,15 @@ td {
   padding: 1rem;
   font-size: 1.5rem;
   text-align: left;
-  // border: 0.5px solid;
 }
 
 th {
   background-color: #f2f2f2;
   border-bottom: 1px solid;
 }
-
+tr {
+  border-bottom: 1px solid rgb(53, 102, 102);
+}
 tr:hover {
   background-color: #7b7b7b66;
 }
@@ -69,6 +69,10 @@ tr:hover {
   font-size: 1.2rem;
   border: none;
   cursor: pointer;
+}
+
+.buttonsubmit:hover {
+  background-color: #014860;
 }
 
 .wrong {

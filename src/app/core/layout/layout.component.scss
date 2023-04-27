@@ -4,13 +4,19 @@ nav {
   left: 0;
   display: flex;
   flex-wrap: wrap;
-
   justify-content: space-around;
   align-items: center;
   background-color: rgb(53, 102, 102);
   font-family: "Montserrat", sans-serif;
   width: 100%;
   z-index: 9999;
+}
+
+.maincontainer {
+  background-image: url("https://img.freepik.com/free-vector/white-abstract-wallpaper_23-2148830026.jpg?w=2000");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
 }
 
 .heading {
@@ -28,49 +34,45 @@ nav {
   color: #fff;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav-links {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .nav-links li {
+    margin: 0.5rem 0;
+  }
   .username {
     position: static;
-    padding: 0.5rem;
-    background-color: transparent;
-  }
-
-  .nav-links li:not(:last-child) {
-    display: none;
-  }
-
-  .nav-links li:nth-last-child(2) {
-    display: block;
-  }
-
-  .nav-links li:last-child {
-    margin-left: auto;
+    margin-top: 1rem;
   }
 }
 
-@media (min-width: 577px) and (max-width: 768px) {
+/* For screens larger than 600px */
+@media (min-width: 600px) {
+  nav {
+    justify-content: space-around;
+  }
+  .nav-links {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+  }
+  .nav-links li {
+    margin: 0 1rem;
+  }
   .username {
     position: absolute;
     top: 1;
     right: 0;
-    padding: 0.75rem;
-  }
-
-  .nav-links li:not(:last-child) {
-    display: none;
-  }
-
-  .nav-links li:last-child {
-    margin-left: auto;
-  }
-}
-
-@media (min-width: 769px) {
-  .username {
-    position: absolute;
-    top: 1;
-    right: 0;
-    padding: 1rem;
   }
 }
 

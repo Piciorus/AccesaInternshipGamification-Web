@@ -25,7 +25,8 @@ export class AuthService {
       .post<any>(this.basePath + '/auth/login', { username, password })
       .pipe(
         map((user: any) => {
-          localStorage.setItem('token', JSON.stringify(user.accessToken));
+          console.log(user)
+          localStorage.setItem('token', JSON.stringify(user.jwttoken));
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.userSubject.next(user);
           return user;
@@ -33,7 +34,7 @@ export class AuthService {
       );
   }
 
-  public register(username: string, password: string, email: string) {
+  public register(username: string, password: string, email: string):Observable<any> {
     return this.http.post<any>(this.basePath + '/auth/register', {
       username,
       password,
@@ -50,7 +51,7 @@ export class AuthService {
 
   public getMe(): Observable<User> {
     return this.http.get(
-      this.basePath + '/getUserById/' + this.userSubject.getValue().id
+      this.basePath + '/users/getUserById/' + this.userSubject.getValue().id
     );
   }
 

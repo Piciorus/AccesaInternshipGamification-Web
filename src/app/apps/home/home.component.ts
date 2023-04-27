@@ -4,6 +4,7 @@ import { User } from 'src/app/libs/models/user.model';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { Quest } from 'src/app/libs/models/quest';
 import { QuestService } from 'src/app/libs/services/quest.service';
+import { BadgeService } from 'src/app/libs/services/badge.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
   public statistics: any;
   public constructor(
     private readonly questService: QuestService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly badgeService:BadgeService
   ) {}
 
   public ngOnInit(): void {

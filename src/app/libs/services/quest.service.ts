@@ -14,23 +14,27 @@ export class QuestService {
   constructor(private http: HttpClient) {}
 
   public getQuests(): Observable<any> {
-    return this.http.get(this.basePath + '/getAllQuests');
+    return this.http.get(this.basePath + '/quest/getAllQuests');
   }
 
-  public createQuest(quest: Quest,idUser:number): Observable<any> {
-    return this.http.post(this.basePath + '/createQuest/' + idUser, quest);
+  public createQuest(quest: Quest, idUser: number): Observable<any> {
+    return this.http.post(
+      this.basePath + '/quest/createQuest/' + idUser,
+      quest,
+      { responseType: 'text' }
+    );
   }
 
   public resolveQuest(idQuest: number, idUser: number): Observable<any> {
     return this.http.post(
-      this.basePath + '/resolveQuest/' + idQuest + '/' + idUser,
+      this.basePath + '/quest/resolveQuest/' + idQuest + '/' + idUser,
       {}
     );
   }
 
   public updateRewarded(idQuest: number, rewarded: boolean): Observable<any> {
     return this.http.put(
-      this.basePath + '/updateRewarded/' + idQuest,
+      this.basePath + '/quest/updateRewarded/' + idQuest,
       rewarded
     );
   }
@@ -40,7 +44,7 @@ export class QuestService {
     answer: string,
     questId: number
   ): Observable<boolean> {
-    return this.http.post<boolean>(this.basePath + '/checkAnswer', {
+    return this.http.post<boolean>(this.basePath + '/quest/checkAnswer', {
       answer,
       questId,
       userId,

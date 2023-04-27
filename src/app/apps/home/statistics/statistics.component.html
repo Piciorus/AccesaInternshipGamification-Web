@@ -6,10 +6,10 @@
         <h2>Badge Progress {{ barBadge[0].name }}</h2>
       </li>
       <li *ngIf="statistics?.thresholdUser >= 60 && statistics?.thresholdUser < 90">
-        <h2>Badge Progress {{ barBadge[1].name }}</h2>
+        <h2>Badge Progress {{ barBadge[2].name }}</h2>
       </li>
       <li *ngIf="statistics?.thresholdUser >= 90">
-        <h2>Badge Progress {{ barBadge[2].name }}</h2>
+        <h2>Badge Progress {{ barBadge[1].name }}</h2>
       </li>
     </ul>
     <mat-progress-bar

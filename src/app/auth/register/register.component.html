@@ -73,13 +73,13 @@
             Password must be at least 4 characters long.
           </div>
         </div>
-        <div *ngIf="registrationSuccess" class="success-message">
-          Registration successful!Now you can log in
-        </div>
+        <div *ngIf="isSuccessful" class="success-message">{{succesMessage}}</div>
+        <div *ngIf="isSignUpFailed" class="alert">{{errorMessage}}</div>
         <div class="groupsubmit">
           <button
             type="submit"
-            color="primary" mat-raised-button
+            color="primary"
+            mat-raised-button
             [disabled]="!name1.valid || !name.valid || !email1.valid"
           >
             Register

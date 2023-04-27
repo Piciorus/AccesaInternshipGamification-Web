@@ -13,19 +13,19 @@ export class UserService {
   public constructor(private readonly http: HttpClient) {}
 
   public getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.basePath + '/getAllUsers');
+    return this.http.get<User[]>(this.basePath + '/users/getAllUsers');
   }
 
   public getUsersSortedByTokensAscending(): Observable<User[]> {
-    return this.http.get<User[]>(this.basePath + '/getAllUsers?sort=asc');
+    return this.http.get<User[]>(this.basePath + '/users/getAllUsers?sort=asc');
   }
 
   public getUsersSortedByTokensDescending(): Observable<User[]> {
-    return this.http.get<User[]>(this.basePath + '/getAllUsers?sort=desc');
+    return this.http.get<User[]>(this.basePath + '/users/getAllUsers?sort=desc');
   }
 
   public updateTokens(userId: number, tokens: number): Observable<User> {
-    return this.http.put<User>(this.basePath + '/updateTokens/' + userId, {
+    return this.http.put<User>(this.basePath + '/users/updateTokens/' + userId, {
       tokens,
     });
   }
