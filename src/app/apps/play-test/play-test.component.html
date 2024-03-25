@@ -1,0 +1,61 @@
+<!-- play-test.component.html -->
+<div class="main-container" *ngIf="questionList.length > 0">
+  <ng-container *ngIf="!showResults; else resultSection">
+    <p class="question-counter">
+      {{ currentQuestionIndex + 1 }}/{{ questionList.length }}
+    </p>
+    <h2 class="container">{{ currentQuestion?.questionText }}</h2>
+
+    <div
+      class="answers"
+      *ngFor="let answer of currentQuestion?.answers; let i = index"
+    >
+      <mat-checkbox
+        [checked]="isSelected(i)"
+        (change)="toggleAnswerSelection(i)"
+      >
+        {{ answer }}
+      </mat-checkbox>
+    </div>
+
+    <div class="button-next">
+      <button mat-raised-button color="primary" (click)="nextQuestion()">
+        Next
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-template #resultSection>
+    <div *ngFor="let result of results; let i = index">
+      <h3>{{ i + 1 }}. {{ questionList[i].questionText }}</h3>
+      <ul>
+        <li *ngFor="let answer of questionList[i].answers; let j = index">
+          <mat-checkbox
+            [checked]="answer === questionList[i].correctAnswer"
+            [disabled]="true"
+          >
+            {{ answer }}
+          </mat-checkbox>
+          <span *ngIf="isSelected(j)">
+            <mat-icon *ngIf="results[i]">check_circle</mat-icon>
+            <mat-icon *ngIf="!results[i]">cancel</mat-icon>
+          </span>
+        </li>
+      </ul>
+      <div class="button-close">
+        <p *ngIf="results[i]; else wrongAnswer">
+          <mat-icon>check_circle</mat-icon>
+        </p>
+        <ng-template #wrongAnswer>
+          <p><mat-icon>cancel</mat-icon></p>
+        </ng-template>
+      </div>
+    </div>
+    <div class="button-close">
+      All questions answered!
+      <button mat-raised-button color="primary" (click)="closeModal()">
+        Close
+      </button>
+    </div>
+  </ng-template>
+</div>

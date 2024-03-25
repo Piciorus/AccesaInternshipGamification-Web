@@ -15,25 +15,30 @@ import { LayoutComponent } from './core/layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptorService } from './libs/interceptor/TokenBasedInterceptor';
 import { QuestsComponent } from './apps/quests/quests.component';
+import { PlayTestComponent } from './apps/play-test/play-test.component';
+import { MDBBootstrapModulesPro, TableModule } from 'ng-uikit-pro-standard';
+import { MDBSpinningPreloader } from 'ng-uikit-pro-standard';
+import { HasRolesDirective } from './libs/directives/has-roles.directive';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent, HasRolesDirective],
   imports: [
+    TableModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
     CommonModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS, 
-    useClass: AuthInterceptorService, 
-    multi: true
-  }],
-    bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

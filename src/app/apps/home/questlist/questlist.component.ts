@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { Quest } from 'src/app/libs/models/quest';
@@ -10,17 +16,24 @@ import { UserService } from 'src/app/libs/services/user.service';
   templateUrl: './questlist.component.html',
   styleUrls: ['./questlist.component.scss'],
 })
-export class QuestlistComponent {
+export class QuestlistComponent implements OnInit {
   @Input() questList: Array<Quest> = [];
   @Output() public newItemEvent: EventEmitter<any> = new EventEmitter<any>();
   public correctAnswer = false;
   public errorMessage: string;
+  public answer = '';
+  public answerForm: FormGroup;
 
   public constructor(
     private readonly questService: QuestService,
     private readonly userService: UserService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly formBuilder: FormBuilder
   ) {}
+
+  ngOnInit(): void {
+    this.answerForm = this.initForm();
+  }
 
   public getQuests(): void {
     this.questService
@@ -36,6 +49,7 @@ export class QuestlistComponent {
       .resolveQuest(idQuest, this.authService.getUser().id)
       .pipe(take(1))
       .subscribe(() => {
+        this.answerForm.get('answer')?.setValue('');
         this.authService.getMe();
         this.newItemEvent.emit('updateStatistics');
       });
@@ -69,5 +83,11 @@ export class QuestlistComponent {
           this.errorMessage = 'Incorrect answer!';
         }
       });
+  }
+
+  private initForm(): FormGroup {
+    return this.formBuilder.group({
+      answer: [this.answer],
+    });
   }
 }

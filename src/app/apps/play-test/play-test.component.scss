@@ -1,0 +1,52 @@
+/* Modal container */
+.main-container {
+  max-width: 500px; /* Adjust the maximum width as needed */
+  margin: 0 auto; /* Center the modal horizontally */
+  padding: 20px; /* Add padding for better spacing */
+  background-color: #fff; /* Set background color */
+  border-radius: 8px; /* Add rounded corners */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  position: relative;
+}
+.question-counter {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 8px 12px;
+  background-color: #007bff; /* Blue background color */
+  color: #fff; /* White text color */
+  font-size: 12px; /* Adjust font size as needed */
+  border-radius: 1px; /* Rounded corners */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+/* Question text */
+.container {
+  text-align: center; /* Center the text */
+  margin-bottom: 20px; /* Add some spacing below the text */
+}
+
+/* Answer checkboxes */
+.answers {
+  margin-left: 20px; /* Adjust left margin */
+}
+
+/* Next button */
+.button-next {
+  margin-top: 20px; /* Adjust top margin */
+  text-align: center; /* Center the button */
+}
+
+.button-close {
+  margin-top: 20px;
+}
+
+/* Loading text */
+.loading-text {
+  text-align: center; /* Center the text */
+}
+
+/* Completed message */
+.completed-message {
+  text-align: center; /* Center the text */
+  font-weight: bold; /* Make the text bold */
+}

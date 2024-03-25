@@ -1,11 +1,17 @@
+<button (click)="openModalCreateQuestion()">See your answer quests</button>
+<button type="button" color="primary" class="relative waves-light" (click)="openModal()" mdbWavesEffect>Play a test</button>
+
 <div class="wrapper">
-  
   <div class="sidebar">
     <ul *ngIf="barBadge && barBadge.length > 0">
       <li *ngIf="statistics?.thresholdUser < 60">
         <h2>Badge Progress {{ barBadge[0].name }}</h2>
       </li>
-      <li *ngIf="statistics?.thresholdUser >= 60 && statistics?.thresholdUser < 90">
+      <li
+        *ngIf="
+          statistics?.thresholdUser >= 60 && statistics?.thresholdUser < 90
+        "
+      >
         <h2>Badge Progress {{ barBadge[2].name }}</h2>
       </li>
       <li *ngIf="statistics?.thresholdUser >= 90">
@@ -37,7 +43,5 @@
         <td>{{ statistics?.thresholdUser }}</td>
       </tr>
     </table>
-  
   </div>
 </div>
-  

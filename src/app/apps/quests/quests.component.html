@@ -1,93 +1,49 @@
-<main
-  style="
-    background-image: url('https://img.freepik.com/free-vector/white-abstract-wallpaper_23-2148830026.jpg?w=2000');
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-  "
->
-  <div class="container">
-    <div class="text">
-      <h1>Create a new quest</h1>
-      <p class="createnew">Fill in the form below to create a new quest.</p>
-      <p class="createnew">
-        You can create a quest only if you have enough tokens and badges to
-        celebrate winners.
-      </p>
-    </div>
-    <form [formGroup]="questForm" class="example-form">
-      <mat-form-field class="example-full-width">
-        <mat-label>Answer</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          type="text"
-          id="answer"
-          formControlName="answer"
-          required
-        />
-      </mat-form-field>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef>No.</th>
+    <td mat-cell *matCellDef="let element">{{element.position}}</td>
+  </ng-container>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Description</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          id="description"
-          type="text"
-          formControlName="description"
-          required
-        />
-      </mat-form-field>
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{element.name}}</td>
+  </ng-container>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Quest Reward Tokens</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          type="number"
-          id="rewardTokens"
-          formControlName="rewardTokens"
-          required
-        />
-      </mat-form-field>
+  <!-- Weight Column -->
+  <ng-container matColumnDef="weight">
+    <th mat-header-cell *matHeaderCellDef>Weight</th>
+    <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+  </ng-container>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Difficulty</mat-label>
-        <mat-select formControlName="difficulty" required>
-          <mat-option value="Easy">Easy</mat-option>
-          <mat-option value="Medium">Medium</mat-option>
-          <mat-option value="Hard">Hard</mat-option>
-        </mat-select>
-      </mat-form-field>
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef>Symbol</th>
+    <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+  </ng-container>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Threshold</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          type="number"
-          id="threshold"
-          formControlName="threshold"
-          required
-        />
-      </mat-form-field>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+      mat-row
+      (click)="clickedRows.add(row)"
+      [class.demo-row-is-clicked]="clickedRows.has(row)"
+      *matRowDef="let row; columns: displayedColumns;"
+  ></tr>
+</table>
 
-      <button
-        type="submit"
-        class="create-quest-button"
-        mat-raised-button
-        color="primary"
-        (click)="onCreateQuestSubmit()"
-      >
-        Create Quest
-      </button>
-      <div
-        [class.good]="message === 'Quest created successfully'"
-        [class.bad]="message !== 'Quest created successfully'"
-      >
-        {{ message }}
-      </div>
-    </form>
-  </div>
-</main>
+<div>
+  <h3>
+    Click Log
+  </h3>
+</div>
+
+@if (!clickedRows.size) {
+  <div>Clicked rows will be logged here</div>
+}
+
+<ul>
+  @for (clickedRow of clickedRows; track clickedRow) {
+    <li>Clicked on {{clickedRow.name}}</li>
+  }
+</ul>

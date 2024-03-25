@@ -1,7 +1,29 @@
+@media screen and (max-width: 1649px) {
+  .styled-table {
+    padding: 17%;
+    padding-bottom: 0;
+  }
+}
+
+@media only screen and (max-width: 1300px) and (min-width: 900px) {
+  .styled-table {
+    padding: 25%;
+    overflow-y: auto;
+    padding-bottom: 0;
+  }
+}
+@media only screen and (min-width: 601px) and (max-width: 900px) {
+  .styled-table {
+    padding: 40%;
+    overflow-y: auto;
+    padding-bottom: 0;
+  }
+}
+
 .styled-table {
   padding: 8%;
   padding-bottom: 0;
-  overflow-y: auto;
+  
 }
 
 @media screen and (max-width: 1649px) {
@@ -24,4 +46,8 @@
     overflow-y: auto;
     padding-bottom: 0;
   }
+}
+
+.bold {
+  font-weight: bold;
 }

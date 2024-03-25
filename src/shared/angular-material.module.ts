@@ -6,9 +6,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSortModule} from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatIconModule } from '@angular/material/icon';
+import { MdbRippleModule } from 'mdb-angular-ui-kit/ripple';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   exports: [
@@ -22,7 +27,11 @@ import { MatSelectModule } from '@angular/material/select';
     MatPaginatorModule,
     MatSortModule,
     MatSelectModule,
-
+    ScrollingModule,
+    MatIconModule,
+    MdbRippleModule,
+    MdbFormsModule,
+    MatCheckboxModule
   ],
 })
 export class AngularMaterialModule {}

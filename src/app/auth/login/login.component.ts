@@ -11,6 +11,7 @@ export class LoginComponent {
   public username!: string;
   public password!: string;
   public loginFailed = false;
+  public isLoading = false; // Added loading flag
 
   constructor(
     private readonly authService: AuthService,
@@ -19,6 +20,7 @@ export class LoginComponent {
 
   public async onSubmit(): Promise<void> {
     try {
+      this.isLoading = true; // Show spinner during login process
       const result = await this.authService
         .login(this.username, this.password)
         .toPromise();
@@ -29,8 +31,11 @@ export class LoginComponent {
       }
     } catch (error) {
       this.loginFailed = true;
+    } finally {
+      this.isLoading = false; // Hide spinner after login process completes
     }
   }
+
 
   public async logout(): Promise<void> {
     this.authService.logout();

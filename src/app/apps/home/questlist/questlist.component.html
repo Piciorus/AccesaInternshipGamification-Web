@@ -1,9 +1,12 @@
 <div class="container">
   <h1>General Culture Quiz</h1>
-  <p>Welcome to our quiz! Answer the following questions to earn tokens.</p>
+  <p>
+    Welcome to our quiz! Answer the following questions to earn tokens and
+    threshold.Also you get badges based on the progress bar.
+  </p>
   <p style="color: red">{{ errorMessage }}</p>
   <table>
-    <thead style="position: sticky; top: 0; z-index: 2;">
+    <thead style="position: sticky; top: 0; z-index: 2">
       <tr>
         <th>Question</th>
         <th>Tokens Earned</th>
@@ -20,14 +23,26 @@
         <td>{{ quest.difficulty }}</td>
         <td>{{ quest.threshold }}</td>
         <td>
-          <input
+          <!-- <input
             placeholder="Type your answer here"
             class="name"
             type="text"
             id="name"
             name="name"
             #answer1
-          />
+          /> -->
+          <form [formGroup]="answerForm" class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Answer</mat-label>
+              <input
+                matInput
+                placeholder="Type your answer here"
+                type="text"
+                id="answer"
+                formControlName="answer"
+              />
+            </mat-form-field>
+          </form>
           <span class="good" *ngIf="quest.rewarded">
             Congratulations, you answered correctly!
           </span>
@@ -38,7 +53,7 @@
             mat-raised-button
             color="primary"
             [disabled]="quest.rewarded"
-            (click)="checkAnswer(answer1.value, quest.id)"
+            (click)="checkAnswer(answerForm.controls['answer'].value, quest.id)"
             class="buttonsubmit"
           >
             Submit

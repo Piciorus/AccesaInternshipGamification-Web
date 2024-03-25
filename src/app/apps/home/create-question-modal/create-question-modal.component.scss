@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+    overflow-y: hidden; /* Hide vertical scrollbar */
+
+  }
+  
+  .text {
+    text-align: center; /* Center text */
+  }
+  
+  .form-container {
+    margin-top: 20px; /* Add some spacing between text and form */
+  }
+  
+  .form-fields-container {
+    width: 100%;
+    max-width: 500px; /* Set maximum width for form fields container */
+  }
+  
+  .example-full-width {
+    width: 100%; /* Make mat-form-field elements fill their container */
+  }
+  
+  .button-container {
+    display: flex;
+    margin-top: 3rem; /* Optional margin between buttons */
+    margin-bottom: 3rem; /* Optional margin between buttons */
+
+  }
+
+  .create-quest-button{
+    margin-right: 2rem;
+  }
+  
+
+  

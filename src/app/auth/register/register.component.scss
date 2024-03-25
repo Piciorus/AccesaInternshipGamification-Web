@@ -173,3 +173,13 @@ label {
     font-size: 12px;
   }
 }
+
+@media screen and (max-width: 1024px) {
+  .submain {
+    width: 70%;
+  }
+
+  input {
+    width: 100%;
+  }
+}

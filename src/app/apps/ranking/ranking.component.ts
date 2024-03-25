@@ -16,7 +16,7 @@ export class RankingComponent {
   public users: Array<User> = [];
   public user: any;
   public userId: any;
-  displayedColumns: string[] = ['username', 'tokens'];
+  displayedColumns: string[] = ['username', 'tokens','threshold'];
 
   dataSource = new MatTableDataSource<User>(this.users);
 

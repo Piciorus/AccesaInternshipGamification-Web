@@ -14,10 +14,10 @@ import { BadgeService } from 'src/app/libs/services/badge.service';
 export class HomeComponent implements OnInit {
   public questList: Array<Quest> = [];
   public statistics: any;
+
   public constructor(
     private readonly questService: QuestService,
     private readonly authService: AuthService,
-    private readonly badgeService:BadgeService
   ) {}
 
   public ngOnInit(): void {

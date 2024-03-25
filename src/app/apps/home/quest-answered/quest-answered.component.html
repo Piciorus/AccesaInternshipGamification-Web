@@ -1,0 +1,25 @@
+<div class="container">
+    <div>daa</div>
+    <table>
+      <thead style="position: sticky; top: 0; z-index: 2">
+        <tr>
+          <th>Question</th>
+          <th>Tokens Earned</th>
+          <th>Difficulty</th>
+          <th>Threshold</th>
+          <th>Answer</th>
+          <th>Submit answer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let quest of questList">
+          <td>{{ quest.description }}</td>
+          <td>{{ quest.questRewardTokens }}</td>
+          <td>{{ quest.difficulty }}</td>
+          <td>{{ quest.threshold }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div></div>
+  </div>
+  

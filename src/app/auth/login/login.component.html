@@ -52,7 +52,9 @@
             Password must be at least 4 characters long.
           </div>
         </div>
-
+        <div *ngIf="isLoading" class="spinner-overlay">
+          <mat-spinner class="spinner"></mat-spinner>
+        </div>
         <div *ngIf="loginFailed" class="alert">
           Incorrect username or password.
         </div>

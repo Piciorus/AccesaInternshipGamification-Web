@@ -71,7 +71,7 @@ tr:hover {
   cursor: pointer;
 }
 
-.buttonsubmit:hover {
+.buttonsubmit:not(:disabled):hover {
   background-color: #014860;
 }
 
@@ -91,4 +91,9 @@ tr:hover {
   border: none;
   border-radius: 25px;
   cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
 }
