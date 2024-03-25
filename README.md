@@ -2,14 +2,14 @@
 
 ## 🚀 Description
 
-This is a gamification application.The purpose of the app is to improve knowledge by answering questions.Every user can answer to questions and can create questions if has enough tokens. He receives tokens and badges depending on his progress.The questions are on different levels of difficulty. Users must hurry to answer the questions because when a question is answered by a user, that question is no longer valid.
+The gamification application aims to enhance knowledge by allowing users to play tests across various categories, competing against ChatGPT. Users earn tokens by answering questions correctly and can create their own questions, which are approved by admins.After creation of a question the question will be classify to a label. Progress is tracked through badges and tokens, with dynamic difficulty adjustment ensuring a personalized learning experience. Social features, feedback mechanisms, and incentives for consistency further enrich the user experience, fostering continuous engagement and learning.
 
 ## 🖥️ Technologies
 * `Angular`
 * `Typescript`
 * `HTML & SCSS`
 * `Spring Boot`
-* `SQL Server`
+* `Postgres SQL`
 * `Java`
 
 ## 🛠️ Prerequisites:
