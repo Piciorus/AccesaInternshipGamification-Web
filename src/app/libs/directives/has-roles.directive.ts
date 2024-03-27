@@ -1,49 +1,65 @@
 import {
+  ChangeDetectorRef,
   Directive,
   Input,
   OnDestroy,
+  OnInit,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { ERole } from '../models/erole';
 import { AuthorizationService } from '../auth/authorization.service';
+import { ERole } from '../models/erole';
 
 @Directive({
-  selector: '[appHasRoles]'
+  selector: '[appHasPermission]',
+  standalone:true
 })
-export class HasRolesDirective implements OnDestroy {
-  @Input() set hasRoles(roles: ERole[]) {
-    this.updateView(roles);
-  }
-  private isHidden = false;
-
-  private _directiveDestroy$ = new Subject<void>();
+export class HasRolesDirective implements OnInit {
+  readonly USER_ROLES = ERole;
+  currentUserRoles!: any[] | null;
+  permissions: string[] = [];
 
   constructor(
-    private templateRef: TemplateRef<unknown>,
+    private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private authorizationService: AuthorizationService
-  ) {}
+    private authorizationService: AuthorizationService,
+    private ref: ChangeDetectorRef
+  ) {
 
-  ngOnDestroy(): void {
-    this._directiveDestroy$.next();
-    this._directiveDestroy$.complete();
   }
 
-  private updateView(roles: ERole[]) {
-    this.authorizationService.userRoles$
-      .pipe(takeUntil(this._directiveDestroy$))
-      .subscribe(() => {
-        this.authorizationService.hasRoles(roles).then((result: boolean) => {
-          if (result && !this.isHidden) {
-            this.viewContainer.createEmbeddedView(this.templateRef);
-            this.isHidden = true;
-          } else if (!result && this.isHidden) {
-            this.viewContainer.clear();
-            this.isHidden = false;
-          }
-        });
-      });
+  @Input() set appHasPermission(condition: string[]) {
+    this.permissions = condition;
+    if (this.permissions && this.currentUserRoles) {
+      this.updateView();
+    }
+  }
+
+  ngOnInit() {
+    this.currentUserRoles = this.authorizationService.getUserRoles();
+    if (this.permissions && this.currentUserRoles) {
+
+      this.updateView();
+    }
+
+    this.ref.markForCheck();
+  }
+
+  private updateView() {
+    if (this.viewContainer.length === 0 && this.hasUserRole()) {
+      this.viewContainer.createEmbeddedView(this.templateRef);
+    } else {
+      this.viewContainer.clear();
+    }
+  }
+
+  private hasUserRole() {
+    return this.currentUserRoles?.some(
+      (role) =>
+        this.permissions.includes(role.name) ||
+        this.permissions.every(
+          (permission) => permission === this.USER_ROLES.User
+        )
+    );
   }
 }

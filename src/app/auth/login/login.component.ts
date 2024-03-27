@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/libs/auth/auth.service';
+import { AuthorizationService } from 'src/app/libs/auth/authorization.service';
 
 @Component({
   selector: 'app-login',
@@ -15,20 +16,26 @@ export class LoginComponent {
 
   constructor(
     private readonly authService: AuthService,
+    private readonly authorizationService:AuthorizationService,
     private router: Router
   ) {}
 
-  public async onSubmit(): Promise<void> {
+  public onSubmit() {
     try {
       this.isLoading = true; // Show spinner during login process
-      const result = await this.authService
+      this.authService
         .login(this.username, this.password)
-        .toPromise();
-      if (result) {
-        this.router.navigateByUrl('/app/home');
-      } else {
-        this.loginFailed = true;
-      }
+        .subscribe((response:any)=>{
+          if (response) {
+            this.authorizationService.getUserRoles();
+            this.authService.setUser(this.authService.getUser())
+            this.router.navigateByUrl('/app/home');
+
+          } else {
+            this.loginFailed = true;
+          }
+        })
+      
     } catch (error) {
       this.loginFailed = true;
     } finally {

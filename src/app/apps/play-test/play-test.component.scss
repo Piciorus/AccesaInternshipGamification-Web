@@ -31,15 +31,26 @@
 }
 
 /* Next button */
-.button-next {
-  margin-top: 20px; /* Adjust top margin */
+.button-group {
   text-align: center; /* Center the button */
+  display: flex;
+  margin-top: 3rem; /* Optional margin between buttons */
+  margin-left: 2rem
 }
-
+.button-submit{
+  margin-right: 2rem;
+}
 .button-close {
   margin-top: 20px;
 }
+.matching-response {
+  background: linear-gradient(to right, blue 50%, blue 50%);
+}
 
+.chatgpt-checkbox {
+  color: blue; /* Change the color of the checkbox content */
+  border-color: blue; /* Change the color of the checkbox border */
+}
 /* Loading text */
 .loading-text {
   text-align: center; /* Center the text */

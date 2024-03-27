@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+
     this.updateStatistics('updateStatistics');
   }
 
@@ -38,6 +39,7 @@ export class HomeComponent implements OnInit {
         .subscribe((user: User) => {
           user.id = this.authService.getUser().id;
           this.authService.setUser(user);
+
           const statistics: any = {
             tokens: this.authService.getUser().tokens,
             thresholdUser: this.authService.getUser().threshold,

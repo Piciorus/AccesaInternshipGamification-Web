@@ -10,6 +10,9 @@ import { QuestAnsweredComponent } from './quest-answered/quest-answered.componen
 import { MatDialogModule } from '@angular/material/dialog';
 import { PlayTestComponent } from '../play-test/play-test.component';
 import { CreateQuestionModalComponent } from './create-question-modal/create-question-modal.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { TableReusableComponent } from './table-reusable/table-reusable.component';
+import { GridComponent } from './grid/grid.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,8 @@ import { CreateQuestionModalComponent } from './create-question-modal/create-que
     QuestAnsweredComponent,
     PlayTestComponent,
     CreateQuestionModalComponent,
+    TableReusableComponent,
+    GridComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +31,7 @@ import { CreateQuestionModalComponent } from './create-question-modal/create-que
     HomeRoutingModule,
     AngularMaterialModule,
     ReactiveFormsModule,
+    MatChipsModule,
     MatDialogModule,
   ],
 })

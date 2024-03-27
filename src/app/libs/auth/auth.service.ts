@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -20,12 +20,11 @@ export class AuthService {
     this.user = this.userSubject.asObservable();
   }
 
-  public login(username: string, password: string) {
+  public login(username: string, password: string) :Observable<any>{
     return this.http
       .post<any>(this.basePath + '/auth/login', { username, password })
       .pipe(
         map((user: any) => {
-          console.log(user)
           localStorage.setItem('token', JSON.stringify(user.jwttoken));
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.userSubject.next(user);
@@ -34,7 +33,11 @@ export class AuthService {
       );
   }
 
-  public register(username: string, password: string, email: string):Observable<any> {
+  public register(
+    username: string,
+    password: string,
+    email: string
+  ): Observable<any> {
     return this.http.post<any>(this.basePath + '/auth/register', {
       username,
       password,
@@ -42,7 +45,7 @@ export class AuthService {
     });
   }
 
-  public logout():void{
+  public logout(): void {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
     localStorage.removeItem('tokens');

@@ -1,66 +1,39 @@
-<div class="container">
-  <h1>General Culture Quiz</h1>
-  <p>
-    Welcome to our quiz! Answer the following questions to earn tokens and
-    threshold.Also you get badges based on the progress bar.
-  </p>
-  <p style="color: red">{{ errorMessage }}</p>
-  <table>
-    <thead style="position: sticky; top: 0; z-index: 2">
-      <tr>
-        <th>Question</th>
-        <th>Tokens Earned</th>
-        <th>Difficulty</th>
-        <th>Threshold</th>
-        <th>Answer</th>
-        <th>Submit answer</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let quest of questList">
-        <td>{{ quest.description }}</td>
-        <td>{{ quest.questRewardTokens }}</td>
-        <td>{{ quest.difficulty }}</td>
-        <td>{{ quest.threshold }}</td>
-        <td>
-          <!-- <input
-            placeholder="Type your answer here"
-            class="name"
-            type="text"
-            id="name"
-            name="name"
-            #answer1
-          /> -->
-          <form [formGroup]="answerForm" class="example-form">
-            <mat-form-field class="example-full-width">
-              <mat-label>Answer</mat-label>
-              <input
-                matInput
-                placeholder="Type your answer here"
-                type="text"
-                id="answer"
-                formControlName="answer"
-              />
-            </mat-form-field>
-          </form>
-          <span class="good" *ngIf="quest.rewarded">
-            Congratulations, you answered correctly!
-          </span>
-          <span class="wrong" *ngIf="correctAnswer"> Incorrect answer! </span>
+<div class="styled-table">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    (matSortChange)="announceSortChange($event)"
+    class="mat-elevation-z8"
+    style="background-color: transparent; font-size: 2rem"
+  >
+    <ng-container *ngFor="let column of displayedColumns; let i = index">
+      <ng-container matColumnDef="{{ column }}">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          [attr.aria-label]="columnHeaders[i]"
+        >
+          {{ columnHeaders[i] }}
+        </th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{ 'larger-content': column === 'questionText' }">
+         
+          <ng-container *ngIf="column !== 'checkByAdmin'">
+            {{ column === 'category' ? element[column]?.name : element[column] }}
+          </ng-container>
         </td>
-        <td style="z-index: 1">
-          <button
-            mat-raised-button
-            color="primary"
-            [disabled]="quest.rewarded"
-            (click)="checkAnswer(answerForm.controls['answer'].value, quest.id)"
-            class="buttonsubmit"
-          >
-            Submit
-          </button>
-        </td>
-      </tr>
-    </tbody>
+      </ng-container>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-  <div></div>
+
+  <mat-paginator
+    style="background-color: transparent"
+    [pageSizeOptions]="[14, 10, 5]"
+    showFirstLastButtons
+  >
+  </mat-paginator>
 </div>

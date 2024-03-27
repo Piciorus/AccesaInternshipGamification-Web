@@ -1,69 +1,27 @@
-.example-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-}
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 1.5rem;
-}
-.example-full-width {
-  font-size: 20px;
-  width: 50%;
-}
-.createnew {
-  font-size: 2rem;
-}
-.text {
-  margin-left: 30px;
+.demo-table {
+  width: 100%;
 }
 
-.good {
-  color: green;
-  font-size: 2rem;
-}
-.bad {
-  color: red;
-  font-size: 2rem;
-}
-.create-quest-button {
-  font-size: 1.7rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
 }
 
-.create-quest-button:hover {
-  background-color: #014860;
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
 }
 
-@media only screen and (min-width: 480px) {
-  .container {
-    font-size: 1rem;
-  }
-  .example-form {
-    width: 80%;
-  }
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+.styled-table {
+  padding: 8%;
+  padding-bottom: 0;
+  
 }
 
-@media only screen and (min-width: 768px) {
-  .container {
-    font-size: 1.2rem;
-  }
-  .example-form {
-    width: 60%;
-  }
+.larger-content {
+  width: 500px;
 }
 
-@media only screen and (min-width: 992px) {
-  .container {
-    font-size: 1.5rem;
-  }
-  .example-form {
-    width: 50%;
-  }
-}

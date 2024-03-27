@@ -54,7 +54,7 @@
         <input
           matInput
           placeholder="Type here"
-          type="number"
+          type="text"
           id="answer3"
           formControlName="answer3"
           required
@@ -117,6 +117,7 @@
       class="create-quest-button"
       mat-raised-button
       color="primary"
+      (click)="onCreateQuestionSubmit()"
     >
       Create Quest
     </button>

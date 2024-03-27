@@ -1,16 +1,28 @@
 <main class="maincontainer">
-  <nav>
-    <div class="heading">
-      <h4>Culture Challenge</h4>
+  <div class="nav">
+    <div class="content">
+      <h1 class="brand">logo</h1>
+
+      <div class="links nav-items">
+        <a [routerLink]="['/app/home']">Home</a>
+        <a [routerLink]="['/app/ranking']">Ranking</a>
+        <a *appHasPermission="[ERole.Admin]" [routerLink]="['/app/quests']">Quests</a>
+        <a (click)="logout()">Logout</a>
+        <div class="username">{{ username }}</div>
+
+      </div>
+      <div class="menu" (click)="onMenu()">
+        <input type="checkbox" hidden id="hamburger" />
+        <label for="hamburger" [hidden]="isOpen">&#9776;</label>
+        <label for="hamburger" [hidden]="!isOpen">&#10006;</label>
+      </div>
+      <div class="dropdown" id="dropdown" [class.show]="isOpen">
+        <a>Example</a>
+        <a>Example</a>
+        <a>Example</a>
+      </div>
     </div>
-    <ul class="nav-links">
-      <li><a [routerLink]="['/app/home']">Home</a></li>
-      <li><a [routerLink]="['/app/ranking']">Ranking</a></li>
-      <li><a [routerLink]="['/app/quests']">Quests</a></li>
-      <li><a (click)="logout()">Logout</a></li>
-    </ul>
-    <div class="username">{{ username }}</div>
-  </nav>
+  </div>
   <router-outlet></router-outlet>
   <!-- <footer class="footer">
     <div class="container">

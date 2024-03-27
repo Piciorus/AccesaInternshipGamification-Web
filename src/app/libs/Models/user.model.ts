@@ -8,3 +8,11 @@ export class User {
   email?: string;
   accessToken?: any;
 }
+
+export class LoginRequest {
+  constructor(public username: string, public password: string) {}
+}
+
+export class RegisterRequest{
+  constructor(public username: string, public password: string,public email:string) {}
+}

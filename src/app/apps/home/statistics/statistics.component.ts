@@ -63,7 +63,7 @@ export class StatisticsComponent {
 
     const dialogRef: MatDialogRef<PlayTestComponent, boolean> =
       this.dialog.open(PlayTestComponent, {
-        width: '40rem',
+        width: '35rem',
         disableClose: true,
       });
 
@@ -85,7 +85,7 @@ export class StatisticsComponent {
 
     const dialogRef: MatDialogRef<CreateQuestionModalComponent, boolean> =
       this.dialog.open(CreateQuestionModalComponent, {
-        width: '45rem',
+        width: '38rem',
         disableClose: true,
       });
 

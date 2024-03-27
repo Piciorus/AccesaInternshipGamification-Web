@@ -42,13 +42,13 @@ export class RankingComponent {
   }
 
   public getAllUser(): void {
-    this.userService.getAllUsers().subscribe((response) => {
+    this.userService.getAllUsers().subscribe((response: User[]) => {
       this.dataSource.data = response;
     });
   }
 
   public getUsersSortedByTokensAscending(): void {
-    this.userService.getUsersSortedByTokensAscending().subscribe((response) => {
+    this.userService.getUsersSortedByTokensAscending().subscribe((response: User[]) => {
       this.users = response;
     });
   }
@@ -56,7 +56,7 @@ export class RankingComponent {
   public getUsersSortedByTokensDescending(): void {
     this.userService
       .getUsersSortedByTokensDescending()
-      .subscribe((response) => {
+      .subscribe((response: User[]) => {
         this.users = response;
       });
   }

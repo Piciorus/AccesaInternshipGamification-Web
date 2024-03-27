@@ -1,42 +1,12 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { take } from 'rxjs';
-import { AuthService } from 'src/app/libs/auth/auth.service';
 import { Quest } from 'src/app/libs/models/quest';
-import { User } from 'src/app/libs/models/user.model';
-import { QuestService } from 'src/app/libs/services/quest.service';
+import { QuestionService } from 'src/app/libs/services/question.service';
 import { UserService } from 'src/app/libs/services/user.service';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 
 @Component({
   selector: 'app-quests',
@@ -44,37 +14,113 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./quests.component.scss'],
 })
 export class QuestsComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-  clickedRows = new Set<PeriodicElement>();
+  displayedColumns: string[] = [
+    'questionText',
+    'answer1',
+    'answer2',
+    'answer3',
+    'correctAnswer',
+    'rewarded',
+    'difficulty',
+    'threshold',
+    'questRewardTokens',
+    'checkByAdmin',
+    'category',
+  ];
 
-  constructor() {}
+  columnHeaders: string[] = [
+    'Question Text',
+    'First Answer',
+    'Second Answer',
+    'Third Answer',
+    'Correct Answer',
+    'Rewarded',
+    'Difficulty',
+    'Threshold',
+    'Tokens',
+    'Checked',
+    'Category',
+  ];
 
-  ngOnInit(): void {}
+  dataSource = new MatTableDataSource<Quest>();
 
-  // public onCreateQuestSubmit(): void {
-  //   if (this.questForm?.invalid) return;
-  //   const questToSave: Quest = this.questForm.value;
-  //   this.questService
-  //     .createQuest(questToSave, this.authService.getUser().id)
-  //     .subscribe(
-  //       (response) => {
-  //         this.questList.push(response);
-  //         this.questForm.get('answer')?.setValue('');
-  //         this.questForm.get('description')?.setValue('');
-  //         this.questForm.get('rewardTokens')?.setValue('');
-  //         this.questForm.get('difficulty')?.setValue('');
-  //         this.questForm.get('threshold')?.setValue('');
-  //         this.message = 'Quest created successfully';
-  //         this.authService.getMe().pipe(take(1)).subscribe((user: User) => {
-  //           this.tokens = user.tokens;
-  //         });
-  //       },
-  //       (error) => {
-  //         if (error.status === 500) {
-  //           this.message = 'Quest not created!You have not enough tokens';
-  //         }
-  //       }
-  //     );
-  // }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(
+    private readonly questionService: QuestionService,
+    private _liveAnnouncer: LiveAnnouncer
+  ) {}
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnInit(): void {
+    this.initQuestions();
+  }
+
+  initQuestions() {
+    this.questionService
+      .getAllQuestions()
+      .pipe(take(1))
+      .subscribe((response: Quest[]) => {
+        this.dataSource.data = response;
+      });
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
+
+  onCheckboxChange(checked: boolean, id: any, element: any) {
+    console.log(element);
+    if (checked) {
+
+    const updateQuestionRequest: any = {
+      questionText: element.questionText,
+      answer1: element.answer1,
+      answer2: element.answer2,
+      answer3: element.answer3,
+      correctAnswer: element.correctAnswer,
+      difficulty: element.difficulty,
+      threshold: element.threshold,
+      rewardTokens: element.rewardTokens,
+      checkedByAdmin: true,
+    };
+      this.questionService.updateQuestion(id, updateQuestionRequest).subscribe(
+        (response) => {
+          console.log('Question updated successfully', response);
+        },
+        (error) => {
+          console.error('Error updating question', error);
+        }
+      );
+    }else{
+      const updateQuestionRequest: any = {
+        questionText: element.questionText,
+        answer1: element.answer1,
+        answer2: element.answer2,
+        answer3: element.answer3,
+        correctAnswer: element.correctAnswer,
+        difficulty: element.difficulty,
+        threshold: element.threshold,
+        rewardTokens: element.rewardTokens,
+        checkedByAdmin: false,
+      };
+        this.questionService.updateQuestion(id, updateQuestionRequest).subscribe(
+          (response) => {
+            console.log('Question updated successfully', response);
+          },
+          (error) => {
+            console.error('Error updating question', error);
+          }
+        );
+    }
+  }
 }

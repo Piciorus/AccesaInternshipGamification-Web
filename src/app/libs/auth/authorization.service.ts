@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { AfterViewInit, Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ERole } from '../models/erole';
 import { jwtDecode } from 'jwt-decode';
@@ -6,35 +6,29 @@ import { jwtDecode } from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthorizationService {
+export class AuthorizationService implements OnInit {
   userRoles$: Observable<ERole[]>;
 
   private _userRolesSubject = new BehaviorSubject<ERole[]>([]);
 
   constructor() {
-    this.userRoles$ = this._userRolesSubject.asObservable();
+    this.getUserRoles();
+  }
+
+  ngOnInit(){
+    this.getUserRoles();
   }
 
   getUserRoles(): ERole[] {
-    const token = sessionStorage.getItem('token');
-
+    const token = localStorage.getItem('currentUser');
     if (token) {
-      const decoded = jwtDecode<{ roles: string[] }>(token);
-      if (decoded) {
-        const userRoles: ERole[] = decoded.roles
-          .map((role: any) => {
-            const key = Object.keys(ERole).find(
-              (key) => ERole[key as keyof typeof ERole] === role
-            );
-            return key ? ERole[key as keyof typeof ERole] : undefined;
-          })
-          .filter((role:any): role is ERole => role !== undefined);
-
+      const currentUser = JSON.parse(token);
+      if (currentUser.roles) {
+        const userRoles: ERole[] = currentUser.roles;
         this._userRolesSubject.next(userRoles);
         return userRoles;
       }
     }
-
     return [];
   }
 

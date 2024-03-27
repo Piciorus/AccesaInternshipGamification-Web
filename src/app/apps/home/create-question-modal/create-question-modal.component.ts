@@ -26,6 +26,30 @@ export class CreateQuestionModalComponent {
   ) {}
 
   public onCreateQuestionSubmit(): void {
+    if (this.questForm?.invalid) return;
+    const questToSave: Question = {
+      questionText: this.questForm.get('questionText')?.value,
+      answer1: this.questForm.get('answer1')?.value,
+      answer2: this.questForm.get('answer2')?.value,
+      answer3: this.questForm.get('answer3')?.value,
+      correctAnswer: this.questForm.get('correctAnswer')?.value,
+      difficulty: this.questForm.get('difficulty')?.value,
+      threshold: this.questForm.get('threshold')?.value,
+      rewardTokens: this.questForm.get('rewardTokens')?.value,
+    };
+    this.questService.createQuestion(questToSave).subscribe(
+      (response) => {
+        this.questList.push(response);
+        this.questForm.reset(); // Reset the form state
+        this.message = 'Question created successfully';
+        this.dialog.closeAll();
+      },
+      (error) => {
+        if (error.status === 500) {
+          this.message = 'Quest not created!You have not enough tokens';
+        }
+      }
+    );
   }
 
   public ngOnInit(): void {
@@ -46,7 +70,7 @@ export class CreateQuestionModalComponent {
     });
   }
 
-  public closeModal(){
+  public closeModal() {
     this.dialog.closeAll();
   }
 }
