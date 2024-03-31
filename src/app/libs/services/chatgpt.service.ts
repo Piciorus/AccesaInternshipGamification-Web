@@ -14,4 +14,8 @@ export class ChatGptService {
   generateResponse(request: ChatGptRequest): Observable<any> {
     return this.http.post<any>(this.url + '/get_correct_answer', request);
   }
+
+  predictCategory(request: any): Observable<any> {
+    return this.http.post<any>(this.url + '/predict_category', request);
+  }
 }

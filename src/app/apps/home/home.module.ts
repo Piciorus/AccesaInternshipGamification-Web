@@ -11,8 +11,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { PlayTestComponent } from '../play-test/play-test.component';
 import { CreateQuestionModalComponent } from './create-question-modal/create-question-modal.component';
 import {MatChipsModule} from '@angular/material/chips';
-import { TableReusableComponent } from './table-reusable/table-reusable.component';
-import { GridComponent } from './grid/grid.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +20,6 @@ import { GridComponent } from './grid/grid.component';
     QuestAnsweredComponent,
     PlayTestComponent,
     CreateQuestionModalComponent,
-    TableReusableComponent,
-    GridComponent,
   ],
   imports: [
     CommonModule,

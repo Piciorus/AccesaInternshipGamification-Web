@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { Question } from 'src/app/libs/models/question';
+import { ChatGptService } from 'src/app/libs/services/chatgpt.service';
 import { QuestionService } from 'src/app/libs/services/question.service';
 
 @Component({
@@ -21,6 +22,7 @@ export class CreateQuestionModalComponent {
   public constructor(
     private readonly questService: QuestionService,
     private readonly authService: AuthService,
+    private readonly chatGptService: ChatGptService,
     private readonly formBuilder: FormBuilder,
     private readonly dialog: MatDialog
   ) {}
@@ -51,12 +53,29 @@ export class CreateQuestionModalComponent {
       }
     );
   }
+  categoryValue: string | null = null; // Initialize categoryValue variable
 
   public ngOnInit(): void {
     this.questForm = this.initForm();
     this.tokens = this.authService.getUser().tokens;
   }
 
+  onMouseOverCategory() {
+    // Your function logic here
+    const sentence = this.questForm.get('questionText')?.getRawValue();
+
+    // Create request data
+    const requestData = {
+      question: sentence,
+    };
+    // Call your desired function here
+    this.chatGptService
+      .predictCategory(requestData)
+      .subscribe((response: any) => {
+          this.categoryValue = response.predicted_category; 
+        
+      });
+  }
   private initForm(): FormGroup {
     return this.formBuilder.group({
       questionText: [this.question.questionText, Validators.required],
@@ -67,6 +86,7 @@ export class CreateQuestionModalComponent {
       difficulty: [this.question.difficulty, Validators.required],
       threshold: [this.question.threshold, Validators.required],
       rewardTokens: [this.question.rewardTokens, Validators.required],
+      category: [null],
     });
   }
 

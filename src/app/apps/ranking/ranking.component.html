@@ -1,73 +1,30 @@
-<div class="styled-table">
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    matSort
-    (matSortChange)="announceSortChange($event)"
-    class="mat-elevation-z8"
-    style="background-color: transparent; font-size: 2rem"
-  >
-    <ng-container matColumnDef="username">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by username"
-      >
-        Name
-      </th>
-      <td
-        mat-cell
-        *matCellDef="let element"
-        [class.bold]="element.id === userId"
-      >
-        {{ element.username }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="tokens">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by tokens"
-      >
-        Tokens
-      </th>
-      <td
-        mat-cell
-        *matCellDef="let element"
-        [class.bold]="element.id === userId"
-      >
-        {{ element.tokens }}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="threshold">
-      <th
-        mat-header-cell
-        *matHeaderCellDef
-        mat-sort-header
-        sortActionDescription="Sort by threshold"
-      >
-        Threshold
-      </th>
-      <td
-        mat-cell
-        *matCellDef="let element"
-        [class.bold]="element.id === userId"
-      >
-        {{ element.threshold }}
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+<div class="d-flex justify-content-center mt-4 px-4">
+  <table class="table table-hover align-middle mb-0">
+    <thead class="bg-light">
+      <tr>
+        <th *ngFor="let column of displayedColumns">{{ column }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let user of users">
+        <tr>
+          <td>
+            <div class="d-flex align-items-center">
+              <ng-container *ngIf="user.username">
+                <app-user-avatar [name]="user.username"></app-user-avatar>
+              </ng-container>              <div class="ms-3">
+                <p class="fw-bold mb-1">{{ user.username }}</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p class="text-muted mb-0">{{ user.tokens }}</p>
+          </td>
+          <td>
+            {{ user.threshold }}
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
   </table>
-
-  <mat-paginator
-    style="background-color: transparent"
-    [pageSizeOptions]="[14, 10, 5]"
-    showFirstLastButtons
-  >
-  </mat-paginator>
 </div>

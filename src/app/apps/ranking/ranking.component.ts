@@ -16,7 +16,7 @@ export class RankingComponent {
   public users: Array<User> = [];
   public user: any;
   public userId: any;
-  displayedColumns: string[] = ['username', 'tokens','threshold'];
+  displayedColumns: string[] = ['Username', 'Tokens','Threshold'];
 
   dataSource = new MatTableDataSource<User>(this.users);
 
@@ -44,6 +44,7 @@ export class RankingComponent {
   public getAllUser(): void {
     this.userService.getAllUsers().subscribe((response: User[]) => {
       this.dataSource.data = response;
+      this.users=response;
     });
   }
 

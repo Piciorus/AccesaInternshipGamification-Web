@@ -102,7 +102,22 @@
           required
         />
       </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Category</mat-label>
+        <input
+          matInput
+          placeholder="Type here"
+          type="text"
+          id="category"
+          formControlName="category"
+          required
+          [(ngModel)]="categoryValue"
 
+          (mouseover)="onMouseOverCategory()"
+          [formControl]="questForm.get('category')?.getRawValue()" 
+
+          />
+      </mat-form-field>
       <div
         [class.good]="message === 'Quest created successfully'"
         [class.bad]="message !== 'Quest created successfully'"

@@ -8,4 +8,9 @@ export class Question {
   difficulty?: string;
   threshold?: number;
   rewardTokens?: number;
+  category?: Category;
+}
+
+export class Category {
+  name?: string;
 }

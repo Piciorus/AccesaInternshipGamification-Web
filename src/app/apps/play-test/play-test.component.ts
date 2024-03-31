@@ -62,6 +62,20 @@ export class PlayTestComponent implements OnInit {
       currentSelections.splice(index, 1);
     }
   }
+  getAnswerColor(questionIndex: number, answerIndex: number): string {
+    const question = this.questionList[questionIndex];
+    const answer = question.answers[answerIndex];
+    console.log(answer);
+    if (this.isCorrectAnswer(questionIndex, answerIndex)) {
+      return 'green'; // Correct answer
+    } else if (this.isMatchingResponse(answer)) {
+      return 'blue'; // ChatGPT response
+    } else if (this.isSelected(answerIndex)) {
+      return 'red'; // User's response
+    } else {
+      return 'transparent'; // Unselected answer
+    }
+  }
 
   nextQuestion() {
     this.currentQuestionIndex++;
@@ -76,12 +90,52 @@ export class PlayTestComponent implements OnInit {
   isMatchingResponse(answer: string): boolean {
     return this.submissionMade && answer === this.chatGptResponse;
   }
+  isCorrectUserResponse(questionIndex: number): boolean {
+    const selectedIndexes = this.selectedAnswers[questionIndex];
+    if (!selectedIndexes || selectedIndexes.length !== 1) {
+      return false; // If no answer selected or multiple answers selected, return false
+    }
+    const selectedAnswerIndex = selectedIndexes[0];
+    const question = this.questionList[questionIndex];
+    return question.answers[selectedAnswerIndex] === question.correctAnswer;
+  }
+  isCorrectChatGptResponse(questionIndex: number): boolean {
+    const question = this.questionList[questionIndex];
+    return this.chatGptResponses[questionIndex] === question.correctAnswer;
+  }
+  showSummary: boolean = false;
+
+  toggleSummary() {
+    
+    this.showSummary = !this.showSummary;
+  }
   
-  // Add a method to check if each answer does not match the ChatGPT response
+  countUserCorrectAnswers(): number {
+    return this.results.filter(result => result).length;
+  }
+  
+  countChatGptCorrectAnswers(): number {
+    // Assuming chatGptResponses contains correct answers provided by ChatGPT
+    return this.chatGptResponses.filter(response => response).length;
+  }
+  getSelectedAnswers(questionIndex: number): string {
+    const selectedIndexes = this.selectedAnswers[questionIndex];
+    if (selectedIndexes && selectedIndexes.length > 0) {
+      return selectedIndexes
+        .map(
+          (index: string | number) =>
+            this.questionList[questionIndex].answers[index]
+        )
+        .join(', ');
+    } else {
+      return 'No answer selected';
+    }
+  }
+
   isNotMatchingResponse(answer: string): boolean {
     return this.submissionMade && answer !== this.chatGptResponse;
   }
-  
+
   submitAnswers() {
     this.submissionMade = true;
 
@@ -106,7 +160,10 @@ export class PlayTestComponent implements OnInit {
   }
   isCorrectAnswer(questionIndex: number, answerIndex: number): boolean {
     const question = this.questionList[questionIndex];
-    return question && answerIndex === question.answers.indexOf(question.correctAnswer);
+    return (
+      question &&
+      answerIndex === question.answers.indexOf(question.correctAnswer)
+    );
   }
 
   get currentQuestion() {

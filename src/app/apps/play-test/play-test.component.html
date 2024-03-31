@@ -1,5 +1,6 @@
 <div class="main-container" *ngIf="questionList.length > 0">
   <ng-container *ngIf="!showResults; else resultSection">
+    <!-- Main content -->
     <p class="question-counter">
       {{ currentQuestionIndex + 1 }}/{{ questionList.length }}
     </p>
@@ -37,43 +38,73 @@
   </ng-container>
 
   <ng-template #resultSection>
-    <div *ngFor="let result of results; let i = index">
-      <h3>{{ i + 1 }}. {{ questionList[i].questionText }}</h3>
-      <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Result">
-        <mat-chip-option
-          *ngFor="let answer of questionList[i].answers; let j = index"
-          color="accent"
-          [selected]="isSelected(j)"
-          [disabled]="true"
-          [ngStyle]="{
-            background: isCorrectAnswer(i, j)
-              ? 'green'
-              : isSelected(j)
-              ? 'blue'
-              : 'transparent'
-          }"
+    <div *ngIf="!showSummary">
+      <div *ngFor="let result of results; let i = index">
+        <h3>{{ i + 1 }}. {{ questionList[i].questionText }}</h3>
+        <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Result">
+          <mat-chip-option
+            *ngFor="let answer of questionList[i].answers; let j = index"
+            color="accent"
+            [selected]="isSelected(j)"
+            [disabled]="true"
+            [ngStyle]="{
+              background: isCorrectAnswer(i, j)
+                ? 'green'
+                : isSelected(j)
+                ? 'blue'
+                : 'transparent'
+            }"
+          >
+            {{ answer }}
+            <span *ngIf="isSelected(j)">
+              <mat-icon *ngIf="isCorrectAnswer(i, j)">check_circle</mat-icon>
+              <mat-icon *ngIf="!isCorrectAnswer(i, j)">cancel</mat-icon>
+            </span>
+          </mat-chip-option>
+        </mat-chip-listbox>
+        <div class="button-close">
+          <div>
+            <mat-icon>{{
+              isCorrectChatGptResponse(i) ? "check_circle" : "cancel"
+            }}</mat-icon>
+            <p>ChatGPT Response: {{ chatGptResponses[i] }}</p>
+          </div>
+          <div>
+            <mat-icon>{{
+              isCorrectUserResponse(i) ? "check_circle" : "cancel"
+            }}</mat-icon>
+            <p>Your Response: {{ getSelectedAnswers(i) }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="button-group">
+        <button
+          class="button-submit"
+          mat-raised-button
+          color="primary"
+          (click)="closeModal()"
         >
-          {{ answer }}
-          <span *ngIf="isSelected(j)">
-            <mat-icon *ngIf="isCorrectAnswer(i, j)">check_circle</mat-icon>
-            <mat-icon *ngIf="!isCorrectAnswer(i, j)">cancel</mat-icon>
-          </span>
-        </mat-chip-option>
-      </mat-chip-listbox>
-      <div class="button-close">
-        <p *ngIf="results[i]; else wrongAnswer">
-          <mat-icon>check_circle</mat-icon>
-        </p>
-        <ng-template #wrongAnswer>
-          <p><mat-icon>cancel</mat-icon></p>
-        </ng-template>
+          Close
+        </button>
+
+        <button
+          class="button-summary"
+          mat-raised-button
+          color="primary"
+          (click)="toggleSummary()"
+        >
+          Summary
+        </button>
       </div>
     </div>
 
-    <div class="button-close">
-      All questions answered!
-      <button mat-raised-button color="primary" (click)="closeModal()">
-        Close
+    <div class="summary-container" *ngIf="showSummary">
+      <h2>Summary</h2>
+      <p>Total Questions: {{ questionList.length }}</p>
+      <p>Your Correct Answers: {{ countUserCorrectAnswers() }}</p>
+      <p>ChatGPT Correct Answers: {{ countChatGptCorrectAnswers() }}</p>
+      <button mat-raised-button color="primary" (click)="showSummary = false">
+        Back to Questions
       </button>
     </div>
   </ng-template>
