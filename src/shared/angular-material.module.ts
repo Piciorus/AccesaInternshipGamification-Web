@@ -14,6 +14,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MdbRippleModule } from 'mdb-angular-ui-kit/ripple';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {
+  ModalModule,
+  TooltipModule,
+  PopoverModule,
+  ButtonsModule,
+} from 'angular-bootstrap-md';
+import { ModalService } from '@coreui/angular';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   exports: [
@@ -31,7 +40,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatIconModule,
     MdbRippleModule,
     MdbFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
+  imports: [],
 })
 export class AngularMaterialModule {}

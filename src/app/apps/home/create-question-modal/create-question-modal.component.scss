@@ -1,39 +1,27 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    justify-content: center; /* Center content vertically */
-    max-height: 90vh; /* Set maximum height to 80% of viewport height */
-    overflow-y: auto; /* Enable vertical scrolling */
-  }
-  
-  .text {
-    text-align: center; /* Center text */
-  }
-  
-  .form-container {
-    margin-top: 20px; /* Add some spacing between text and form */
-  }
-  
-  .form-fields-container {
-    width: 100%;
-    max-width: 500px; /* Set maximum width for form fields container */
-  }
-  
-  .example-full-width {
-    width: 100%; /* Make mat-form-field elements fill their container */
-  }
-  
-  .button-container {
-    display: flex;
-    margin-top: 3rem; /* Optional margin between buttons */
-    margin-bottom: 3rem; /* Optional margin between buttons */
+@import "../../../../media";
 
-  }
+.mat-dialog-content {
+  display: grid;
 
-  .create-quest-button{
-    margin-right: 2rem;
-  }
-  
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  grid-column-gap: 16px;
 
-  
+  @include mobile {
+    grid-template-columns: auto;
+  }
+}
+
+mat-form-field {
+  margin-right: 3rem;
+  width: 40%;
+}
+
+.button-submit {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.title{
+  margin-bottom: 1rem;
+}

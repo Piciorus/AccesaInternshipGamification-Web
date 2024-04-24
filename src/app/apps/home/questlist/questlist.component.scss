@@ -1,99 +1,19 @@
-// .container {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   text-align: center;
-// }
+.answers {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .answers mat-checkbox {
+    margin-bottom: 8px; /* Adjust as needed */
+  }
+  .create-quest-button{
+    margin-top: 20px;
+  }
 
-// table {
-//   margin: 0 auto;
-//   border-collapse: collapse;
-//   width: auto;
-//   margin-bottom: 2rem;
-//   border-top: none;
-//   border: 1px solid rgb(53, 102, 102);
-//   border-radius: 10px;
-//   display: block;
-//   height: 500px;
-//   overflow: auto;
-// }
-// tbody {
-//   overflow: auto;
-// }
-// h1 {
-//   font-size: 2.5rem;
-//   margin-bottom: 2rem;
-// }
+  .mat-select{
+    margin-left: 1.5rem;
+  }
 
-// p {
-//   font-size: 2rem;
-//   margin-bottom: 1rem;
-// }
-
-// .name {
-//   padding-left: 10px;
-//   font-size: 20px;
-// }
-// th,
-// td {
-//   padding: 1rem;
-//   font-size: 1.5rem;
-//   text-align: left;
-// }
-
-// th {
-//   background-color: #f2f2f2;
-//   border-bottom: 1px solid;
-// }
-// tr {
-//   border-bottom: 1px solid rgb(53, 102, 102);
-// }
-// tr:hover {
-//   background-color: #7b7b7b66;
-// }
-// .submitanswer {
-//   padding: 1rem 3rem;
-//   background-color: #4caf50;
-//   color: #fff;
-//   font-size: 1.2rem;
-//   border: none;
-//   border-radius: 25px;
-//   cursor: pointer;
-// }
-
-// .reward {
-//   background-color: yellow;
-//   padding: 1rem 3rem;
-//   border-radius: 25px;
-//   font-size: 1.2rem;
-//   border: none;
-//   cursor: pointer;
-// }
-
-// .buttonsubmit:not(:disabled):hover {
-//   background-color: #014860;
-// }
-
-// .wrong {
-//   color: red;
-// }
-
-// .good {
-//   color: green;
-// }
-
-// .submitanswer {
-//   padding: 1rem 3rem;
-//   background-color: #4caf50;
-//   color: #fff;
-//   font-size: 1.2rem;
-//   border: none;
-//   border-radius: 25px;
-//   cursor: pointer;
-// }
-
-// button:disabled {
-//   cursor: not-allowed;
-//   pointer-events: all !important;
-// }
+  .icon-clear{
+    margin-left: 0.5rem;
+  }

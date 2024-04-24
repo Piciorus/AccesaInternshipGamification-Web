@@ -1,7 +1,7 @@
 export class Quest {
   id!: number;
   answer?: string;
-  description?: string;
+  questionText?: string;
   questRewardTokens?: number;
   rewarded?: boolean;
   difficulty?: string;

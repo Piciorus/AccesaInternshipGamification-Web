@@ -1,0 +1,36 @@
+@import "include-media/dist/include-media";
+
+@mixin tablet-and-mobile($orientation: screen) {
+  @include media('<=desktop', $orientation) {
+    @content;
+  }
+}
+
+@mixin desktop($orientation: screen) {
+  @include media('>desktop', $orientation) {
+    @content;
+  }
+}
+
+@mixin tablet($orientation: screen) {
+  @include media('>=tablet', '<=desktop', $orientation) {
+    @content;
+  }
+}
+
+@mixin mobile($orientation: screen) {
+  @include media('<tablet', $orientation) {
+    @content;
+  }
+}
+@mixin mobile2x($orientation: screen) {
+  @include media('retina2x', '<tablet', $orientation) {
+    @content;
+  }
+}
+
+@mixin mobile-landscape {
+  @include media("<840px", landscape) {
+    @content;
+  }
+}

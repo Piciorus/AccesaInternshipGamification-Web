@@ -121,31 +121,68 @@ export class QuestlistComponent implements OnInit {
     'Category',
   ];
 
-  dataSource = new MatTableDataSource<Quest>();
+  questionsList:any[]=[]
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+  clearSelections() {
+    this.selectedCategory.reset(); // Clear the selected category options
+    this.selectedDifficulty.reset(); // Clear the selected difficulty option
+  }
   constructor(
     private readonly questionService: QuestionService,
     private _liveAnnouncer: LiveAnnouncer
   ) {}
+  selectedCategory = new FormControl(); // Define the selectedCategory FormControl
+  selectedDifficulty = new FormControl(); // Define FormControl for difficulty selection
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }
-
+  // Example categories array, replace this with your actual data
+  categories = [
+    { id: 1, name: 'Category 1' },
+    { id: 2, name: 'Category 2' },
+    { id: 3, name: 'Category 3' },
+    // Add more categories as needed
+  ];
   ngOnInit(): void {
     this.initQuestions();
-  }
+  }  currentQuestionIndex: number = 0; // Track the index of the current question
 
+  nextQuestion(): void {
+    // Increment the current question index
+    this.currentQuestionIndex++;
+  
+    // Check if the current question index exceeds the length of the questions list
+    if (this.currentQuestionIndex >= this.questionsList.length) {
+      // If so, reset the index to loop back to the first question
+      this.currentQuestionIndex = 0;
+    }
+  
+    // You can perform any additional logic here if needed
+    
+    // Optionally, you can announce the next question using LiveAnnouncer
+    const nextQuestionText = this.questionsList[this.currentQuestionIndex].questionText;
+    this._liveAnnouncer.announce(`Next question: ${nextQuestionText}`);
+  }
+  
+  
   initQuestions() {
     this.questionService
       .getAllQuestions()
       .pipe(take(1))
       .subscribe((response: any[]) => {
-        this.dataSource.data = response.filter(question => question.checkByAdmin);
+        const transformedData: any[] = response.map(item => ({
+          id: item.id,
+          questionText: item.questionText,
+          answers: [item.answer1, item.answer2, item.answer3], 
+          correctAnswer: item.correctAnswer,
+          rewarded: item.rewarded,
+          difficulty: item.difficulty,
+          threshold: item.threshold,
+          questRewardTokens: item.questRewardTokens,
+          checkByAdmin: item.checkByAdmin,
+          category: item.category
+        }));
+        this.questionsList = transformedData.filter(question => question.checkByAdmin);
       });
   }
 

@@ -1,47 +1,47 @@
-<button (click)="openModalCreateQuestion()">See your answer quests</button>
-<button type="button" color="primary" class="relative waves-light" (click)="openModal()" mdbWavesEffect>Play a test</button>
+<div class="sidebar">
+  <ul *ngIf="barBadge && barBadge.length > 0">
+    <li *ngIf="statistics?.thresholdUser < 60">
+      <h2>Badge Progress {{ barBadge[0].name }}</h2>
+    </li>
+    <li
+      *ngIf="statistics?.thresholdUser >= 60 && statistics?.thresholdUser < 90"
+    >
+      <h2>Badge Progress {{ barBadge[2].name }}</h2>
+    </li>
+    <li *ngIf="statistics?.thresholdUser >= 90">
+      <h2>Badge Progress {{ barBadge[1].name }}</h2>
+    </li>
+  </ul>
+  <circle-progress
+    [percent]="70"
+    [radius]="100"
+    [outerStrokeWidth]="16"
+    [innerStrokeWidth]="8"
+    [outerStrokeColor]="'#4882c2'"
+    [innerStrokeColor]="'#e7e8ea'"
+    [animation]="true"
+    [animationDuration]="300"
+  ></circle-progress>
 
-<div class="wrapper">
-  <div class="sidebar">
-    <ul *ngIf="barBadge && barBadge.length > 0">
-      <li *ngIf="statistics?.thresholdUser < 60">
-        <h2>Badge Progress {{ barBadge[0].name }}</h2>
-      </li>
-      <li
-        *ngIf="
-          statistics?.thresholdUser >= 60 && statistics?.thresholdUser < 90
-        "
-      >
-        <h2>Badge Progress {{ barBadge[2].name }}</h2>
-      </li>
-      <li *ngIf="statistics?.thresholdUser >= 90">
-        <h2>Badge Progress {{ barBadge[1].name }}</h2>
-      </li>
-    </ul>
-    <mat-progress-bar
-      mode="determinate"
-      [value]="statistics?.thresholdUser"
-    ></mat-progress-bar>
-    <h2>Your Statistics</h2>
-    <table>
-      <tr>
-        <td>Tokens</td>
-        <td>{{ statistics?.tokens }}</td>
-      </tr>
-      <tr>
-        <td>Badges</td>
-        <td>
-          <ul>
-            <li *ngFor="let badge of badgeList">
-              {{ badge && badge?.name ? badge.name : "" }}
-            </li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td>Threshold</td>
-        <td>{{ statistics?.thresholdUser }}</td>
-      </tr>
-    </table>
-  </div>
+  <h2>Your Statistics</h2>
+  <table>
+    <tr>
+      <td>Tokens</td>
+      <td>{{ statistics?.tokens }}</td>
+    </tr>
+    <tr>
+      <td>Badges</td>
+      <td>
+        <ul>
+          <li *ngFor="let badge of badgeList">
+            {{ badge && badge?.name ? badge.name : "" }}
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Threshold</td>
+      <td>{{ statistics?.thresholdUser }}</td>
+    </tr>
+  </table>
 </div>

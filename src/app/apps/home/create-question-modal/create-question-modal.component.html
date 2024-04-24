@@ -1,148 +1,52 @@
-<div class="container">
-  <div class="text">
-    <h1>Create a new quest</h1>
-    <p class="createnew">Fill in the form below to create a new quest.</p>
-    <p class="createnew">
-      You can create a quest only if you have enough tokens to celebrate
-      winners.
-    </p>
-    <p class="createnew"></p>
+<form [formGroup]="questForm" class="dialog-form" (ngSubmit)="onCreateQuestionSubmit()">
+
+  <div mat-dialog-title class="title">
+    Create a new question
   </div>
-  <form
-    [formGroup]="questForm"
-    class="example-form"
-    (ngSubmit)="onCreateQuestionSubmit()"
-  >
-    <div style="display: flex; justify-content: center; flex-direction: column">
-      <mat-form-field class="example-full-width">
-        <mat-label>Description</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          type="text"
-          id="questionText"
-          formControlName="questionText"
-          required
-        />
-      </mat-form-field>
+  <mat-dialog-content>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>First Answer</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          id="answer1"
-          type="text"
-          formControlName="answer1"
-          required
-        />
-      </mat-form-field>
+    <input type="hidden" formControlName="$key" />
+    <mat-form-field class="example-full-width">
+      <mat-label>Questions description</mat-label>
+      <textarea formControlName="questionText" matInput placeholder="Type text.."></textarea>
+      <mat-error>This field is mandatory.</mat-error>
 
-      <mat-form-field class="example-full-width">
-        <mat-label>Second Answer</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          type="text"
-          id="answer2"
-          formControlName="answer2"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Third Answer</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          type="text"
-          id="answer3"
-          formControlName="answer3"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Difficulty</mat-label>
-        <mat-select formControlName="difficulty" required>
-          <mat-option value="Easy">Easy</mat-option>
-          <mat-option value="Medium">Medium</mat-option>
-          <mat-option value="Hard">Hard</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <mat-label>Correct Answer</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          type="text"
-          id="correctAnswer"
-          formControlName="correctAnswer"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Reward tokens</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          type="number"
-          id="rewardTokens"
-          formControlName="rewardTokens"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Threshold</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          type="number"
-          id="threshold"
-          formControlName="threshold"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Category</mat-label>
-        <input
-          matInput
-          placeholder="Type here"
-          type="text"
-          id="category"
-          formControlName="category"
-          required
-          [(ngModel)]="categoryValue"
-
-          (mouseover)="onMouseOverCategory()"
-          [formControl]="questForm.get('category')?.getRawValue()" 
-
-          />
-      </mat-form-field>
-      <div
-        [class.good]="message === 'Quest created successfully'"
-        [class.bad]="message !== 'Quest created successfully'"
-      >
-        {{ message }}
-      </div>
-    </div>
-  </form>
-  <div class="button-container">
-    <button
-      type="submit"
-      class="create-quest-button"
-      mat-raised-button
-      color="primary"
-      (click)="onCreateQuestionSubmit()"
-    >
-      Create Quest
-    </button>
-    <button
-      type="submit"
-      mat-raised-button
-      color="primary"
-      (click)="closeModal()"
-    >
-      Close
-    </button>
-  </div>
-</div>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="answer1" matInput placeholder="Answer 1*" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="answer2" matInput placeholder="Answer 2*" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="answer3" matInput placeholder="Answer 3*" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="correctAnswer" matInput placeholder="Correct Answer*" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="difficulty" matInput placeholder="Difficulty*" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="threshold" matInput placeholder="Threshold*" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="rewardTokens" matInput placeholder="Reward Tokens*" />
+      <mat-error>This field is mandatory.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="category" matInput placeholder="Category" />
+    </mat-form-field>
+    
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button class="button-submit" color="primary" type="submit" [disabled]="questForm.invalid">Submit</button>
+    <button mat-raised-button class="button-submit" color="warn" type="button" (click)="questForm.reset()">Clear</button>
+  </mat-dialog-actions>
+</form>

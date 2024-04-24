@@ -5,8 +5,11 @@ import { CoreRoutingModule } from './core-routing.module';
 import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from 'src/shared/angular-material.module';
 import { HasRolesDirective } from '../libs/directives/has-roles.directive';
-import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md'
+import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -19,7 +22,11 @@ import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
     NavbarModule,
     WavesModule,
     ButtonsModule,
-    MdbCheckboxModule
+    MdbCheckboxModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatListModule
+
   ],
 })
 export class CoreModule {}

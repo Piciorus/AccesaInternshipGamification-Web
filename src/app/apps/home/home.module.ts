@@ -10,7 +10,10 @@ import { QuestAnsweredComponent } from './quest-answered/quest-answered.componen
 import { MatDialogModule } from '@angular/material/dialog';
 import { PlayTestComponent } from '../play-test/play-test.component';
 import { CreateQuestionModalComponent } from './create-question-modal/create-question-modal.component';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,8 @@ import {MatChipsModule} from '@angular/material/chips';
     ReactiveFormsModule,
     MatChipsModule,
     MatDialogModule,
+    MatSelectModule,
+    NgCircleProgressModule.forRoot({}),
   ],
 })
 export class HomeModule {}

@@ -17,7 +17,6 @@ import { HasRolesDirective } from './libs/directives/has-roles.directive';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
