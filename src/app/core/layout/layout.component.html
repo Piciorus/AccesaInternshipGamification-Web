@@ -5,9 +5,7 @@
   <span class="spacer"></span>
   <div class="username">{{ username }}</div>
 
-  <a class="nav-link" (click)="logout()">
-    <mat-icon (click)="logout()">exit_to_app</mat-icon>
-  </a>
+  <mat-icon (click)="logout()">exit_to_app</mat-icon>
 </mat-toolbar>
 
 <mat-sidenav-container autosize>
@@ -31,7 +29,7 @@
       </a>
       <a
         mat-list-item
-        *appHasPermission="[ERole.Admin]"
+        *ngIf="isAdmin"
         [routerLink]="['/app/quests']"
       >
         <span class="entry">
@@ -45,10 +43,24 @@
           <span *ngIf="!isCollapsed">Create question</span>
         </span>
       </a>
-      <a mat-list-item (click)="openModal()">
+      
+      <a mat-list-item [matMenuTriggerFor]="menu">
         <span class="entry">
           <mat-icon>extension</mat-icon>
           <span *ngIf="!isCollapsed">Test</span>
+        </span>
+      </a>
+      
+      <mat-menu #menu="matMenu" >
+        <button mat-menu-item *ngFor="let category of categories" (click)="openModal(category)">
+          {{ category.name }}
+        </button>
+      </mat-menu>
+      
+      <a mat-list-item>
+        <span class="entry">
+          <mat-icon>insert_chart_outlined</mat-icon>
+          <span *ngIf="!isCollapsed">Statistics</span>
         </span>
       </a>
     </mat-nav-list>

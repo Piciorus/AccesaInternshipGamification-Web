@@ -6,14 +6,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import { AuthService } from 'src/app/libs/auth/auth.service';
-import { Badge } from 'src/app/libs/models/badge';
-import { User } from 'src/app/libs/models/user.model';
 import { BadgeService } from 'src/app/libs/services/badge.service';
 import { PlayTestComponent } from '../../play-test/play-test.component';
 import { Observable, of } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { CreateQuestionModalComponent } from '../create-question-modal/create-question-modal.component';
+import { Badge } from 'src/app/libs/models/Badge';
+import { User } from 'src/app/libs/models/user';
 
 @Component({
   selector: 'app-statistics',
@@ -29,6 +29,7 @@ export class StatisticsComponent {
   public badgeList: Array<Badge> = [];
   public barBadge: Array<Badge> = [];
   private dialogOpen = false;
+  public circleProgressValue: number = 0;
 
   public constructor(
     private readonly badgeService: BadgeService,
@@ -47,15 +48,21 @@ export class StatisticsComponent {
     });
   }
 
-  private getBadgeFromUser(): void {
+  public calculateProgress(): any {
     const user: User = this.authService.getUser();
-    this.badgeList.push(this.barBadge[0]);
-    if (user.threshold && user.threshold >= 60)
-      this.badgeList.push(this.barBadge[2]);
-    if (user.threshold && user.threshold >= 90)
-      this.badgeList.push(this.barBadge[1]);
+    if (user && user.threshold !== undefined) {
+      if (user.threshold < 100) {
+        return (user.threshold / 100) * 100;
+      } else if (user.threshold >= 100 && user.threshold < 200) {
+        return ((user.threshold - 100) / 100) * 100;
+      } else if (user.threshold >= 200) {
+        return 100;
+      }
+    } else {
+      return 0;
+    }
   }
-
+  position:any='right'
   public openModal(): Observable<boolean | undefined> {
     if (this.dialogOpen) {
       return of();
@@ -78,7 +85,7 @@ export class StatisticsComponent {
     return dialogRef.afterClosed();
   }
 
-  openModalCreateQuestion(): Observable<boolean | undefined> {
+  public openModalCreateQuestion(): Observable<boolean | undefined> {
     if (this.dialogOpen) {
       return of();
     }
@@ -98,5 +105,14 @@ export class StatisticsComponent {
     });
 
     return dialogRef.afterClosed();
+  }
+
+  private getBadgeFromUser(): void {
+    const user: User = this.authService.getUser();
+    this.badgeList.push(this.barBadge[0]);
+    if (user.threshold && user.threshold >= 100)
+      this.badgeList.push(this.barBadge[1]);
+    if (user.threshold && user.threshold >= 200)
+      this.badgeList.push(this.barBadge[2]);
   }
 }

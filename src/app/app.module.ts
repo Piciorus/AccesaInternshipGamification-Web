@@ -17,6 +17,7 @@ import { HasRolesDirective } from './libs/directives/has-roles.directive';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -27,6 +28,7 @@ import { BrowserModule } from '@angular/platform-browser';
     CommonModule,
     FormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {

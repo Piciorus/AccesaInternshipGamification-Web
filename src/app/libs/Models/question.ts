@@ -14,3 +14,8 @@ export class Question {
 export class Category {
   name?: string;
 }
+
+export interface Filters {
+  category?: string[];
+  difficulty?:string[];
+}

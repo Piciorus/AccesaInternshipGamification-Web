@@ -1,16 +1,22 @@
-<form [formGroup]="questForm" class="dialog-form" (ngSubmit)="onCreateQuestionSubmit()">
-
-  <div mat-dialog-title class="title">
-    Create a new question
-  </div>
+<form
+  [formGroup]="questForm"
+  class="dialog-form"
+  (ngSubmit)="onCreateQuestionSubmit()"
+>
+  <div mat-dialog-title class="title">Create a new question</div>
+  <button mat-icon-button class="close-button" (click)="closeModal()">
+    <mat-icon aria-label="Close modal" style="color: red">close</mat-icon>
+  </button>
   <mat-dialog-content>
-
     <input type="hidden" formControlName="$key" />
     <mat-form-field class="example-full-width">
       <mat-label>Questions description</mat-label>
-      <textarea formControlName="questionText" matInput placeholder="Type text.."></textarea>
+      <textarea
+        formControlName="questionText"
+        matInput
+        placeholder="Type text.."
+      ></textarea>
       <mat-error>This field is mandatory.</mat-error>
-
     </mat-form-field>
     <mat-form-field>
       <input formControlName="answer1" matInput placeholder="Answer 1*" />
@@ -25,7 +31,11 @@
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="correctAnswer" matInput placeholder="Correct Answer*" />
+      <input
+        formControlName="correctAnswer"
+        matInput
+        placeholder="Correct Answer*"
+      />
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -37,16 +47,35 @@
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="rewardTokens" matInput placeholder="Reward Tokens*" />
+      <input
+        formControlName="rewardTokens"
+        matInput
+        placeholder="Reward Tokens*"
+      />
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <mat-form-field>
       <input formControlName="category" matInput placeholder="Category" />
     </mat-form-field>
-    
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-raised-button class="button-submit" color="primary" type="submit" [disabled]="questForm.invalid">Submit</button>
-    <button mat-raised-button class="button-submit" color="warn" type="button" (click)="questForm.reset()">Clear</button>
+    <button
+      mat-raised-button
+      class="button-submit"
+      color="primary"
+      type="submit"
+      [disabled]="questForm.invalid"
+    >
+      Submit
+    </button>
+    <button
+      mat-raised-button
+      class="button-submit"
+      color="warn"
+      type="button"
+      (click)="questForm.reset()"
+    >
+      Clear
+    </button>
   </mat-dialog-actions>
 </form>

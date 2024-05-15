@@ -1,19 +1,21 @@
 <div class="sidebar">
   <ul *ngIf="barBadge && barBadge.length > 0">
-    <li *ngIf="statistics?.thresholdUser < 60">
+    <li *ngIf="statistics?.thresholdUser < 100">
       <h2>Badge Progress {{ barBadge[0].name }}</h2>
     </li>
     <li
-      *ngIf="statistics?.thresholdUser >= 60 && statistics?.thresholdUser < 90"
+      *ngIf="
+        statistics?.thresholdUser >= 100 && statistics?.thresholdUser < 200
+      "
     >
-      <h2>Badge Progress {{ barBadge[2].name }}</h2>
-    </li>
-    <li *ngIf="statistics?.thresholdUser >= 90">
       <h2>Badge Progress {{ barBadge[1].name }}</h2>
+    </li>
+    <li *ngIf="statistics?.thresholdUser >= 200">
+      <h2>Badge Progress {{ barBadge[2].name }}</h2>
     </li>
   </ul>
   <circle-progress
-    [percent]="70"
+    [percent]="calculateProgress()"
     [radius]="100"
     [outerStrokeWidth]="16"
     [innerStrokeWidth]="8"
@@ -23,7 +25,19 @@
     [animationDuration]="300"
   ></circle-progress>
 
-  <h2>Your Statistics</h2>
+  <h2>
+    Your Statistics
+
+    <button
+      mat-raised-button
+      matTooltip="Badge are based on the threshold.When 0-100 threshold badge is begginer.For badge intermediate you need to have between 100-200.For badge expert you need to have over 200 threshold."
+      aria-label="Button that displays a tooltip when focused or hovered over"
+      class="tooltip"
+    >
+      Info
+    </button>
+  </h2>
+
   <table>
     <tr>
       <td>Tokens</td>

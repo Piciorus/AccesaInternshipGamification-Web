@@ -6,7 +6,6 @@ import { HomeRoutingModule } from './home-routing.module';
 import { AngularMaterialModule } from 'src/shared/angular-material.module';
 import { QuestlistComponent } from './questlist/questlist.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-import { QuestAnsweredComponent } from './quest-answered/quest-answered.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PlayTestComponent } from '../play-test/play-test.component';
 import { CreateQuestionModalComponent } from './create-question-modal/create-question-modal.component';
@@ -14,13 +13,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSelectModule } from '@angular/material/select';
+import {TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
     HomeComponent,
     QuestlistComponent,
     StatisticsComponent,
-    QuestAnsweredComponent,
     PlayTestComponent,
     CreateQuestionModalComponent,
   ],
@@ -32,6 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
     ReactiveFormsModule,
     MatChipsModule,
     MatDialogModule,
+    MatTooltipModule,
     MatSelectModule,
     NgCircleProgressModule.forRoot({}),
   ],

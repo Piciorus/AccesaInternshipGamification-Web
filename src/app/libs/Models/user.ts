@@ -9,6 +9,11 @@ export class User {
   accessToken?: any;
 }
 
+export class Role{
+  id?:string;
+  name?:string;
+}
+
 export class LoginRequest {
   constructor(public username: string, public password: string) {}
 }

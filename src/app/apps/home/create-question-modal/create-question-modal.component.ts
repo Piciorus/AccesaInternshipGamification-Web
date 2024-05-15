@@ -18,6 +18,7 @@ export class CreateQuestionModalComponent {
   public tokens: any;
   public questList: Array<any> = [];
   public statistics: any;
+  public predictedCategory!: string | null;
 
   public constructor(
     private readonly questService: QuestionService,
@@ -26,6 +27,11 @@ export class CreateQuestionModalComponent {
     private readonly formBuilder: FormBuilder,
     private readonly dialog: MatDialog
   ) {}
+
+  public ngOnInit(): void {
+    this.questForm = this.initForm();
+    this.tokens = this.authService.getUser().tokens;
+  }
 
   public onCreateQuestionSubmit(): void {
     if (this.questForm?.invalid) return;
@@ -42,7 +48,7 @@ export class CreateQuestionModalComponent {
     this.questService.createQuestion(questToSave).subscribe(
       (response) => {
         this.questList.push(response);
-        this.questForm.reset(); // Reset the form state
+        this.questForm.reset();
         this.message = 'Question created successfully';
         this.dialog.closeAll();
       },
@@ -53,29 +59,23 @@ export class CreateQuestionModalComponent {
       }
     );
   }
-  categoryValue: string | null = null; // Initialize categoryValue variable
 
-  public ngOnInit(): void {
-    this.questForm = this.initForm();
-    this.tokens = this.authService.getUser().tokens;
-  }
-
-  onMouseOverCategory() {
-    // Your function logic here
-    const sentence = this.questForm.get('questionText')?.getRawValue();
-
-    // Create request data
+  public onMouseOverCategory() {
     const requestData = {
-      question: sentence,
+      question: this.questForm.get('questionText')?.getRawValue(),
     };
-    // Call your desired function here
+
     this.chatGptService
       .predictCategory(requestData)
       .subscribe((response: any) => {
-          this.categoryValue = response.predicted_category; 
-        
+        this.predictedCategory = response.predicted_category;
       });
   }
+
+  public closeModal() {
+    this.dialog.closeAll();
+  }
+
   private initForm(): FormGroup {
     return this.formBuilder.group({
       questionText: [this.question.questionText, Validators.required],
@@ -88,9 +88,5 @@ export class CreateQuestionModalComponent {
       rewardTokens: [this.question.rewardTokens, Validators.required],
       category: [null],
     });
-  }
-
-  public closeModal() {
-    this.dialog.closeAll();
   }
 }

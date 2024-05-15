@@ -41,6 +41,25 @@ export class QuestsComponent implements OnInit {
     'Checked',
     'Category',
   ];
+  getImagePath(category: string): string {
+    const imageDataItem = this.imageData.find(
+      (item) => item.category === category
+    );
+    return imageDataItem ? imageDataItem.src : ''; // Return the image path if found, otherwise an empty string
+  }
+
+  imageData = [
+    { src: '../../../assets/society.png', category: 'Society & Culture' },
+    { src: '../../../assets/science.png', category: 'Science & Mathematics' },
+    { src: '../../../assets/health.png', category: 'Health' },
+    { src: '../../../assets/education.png', category: 'Education & Reference' },
+    { src: '../../../assets/computer.png', category: 'Computers & Internet' },
+    { src: '../../../assets/sports.png', category: 'Sports' },
+    { src: '../../../assets/business.png', category: 'Business & Finance' },
+    { src: '../../../assets/music.png', category: 'Entertainment & Music' },
+    { src: '../../../assets/family.png', category: 'Family & Relationships' },
+    { src: '../../../assets/politics.png', category: 'Politics & Government' },
+  ];
 
   dataSource = new MatTableDataSource<Quest>();
 
@@ -81,18 +100,17 @@ export class QuestsComponent implements OnInit {
   onCheckboxChange(checked: boolean, id: any, element: any) {
     console.log(element);
     if (checked) {
-
-    const updateQuestionRequest: any = {
-      questionText: element.questionText,
-      answer1: element.answer1,
-      answer2: element.answer2,
-      answer3: element.answer3,
-      correctAnswer: element.correctAnswer,
-      difficulty: element.difficulty,
-      threshold: element.threshold,
-      rewardTokens: element.rewardTokens,
-      checkedByAdmin: true,
-    };
+      const updateQuestionRequest: any = {
+        questionText: element.questionText,
+        answer1: element.answer1,
+        answer2: element.answer2,
+        answer3: element.answer3,
+        correctAnswer: element.correctAnswer,
+        difficulty: element.difficulty,
+        threshold: element.threshold,
+        rewardTokens: element.rewardTokens,
+        checkedByAdmin: true,
+      };
       this.questionService.updateQuestion(id, updateQuestionRequest).subscribe(
         (response) => {
           console.log('Question updated successfully', response);
@@ -101,7 +119,7 @@ export class QuestsComponent implements OnInit {
           console.error('Error updating question', error);
         }
       );
-    }else{
+    } else {
       const updateQuestionRequest: any = {
         questionText: element.questionText,
         answer1: element.answer1,
@@ -113,14 +131,14 @@ export class QuestsComponent implements OnInit {
         rewardTokens: element.rewardTokens,
         checkedByAdmin: false,
       };
-        this.questionService.updateQuestion(id, updateQuestionRequest).subscribe(
-          (response) => {
-            console.log('Question updated successfully', response);
-          },
-          (error) => {
-            console.error('Error updating question', error);
-          }
-        );
+      this.questionService.updateQuestion(id, updateQuestionRequest).subscribe(
+        (response) => {
+          console.log('Question updated successfully', response);
+        },
+        (error) => {
+          console.error('Error updating question', error);
+        }
+      );
     }
   }
 }

@@ -1,53 +1,65 @@
-@media screen and (max-width: 1649px) {
-  .styled-table {
-    padding: 17%;
-    padding-bottom: 0;
-  }
+.gui-budget {
+	justify-content: flex-end;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	height: 100%;
+	width: 100%;
 }
 
-@media only screen and (max-width: 1300px) and (min-width: 900px) {
-  .styled-table {
-    padding: 25%;
-    overflow-y: auto;
-    padding-bottom: 0;
-  }
-}
-@media only screen and (min-width: 601px) and (max-width: 900px) {
-  .styled-table {
-    padding: 40%;
-    overflow-y: auto;
-    padding-bottom: 0;
-  }
+.gui-user-info {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: stretch;
+	align-content: center;
+	justify-content: center;
+	margin-left: 10px;
 }
 
-.styled-table {
-  padding: 8%;
-  padding-bottom: 0;
-  
+.gui-user-info-name {
+	padding-bottom: 4px;
 }
 
-@media screen and (max-width: 1649px) {
-  .styled-table {
-    padding: 17%;
-    padding-bottom: 0;
-  }
+.gui-user-info-position {
+	color: #606060;
+	font-style: italic;
+	font-size: 13px;
+	overflow: hidden;
 }
 
-@media only screen and (max-width: 1300px) and (min-width: 900px) {
-  .styled-table {
-    padding: 25%;
-    overflow-y: auto;
-    padding-bottom: 0;
-  }
-}
-@media only screen and (min-width: 601px) and (max-width: 900px) {
-  .styled-table {
-    padding: 40%;
-    overflow-y: auto;
-    padding-bottom: 0;
-  }
+.gui-team {
+	border-radius: 50%;
+	color: white;
+	display: inline-block;
+	font-weight: bold;
+	height: 30px;
+	width: 30px;
+	text-align: center;
+	line-height: 30px;
 }
 
-.bold {
-  font-weight: bold;
+.gui-user-wrapper {
+	width: 30px;
+	height: 30px;
+	margin-right: 8px;
+	display: flex;
+}
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 14px; /* Adjust the font size here */
+}
+
+.gui-user-img {
+	width: 100%;
+	min-height: 100%;
+	display: block;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
 }

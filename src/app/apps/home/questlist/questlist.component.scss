@@ -1,19 +1,34 @@
 .answers {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .answers mat-checkbox {
-    margin-bottom: 8px; /* Adjust as needed */
-  }
-  .create-quest-button{
-    margin-top: 20px;
-  }
+  display: flex;
+  flex-direction: column;
 
-  .mat-select{
-    margin-left: 1.5rem;
-  }
+}
 
-  .icon-clear{
-    margin-left: 0.5rem;
-  }
+.answers mat-checkbox {
+  margin-bottom: 8px;
+}
+
+
+.create-quest-button {
+  margin-top: 20px;
+  margin-left: 3rem;
+}
+
+.submit-button {
+  margin-top: 20px;
+}
+
+.mat-select {
+  margin-left: 1.5rem;
+}
+
+.icon-clear {
+  margin-left: 0.5rem;
+}
+
+.threshold {
+  display: inline-block;
+  margin-left: 2rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+}

@@ -1,6 +1,6 @@
 // play-test.component.ts
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { ChatGptService } from 'src/app/libs/services/chatgpt.service';
@@ -25,8 +25,12 @@ export class PlayTestComponent implements OnInit {
   constructor(
     private readonly questionService: QuestionService,
     private readonly chatGptService: ChatGptService,
-    private dialogRef: MatDialogRef<PlayTestComponent>
-  ) {}
+    private dialogRef: MatDialogRef<PlayTestComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    console.log('Selected category:', this.data.selectedCategory);
+
+  }
 
   public ngOnInit(): void {
     this.initQuestions();
@@ -34,7 +38,7 @@ export class PlayTestComponent implements OnInit {
 
   initQuestions() {
     this.questionService
-      .getAllQuestions()
+      .getAllQuestions(this.data.selectedCategory.name)
       .pipe(take(1))
       .subscribe((response: { answer1: any; answer2: any; answer3: any }[]) => {
         this.questionList = response.map(

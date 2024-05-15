@@ -1,4 +1,7 @@
 <div class="main-container" *ngIf="questionList.length > 0">
+  <button mat-icon-button class="close-button" (click)="closeModal()">
+    <mat-icon aria-label="Close modal" style="color: red;">close</mat-icon>
+  </button>
   <ng-container *ngIf="!showResults; else resultSection">
     <!-- Main content -->
     <p class="question-counter">

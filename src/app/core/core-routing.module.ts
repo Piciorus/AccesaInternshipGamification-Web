@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
-import { QuestAnsweredComponent } from '../apps/home/quest-answered/quest-answered.component';
 
 const routes: Routes = [
   {
@@ -23,8 +22,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('../apps/quests/quests.module').then((m) => m.QuestsModule),
       },
-      { path: 'questanswered', component: QuestAnsweredComponent },
-
       {
         path: '**',
         redirectTo: 'error',

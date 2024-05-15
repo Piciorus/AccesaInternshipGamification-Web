@@ -28,6 +28,7 @@ export class LoginComponent {
         .subscribe((response:any)=>{
           if (response) {
             this.authorizationService.getUserRoles();
+            console.log(this.authService.getUser())
             this.authService.setUser(this.authService.getUser())
             this.router.navigateByUrl('/app/home');
 

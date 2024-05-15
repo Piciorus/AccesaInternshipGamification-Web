@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { take } from 'rxjs';
-import { User } from 'src/app/libs/models/user.model';
 import { AuthService } from 'src/app/libs/auth/auth.service';
-import { Quest } from 'src/app/libs/models/quest';
 import { QuestService } from 'src/app/libs/services/quest.service';
 import { BadgeService } from 'src/app/libs/services/badge.service';
+import { Quest } from 'src/app/libs/models/quest';
+import { User } from 'src/app/libs/models/user';
 
 @Component({
   selector: 'app-home',
@@ -17,22 +17,15 @@ export class HomeComponent implements OnInit {
 
   public constructor(
     private readonly questService: QuestService,
-    private readonly authService: AuthService,
+    private readonly authService: AuthService
   ) {}
 
   public ngOnInit(): void {
-
     this.updateStatistics('updateStatistics');
   }
 
   public updateStatistics(event: any): void {
     if (event === 'updateStatistics') {
-      this.questService
-        .getQuests()
-        .pipe(take(1))
-        .subscribe((response) => {
-          this.questList = response;
-        });
       this.authService
         .getMe()
         .pipe(take(1))
