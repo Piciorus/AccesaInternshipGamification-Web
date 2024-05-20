@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { RefreshTokenResponse } from '../models/refresh-token-response';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,7 @@ export class AuthService {
       .pipe(
         map((user: any) => {
           localStorage.setItem('token', JSON.stringify(user.jwttoken));
+          localStorage.setItem('refreshToken', JSON.stringify(user.refreshToken));
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.userSubject.next(user);
           return user;
@@ -33,6 +35,9 @@ export class AuthService {
       );
   }
 
+  isLoggedIn(): boolean {
+    return this.userSubject.getValue() != null;
+  }
   public register(
     username: string,
     password: string,
@@ -49,6 +54,7 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('token');
     localStorage.removeItem('tokens');
+    localStorage.removeItem('refreshToken');
     this.router.navigateByUrl('/auth/login');
   }
 
@@ -57,7 +63,20 @@ export class AuthService {
       this.basePath + '/users/getUserById/' + this.userSubject.getValue().id
     );
   }
-
+  refreshAccessToken(): Observable<any> {
+    const refreshToken = localStorage.getItem('refreshToken');
+    console.log("refersh")
+    return this.http.post<any>(`${this.basePath}/auth/refreshtoken`, { refreshToken }).pipe(
+      tap((response: { accessToken: string; }) => {
+        console.log(response)
+        localStorage.setItem('accessToken', response.accessToken);
+      }),
+      catchError((error) => {
+        console.error('Error refreshing access token:', error);
+        return throwError(error);
+      })
+    );
+  }
   public setUser(user: User): void {
     this.userSubject.next(user);
     localStorage.setItem('currentUser', JSON.stringify(user));

@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   GuiCellView,
   GuiColumn,
@@ -13,6 +7,7 @@ import {
   GuiPagingDisplay,
   GuiRowColoring,
 } from '@generic-ui/ngx-grid';
+import { AuthService } from 'src/app/libs/auth/auth.service';
 import { User } from 'src/app/libs/models/user';
 import { UserService } from 'src/app/libs/services/user.service';
 
@@ -23,82 +18,6 @@ import { UserService } from 'src/app/libs/services/user.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class RankingComponent implements OnInit {
-  users: User[] = [];
-  coloring = GuiRowColoring.ODD;
-  source: Array<any> = [];
-  sorting = {
-    enabled: true,
-    multiSorting: true,
-  };
-  columnMenu = {
-    enabled: true,
-    columnsManager: true,
-  };
-  paging: GuiPaging = {
-    enabled: true,
-    page: 1,
-    pageSize: 10,
-    pageSizes: [5, 10, 25, 50],
-    display: GuiPagingDisplay.ADVANCED,
-  };
-  randomColors: string[] = [];
-
-  constructor(
-    private readonly userService: UserService,
-    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
-  ) {}
-
-  public getAllUser(): void {
-    this.userService.getAllUsers().subscribe((response: User[]) => {
-      this.source = response;
-    });
-  }
-
-  getInitials(name: string): string {
-    const initials = name.substr(0, 2); // Get the first two characters of the name
-    return initials.toUpperCase();
-  }
-  ngOnInit() {
-    this.userService.getAllUsers().subscribe((response: User[]) => {
-      this.source = response;
-      console.log('Source:', this.source);
-      // Generate random colors
-      this.randomColors = this.generateRandomColors(this.source.length);
-      console.log('Random colors:', this.randomColors);
-    });
-  }
-  
-  
-  generateRandomColors(count: number): string[] {
-    const colors = [
-      '#2196F3',
-      '#4CAF50',
-      '#FF9800',
-      '#9C27B0',
-      '#673AB7',
-      '#FF5722',
-      '#795548',
-      '#607D8B',
-    ];
-    const randomColors = [];
-    for (let i = 0; i < count; i++) {
-      const colorIndex = Math.floor(Math.random() * colors.length);
-      randomColors.push(colors[colorIndex]);
-    }
-    return randomColors;
-  }
-  
-  backgroundColor: string = '';
-
-  getRandomColor(rowIndex: number): string {
-    console.log('lista de culori',this.randomColors)
-    console.log('index',rowIndex)
-    console.log('sa vedem',this.randomColors[rowIndex])
-    const randomIndex = Math.floor(Math.random() * this.randomColors.length);
-    return this.randomColors[randomIndex];  }
-  
-  
-
   columns: Array<GuiColumn> = [
     {
       field: (item) => item,
@@ -106,23 +25,38 @@ export class RankingComponent implements OnInit {
       type: GuiDataType.STRING,
       view: (cellValue: any) => {
         const initials = this.getInitials(cellValue.username);
-        // const backgroundColor = this.getRandomColor(cellValue.username);
-        // console.log(backgroundColor)
+        const name = this.authService.getUser().username;
+
+        this.loggedInUser = this.source.find((user) => user.username === name);
         let template = `
-          <div class="user-avatar" style="background-color: ${cellValue.avatar}">
+          <div class="user-avatar" style="background-color: ${
+            cellValue.avatar
+          }">
             <span>${initials}</span>
           </div>
-          <div class="gui-user-info">
-            <span class="gui-user-info-name">${cellValue.username}</span>
-            <span class="gui-user-info-position">${cellValue.email}</span>
+          <div class="gui-user-info ${
+            this.loggedInUser &&
+            cellValue.username === this.loggedInUser.username
+              ? 'logged-in'
+              : ''
+          }">
+            <span class="gui-user-info-name ${
+              this.loggedInUser &&
+              cellValue.username === this.loggedInUser.username
+                ? 'logged-in'
+                : ''
+            }"">${cellValue.username}</span>
+            <span class="gui-user-info-position ${
+              this.loggedInUser &&
+              cellValue.username === this.loggedInUser.username
+                ? 'logged-in'
+                : ''
+            }""${cellValue.username}">${cellValue.email}</span>
           </div>
         `;
         return template;
       },
-      
-      sorting: {
-        enabled: true,
-      },
+
       cellEditing: {
         enabled: false,
       },
@@ -141,7 +75,7 @@ export class RankingComponent implements OnInit {
       field: 'threshold',
       header: 'Threshold',
       type: GuiDataType.STRING,
-      view: GuiCellView.ITALIC,
+      view: GuiCellView.TEXT,
       cellEditing: {
         enabled: true,
       },
@@ -162,4 +96,65 @@ export class RankingComponent implements OnInit {
       },
     },
   ];
+  users: User[] = [];
+  coloring = GuiRowColoring.ODD;
+  source: Array<any> = [];
+  sorting = {
+    enabled: true,
+  };
+  columnMenu = {
+    enabled: true,
+    columnsManager: true,
+  };
+  paging: GuiPaging = {
+    enabled: true,
+    page: 1,
+    pageSize: 10,
+    pageSizes: [5, 10, 25, 50],
+    display: GuiPagingDisplay.ADVANCED,
+  };
+  randomColors: string[] = [];
+  loggedInUser: any;
+
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.getAllUser();
+  }
+
+  private generateRandomColors(count: number): string[] {
+    const colors = [
+      '#2196F3',
+      '#4CAF50',
+      '#FF9800',
+      '#9C27B0',
+      '#673AB7',
+      '#FF5722',
+      '#795548',
+      '#607D8B',
+    ];
+    const randomColors = [];
+    for (let i = 0; i < count; i++) {
+      const colorIndex = Math.floor(Math.random() * colors.length);
+      randomColors.push(colors[colorIndex]);
+    }
+    return randomColors;
+  }
+
+  private getInitials(name: string): string {
+    const initials = name.substr(0, 2);
+    return initials.toUpperCase();
+  }
+
+  private getAllUser(): void {
+    this.userService.getAllUsers().subscribe((response: User[]) => {
+      this.source = response;
+      this.randomColors = this.generateRandomColors(this.source.length);
+      const name = this.authService.getUser().username;
+      this.loggedInUser = this.source.find((user) => user.username === name);
+    });
+  }
 }

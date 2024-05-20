@@ -23,6 +23,11 @@ const routes: Routes = [
           import('../apps/quests/quests.module').then((m) => m.QuestsModule),
       },
       {
+        path: 'history',
+        loadChildren: () =>
+          import('../apps/history/history.module').then((m) => m.HistoryModule),
+      },
+      {
         path: '**',
         redirectTo: 'error',
       },

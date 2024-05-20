@@ -1,0 +1,11 @@
+.chart-section {
+  flex: 1; /* Allow chart section to take equal space */
+  display: flex;
+  justify-content: center; /* Center align the chart inside the chart-section */
+  align-items: center; /* Align items in the center vertically */
+}
+
+#chart {
+  width: 100%; /* Ensure the chart takes full width */
+  max-width: 600px; /* Limit the max width of the chart */
+}

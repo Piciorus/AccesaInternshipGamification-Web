@@ -7,16 +7,15 @@ import { RouterModule } from '@angular/router';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AngularMaterialModule } from 'src/shared/angular-material.module';
 
-
 @NgModule({
-  declarations: [LoginComponent,RegisterComponent],
-  imports: [CommonModule, 
+  declarations: [LoginComponent, RegisterComponent],
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
-    FormsModule, 
-    RouterModule, 
+    FormsModule,
+    RouterModule,
     AuthRoutingModule,
-    AngularMaterialModule
-    
+    AngularMaterialModule,
   ],
 })
-export class AuthModule { }
+export class AuthModule {}

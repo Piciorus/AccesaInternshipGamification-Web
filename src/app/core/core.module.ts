@@ -10,6 +10,7 @@ import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MenuModule } from '@syncfusion/ej2-angular-navigations';
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -21,6 +22,7 @@ import { MatListModule } from '@angular/material/list';
     HasRolesDirective,
     NavbarModule,
     WavesModule,
+    MenuModule,
     ButtonsModule,
     MdbCheckboxModule,
     MatDialogModule,

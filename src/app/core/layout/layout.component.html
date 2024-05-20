@@ -3,9 +3,26 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span class="spacer"></span>
-  <div class="username">{{ username }}</div>
+  <mat-icon
+    style="margin-right: 0.5rem"
+    mat-button
+    [matMenuTriggerFor]="animals"
+    (mouseenter)="openMenu(menuTrigger)"
+    #menuTrigger="matMenuTrigger"
+    >person</mat-icon
+  >
+  <mat-menu #animals="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="vertebrates">Language</button>
+    <button mat-menu-item [routerLink]="['/app/history']">History</button>
+    <button mat-menu-item (click)="logout()">Log out</button>
+  </mat-menu>
 
-  <mat-icon (click)="logout()">exit_to_app</mat-icon>
+  <mat-menu #vertebrates="matMenu">
+    <button mat-menu-item><span class="fi fi-gb"></span> English</button>
+    <button mat-menu-item><span class="fi fi-ro"></span> Romana</button>
+  </mat-menu>
+
+  <div class="username">{{ username }}</div>
 </mat-toolbar>
 
 <mat-sidenav-container autosize>
@@ -27,11 +44,7 @@
           <span *ngIf="!isCollapsed">Ranking</span>
         </span>
       </a>
-      <a
-        mat-list-item
-        *ngIf="isAdmin"
-        [routerLink]="['/app/quests']"
-      >
+      <a mat-list-item *ngIf="isAdmin" [routerLink]="['/app/quests']">
         <span class="entry">
           <mat-icon>question_answer</mat-icon>
           <span *ngIf="!isCollapsed">Quests</span>
@@ -43,24 +56,26 @@
           <span *ngIf="!isCollapsed">Create question</span>
         </span>
       </a>
-      
+
       <a mat-list-item [matMenuTriggerFor]="menu">
         <span class="entry">
           <mat-icon>extension</mat-icon>
           <span *ngIf="!isCollapsed">Test</span>
         </span>
       </a>
-      
-      <mat-menu #menu="matMenu" >
-        <button mat-menu-item *ngFor="let category of categories" (click)="openModal(category)">
+      <mat-menu #menu="matMenu" xPosition="after">
+        <button
+          mat-menu-item
+          *ngFor="let category of categories"
+          (click)="openModal(category)"
+        >
           {{ category.name }}
         </button>
       </mat-menu>
-      
-      <a mat-list-item>
+      <a mat-list-item [routerLink]="['/app/history']">
         <span class="entry">
           <mat-icon>insert_chart_outlined</mat-icon>
-          <span *ngIf="!isCollapsed">Statistics</span>
+          <span *ngIf="!isCollapsed">History</span>
         </span>
       </a>
     </mat-nav-list>

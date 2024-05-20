@@ -10,7 +10,7 @@
     >
       <h2>Badge Progress {{ barBadge[1].name }}</h2>
     </li>
-    <li *ngIf="statistics?.thresholdUser >= 200">
+    <li *ngIf="statistics?.thresholdUser > 200">
       <h2>Badge Progress {{ barBadge[2].name }}</h2>
     </li>
   </ul>

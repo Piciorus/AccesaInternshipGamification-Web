@@ -1,20 +1,32 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Inject,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSidenav } from '@angular/material/sidenav';
+import { MenuItemModel } from '@syncfusion/ej2-angular-navigations';
+import { ToastrService } from 'ngx-toastr';
 import {
   Observable,
   Subscription,
   filter,
   fromEvent,
   of,
+  take,
   throttleTime,
 } from 'rxjs';
 import { CreateQuestionModalComponent } from 'src/app/apps/home/create-question-modal/create-question-modal.component';
 import { PlayTestComponent } from 'src/app/apps/play-test/play-test.component';
+import { QuestsComponent } from 'src/app/apps/quests/quests.component';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { ERole } from 'src/app/libs/models/erole';
+import { CategoryService } from 'src/app/libs/services/category.service';
 
 @Component({
   selector: 'app-layout',
@@ -33,9 +45,10 @@ export class LayoutComponent {
     private observer: BreakpointObserver,
     private readonly authService: AuthService,
     private elementRef: ElementRef,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly categoryService: CategoryService,
+    private readonly toastr: ToastrService
   ) {}
-
   public logout(): void {
     this.authService.logout();
   }
@@ -47,6 +60,9 @@ export class LayoutComponent {
   }
   isOpen = false;
   resize: Subscription;
+  openMenu(menuTrigger: MatMenuTrigger) {
+    menuTrigger.openMenu();
+  }
 
   /**
    * Listens for a click in document and then check for isOpen to be true.
@@ -68,6 +84,59 @@ export class LayoutComponent {
       user.roles.some((role: any) => role.name === ERole.Admin)
     );
   }
+
+  // Menu items definition
+  public menuItems: MenuItemModel[] = [
+    {
+      text: 'File',
+      iconCss: 'em-icons e-file',
+      items: [
+        { text: 'Open', iconCss: 'em-icons e-open' },
+        { text: 'Save', iconCss: 'em-icons e-save' },
+        { separator: true },
+        { text: 'Exit' },
+      ],
+    },
+    {
+      text: 'Edit',
+      iconCss: 'em-icons e-edit',
+      items: [
+        { text: 'Cut', iconCss: 'em-icons e-cut' },
+        { text: 'Copy', iconCss: 'em-icons e-copy' },
+        { text: 'Paste', iconCss: 'em-icons e-paste' },
+      ],
+    },
+    {
+      text: 'View',
+      items: [
+        {
+          text: 'Toolbars',
+          items: [
+            { text: 'Menu Bar' },
+            { text: 'Bookmarks Toolbar' },
+            { text: 'Customize' },
+          ],
+        },
+        {
+          text: 'Zoom',
+          items: [{ text: 'Zoom In' }, { text: 'Zoom Out' }, { text: 'Reset' }],
+        },
+        { text: 'Full Screen' },
+      ],
+    },
+    {
+      text: 'Tools',
+      items: [
+        { text: 'Spelling & Grammar' },
+        { text: 'Customize' },
+        { separator: true },
+        { text: 'Options' },
+      ],
+    },
+    {
+      text: 'Help',
+    },
+  ];
   ngOnInit() {
     this.getUser();
     this.userSubscription = this.authService.user.subscribe((user) => {
@@ -90,6 +159,7 @@ export class LayoutComponent {
         this.isMobile = false;
       }
     });
+    this.initCategories();
   }
 
   checkIfNavDropDown() {
@@ -116,38 +186,28 @@ export class LayoutComponent {
       this.isCollapsed = !this.isCollapsed;
     }
   }
-
-  @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
-  categories: any[] = [
-    { id: '67d61204-f4e5-4c14-8d18-e8a3cfcc3c1e', name: 'Society & Culture' },
-    {
-      id: '3a847d75-4584-467e-b34b-83cf467d9259',
-      name: 'Science & Mathematics',
-    },
-    { id: 'd167f742-44fb-4a74-9399-8396bf65a5a4', name: 'Health' },
-    {
-      id: 'e5956468-bfda-43cb-9bde-e6f57633702c',
-      name: 'Education & Reference',
-    },
-    {
-      id: 'bba75ce0-4fb4-42bd-a110-d4e92b743550',
-      name: 'Computers & Internet',
-    },
-    { id: 'd19ff812-9ec5-4eaa-b971-6aabfd61314c', name: 'Sports' },
-    { id: '42bdd086-d384-451a-9357-899a8d51fdd7', name: 'Business & Finance' },
-    {
-      id: '67dbd6d6-5952-4f50-b5ce-3d111d0a06a6',
-      name: 'Entertainment & Music',
-    },
-    {
-      id: '5f47cc48-ccba-4790-902a-16d98bf81c81',
-      name: 'Family & Relationships',
-    },
-    {
-      id: 'b67945ad-3d73-449b-8824-baa08c9479b6',
-      name: 'Politics & Government',
-    },
+  imageData = [
+    { src: '../../../assets/society.png', category: 'Society & Culture' },
+    { src: '../../../assets/science.png', category: 'Science & Mathematics' },
+    { src: '../../../assets/health.png', category: 'Health' },
+    { src: '../../../assets/education.png', category: 'Education & Reference' },
+    { src: '../../../assets/computer.png', category: 'Computers & Internet' },
+    { src: '../../../assets/sports.png', category: 'Sports' },
+    { src: '../../../assets/business.png', category: 'Business & Finance' },
+    { src: '../../../assets/music.png', category: 'Entertainment & Music' },
+    { src: '../../../assets/family.png', category: 'Family & Relationships' },
+    { src: '../../../assets/politics.png', category: 'Politics & Government' },
   ];
+  @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
+  public initCategories() {
+    this.categoryService
+      .getAllCategories()
+      .pipe(take(1))
+      .subscribe((response: any[]) => {
+        this.categories = response;
+      });
+  }
+  categories: any[] = [];
   selectCategory(category: any): void {
     // console.log('Selected category:', category);
     this.menuTrigger.closeMenu();
@@ -156,7 +216,6 @@ export class LayoutComponent {
     if (this.dialogOpen) {
       return of();
     }
-
     const dialogRef: MatDialogRef<PlayTestComponent, boolean> =
       this.dialog.open(PlayTestComponent, {
         width: '35rem',
@@ -175,25 +234,11 @@ export class LayoutComponent {
     return dialogRef.afterClosed();
   }
 
-  openModalCreateQuestion(): Observable<boolean | undefined> {
-    if (this.dialogOpen) {
-      return of();
-    }
-
+  openModalCreateQuestion(): any {
     const dialogRef: MatDialogRef<CreateQuestionModalComponent, boolean> =
       this.dialog.open(CreateQuestionModalComponent, {
         width: '38rem',
         disableClose: true,
       });
-
-    dialogRef.afterOpened().subscribe(() => {
-      this.dialogOpen = true;
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.dialogOpen = false;
-    });
-
-    return dialogRef.afterClosed();
   }
 }

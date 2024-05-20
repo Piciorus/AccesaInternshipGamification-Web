@@ -1,19 +1,19 @@
 import {
   Component,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
   ViewChild,
 } from '@angular/core';
-import { AuthService } from 'src/app/libs/auth/auth.service';
-import { BadgeService } from 'src/app/libs/services/badge.service';
-import { PlayTestComponent } from '../../play-test/play-test.component';
-import { Observable, of } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
-import { CreateQuestionModalComponent } from '../create-question-modal/create-question-modal.component';
+import { Observable, of } from 'rxjs';
+import { AuthService } from 'src/app/libs/auth/auth.service';
 import { Badge } from 'src/app/libs/models/Badge';
 import { User } from 'src/app/libs/models/user';
+import { BadgeService } from 'src/app/libs/services/badge.service';
+import { PlayTestComponent } from '../../play-test/play-test.component';
+import { CreateQuestionModalComponent } from '../create-question-modal/create-question-modal.component';
 
 @Component({
   selector: 'app-statistics',
@@ -28,7 +28,7 @@ export class StatisticsComponent {
 
   public badgeList: Array<Badge> = [];
   public barBadge: Array<Badge> = [];
-  private dialogOpen = false;
+  public dialogOpen = false;
   public circleProgressValue: number = 0;
 
   public constructor(
@@ -62,7 +62,7 @@ export class StatisticsComponent {
       return 0;
     }
   }
-  position:any='right'
+
   public openModal(): Observable<boolean | undefined> {
     if (this.dialogOpen) {
       return of();

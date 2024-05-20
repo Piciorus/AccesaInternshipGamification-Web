@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { Category } from 'src/app/libs/models/category';
-import { Filters } from 'src/app/libs/models/question';
+import { Filters, UserAnswerRequest } from 'src/app/libs/models/question';
 import { User } from 'src/app/libs/models/user';
 import { CategoryService } from 'src/app/libs/services/category.service';
 import { QuestionService } from 'src/app/libs/services/question.service';
@@ -50,9 +50,9 @@ export class QuestlistComponent implements OnInit {
   }
 
   public clearSelections() {
-    this.selectedCategory.reset(null); 
-    this.selectedDifficulty.reset(null); 
-    this.initQuestions(); 
+    this.selectedCategory.reset(null);
+    this.selectedDifficulty.reset(null);
+    this.initQuestions();
   }
 
   public onSelectionChange(event: any): void {
@@ -76,23 +76,40 @@ export class QuestlistComponent implements OnInit {
     this._liveAnnouncer.announce(`Next question: ${nextQuestionText}`);
   }
 
+  public backQuestion(): void {
+    this.currentQuestionIndex--;
+
+    if (this.currentQuestionIndex >= this.questionsList.length) {
+      this.currentQuestionIndex = 0;
+    }
+
+    const nextQuestionText =
+      this.questionsList[this.currentQuestionIndex].questionText;
+    this._liveAnnouncer.announce(`Next question: ${nextQuestionText}`);
+  }
+
   submitAnswer() {
     const selectedAnswer = this.answerForm.value.selectedAnswer;
     const currentQuestion = this.questionsList[this.currentQuestionIndex];
 
     if (!selectedAnswer) {
-      console.log('Please select an answer before submitting.');
+      this.toastr.error('Please select an answer before submitting!');
       return;
     }
 
     const isCorrect = currentQuestion.correctAnswer === selectedAnswer;
     const idQuestion = currentQuestion.id;
     const id = this.authService.getUser().id;
+    const request = {
+      userAnswer: selectedAnswer,
+    };
 
     if (isCorrect) {
       this.updateThreshold(idQuestion, id);
+      this.resolveQuestionForUser(id, idQuestion, request);
       this.toastr.success('Correct answer!');
     } else {
+      this.resolveQuestionForUser(id, idQuestion, request);
       this.toastr.error('Incorect answer!');
     }
 
@@ -110,6 +127,17 @@ export class QuestlistComponent implements OnInit {
         this.authService.setUser(user);
         this.newItemEvent.emit('updateStatistics');
       });
+  }
+
+  public resolveQuestionForUser(
+    idUser: number,
+    idQuestion: number,
+    userAnswer: UserAnswerRequest
+  ) {
+    this.questionService
+      .markResolvedQuestion(idUser, idQuestion, userAnswer)
+      .subscribe(() => {});
+    this.update();
   }
 
   public updateThreshold(idQuestion: number, idUser: number) {
@@ -153,9 +181,10 @@ export class QuestlistComponent implements OnInit {
   public initQuestions() {
     const category = this.selectedCategory.value;
     const difficulty = this.selectedDifficulty.value;
+    const id = this.authService.getUser().id;
 
     this.questionService
-      .getAllQuestions(category, difficulty)
+      .getUnansweredQuestionsForUser(id, category, difficulty)
       .pipe(take(1))
       .subscribe((response: any[]) => {
         const transformedData: any[] = response.map((item) => ({
@@ -172,7 +201,8 @@ export class QuestlistComponent implements OnInit {
         }));
         this.questionsList = transformedData.filter(
           (question) => question.checkByAdmin
-        );
+        );        console.log(this.questionsList)
+
       });
   }
 

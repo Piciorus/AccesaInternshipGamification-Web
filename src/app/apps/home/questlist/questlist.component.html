@@ -1,115 +1,150 @@
-<mat-form-field>
-  <mat-label>Select Category</mat-label>
-  <mat-select
-    [formControl]="selectedCategory"
-    (selectionChange)="onSelectionChange($event)"
-  >
-    <mat-option [value]="null">None</mat-option> <!-- Add this option for deselecting -->
-    <mat-option *ngFor="let category of categories" [value]="category.name">
-      {{ category.name }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title-group>
+      <img
+        mat-card-avatar
+        src="https://cdn-icons-png.freepik.com/512/2762/2762403.png"
+        alt="Quiz Image"
+      />
+      <mat-card-title style="margin-left: 3rem; margin-bottom: 1rem"
+        >Knowledge Quiz</mat-card-title
+      >
+      <mat-card-subtitle style="margin-bottom: 1.5rem; font-size: 1rem"
+        >This interactive quiz is designed for learning purposes. Select your
+        options and answer the questions to test your
+        knowledge.</mat-card-subtitle
+      >
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field style="margin-left: 0.5rem; margin-top: 0.5rem">
+      <mat-label>Select Category</mat-label>
+      <mat-select
+        [formControl]="selectedCategory"
+        (selectionChange)="onSelectionChange($event)"
+      >
+        <mat-option [value]="null">None</mat-option>
+        <mat-option *ngFor="let category of categories" [value]="category.name">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-<mat-form-field class="mat-select">
-  <mat-label>Select Difficulty</mat-label>
-  <mat-select
-    [formControl]="selectedDifficulty"
-    (selectionChange)="onSelectionChange($event)"
-  >
-  <mat-option [value]="null">None</mat-option> <!-- Add this option for deselecting -->
-    <mat-option value="Easy">Easy</mat-option>
-    <mat-option value="Medium">Medium</mat-option>
-    <mat-option value="Hard">Hard</mat-option>
-  </mat-select>
-</mat-form-field>
-<button
-  *ngIf="selectedDifficulty.value || selectedCategory.value"
-  mat-icon-button
-  matSuffix
-  class="icon-clear"
-  (click)="clearSelections()"
->
-  <mat-icon aria-label="Clear" [style.color]="'red'">clear</mat-icon>
-</button>
+    <mat-form-field class="mat-select">
+      <mat-label>Select Difficulty</mat-label>
+      <mat-select
+        [formControl]="selectedDifficulty"
+        (selectionChange)="onSelectionChange($event)"
+      >
+        <mat-option [value]="null">None</mat-option>
+        <mat-option value="Easy">Easy</mat-option>
+        <mat-option value="Medium">Medium</mat-option>
+        <mat-option value="Hard">Hard</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 mr-5">
-      <!-- Adjust the column size according to your preference -->
-      <form [formGroup]="answerForm">
-        <div *ngIf="questionsList.length > 0" class="question-row">
-          <div class="mb-4">
-            <h1 style="display: inline-block">
-              {{ questionsList[currentQuestionIndex]?.questionText }}
-            </h1>
-            <span
-              class="text-muted small threshold"
-              style="display: inline-flex; align-items: center; font-size: 18px"
-            >
-              <img
-                src="../../../assets/trophy.png"
-                alt="image"
-                style="width: 40px; height: 40px; margin-right: 10px"
-              />
-              Threshold: {{ questionsList[currentQuestionIndex]?.threshold }}
-            </span>
-            <span
-              class="text-muted small threshold"
-              style="display: inline-flex; align-items: center; font-size: 18px"
-            >
-              <img
-                src="../../../assets/token.png"
-                alt="image"
-                style="width: 40px; height: 40px; margin-right: 10px"
-              />
-              Tokens:
-              {{ questionsList[currentQuestionIndex]?.questRewardTokens }}
-            </span>
-          </div>
+    <button
+      *ngIf="selectedDifficulty.value || selectedCategory.value"
+      mat-icon-button
+      matSuffix
+      class="icon-clear"
+      (click)="clearSelections()"
+    >
+      <mat-icon aria-label="Clear" [style.color]="'red'">clear</mat-icon>
+    </button>
 
-          <div class="answers">
-            <div
-              *ngFor="
-                let answer of questionsList[currentQuestionIndex]?.answers
-              "
-            >
-              <mat-checkbox
-                [checked]="answer === selectedAnswer"
-                (change)="updateSelectedAnswer(answer)"
-                [id]="answer"
-                [name]="questionsList[currentQuestionIndex]?.id"
+    <div class="container questions">
+      <div class="row">
+        <div class="col-md-8 mr-5">
+          <form [formGroup]="answerForm">
+            <div *ngIf="questionsList.length > 0" class="question-row">
+              <h2 style="display: inline-block">
+                {{ questionsList[currentQuestionIndex]?.questionText }}
+              </h2>
+              <span
+                class="text-muted small threshold"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  font-size: 18px;
+                "
               >
-                <div style="font-size: 18px">
-                  {{ answer }}
-                </div>
-              </mat-checkbox>
-            </div>
-          </div>
-        </div>
+                <img
+                  src="../../../assets/trophy.png"
+                  alt="image"
+                  style="width: 30px; height: 30px; margin-right: 10px"
+                />
+                Threshold: {{ questionsList[currentQuestionIndex]?.threshold }}
+              </span>
+              <span
+                class="text-muted small threshold"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  font-size: 18px;
+                "
+              >
+                <img
+                  src="../../../assets/token.png"
+                  alt="image"
+                  style="width: 30px; height: 30px; margin-right: 10px"
+                />
+                Tokens:
+                {{ questionsList[currentQuestionIndex]?.questRewardTokens }}
+              </span>
 
-        <div class="button-container">
-          <button
-            type="submit"
-            class="submit-button"
-            [disabled]="!selectedAnswer"
-            mat-raised-button
-            color="primary"
-            (click)="submitAnswer()"
-          >
-            Submit
-          </button>
-          <button
-            type="button"
-            class="create-quest-button"
-            mat-raised-button
-            color="primary"
-            (click)="nextQuestion()"
-          >
-            Next question
-          </button>
+              <div class="answers">
+                <div
+                  *ngFor="
+                    let answer of questionsList[currentQuestionIndex]?.answers
+                  "
+                >
+                  <mat-checkbox
+                    [checked]="answer === selectedAnswer"
+                    (change)="updateSelectedAnswer(answer)"
+                    [id]="answer"
+                    [name]="questionsList[currentQuestionIndex]?.id"
+                  >
+                    <div style="font-size: 18px">
+                      {{ answer }}
+                    </div>
+                  </mat-checkbox>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
+  </mat-card-content>
+  <div class="button-container">
+    <button
+      type="submit"
+      class="submit-button"
+      [disabled]="!selectedAnswer"
+      mat-raised-button
+      color="primary"
+      (click)="submitAnswer()"
+    >
+      Submit
+    </button>
+    <button
+      type="button"
+      class="create-quest-button"
+      mat-raised-button
+      color="primary"
+      (click)="backQuestion()"
+    >
+      Back question
+    </button>
+    <button
+      type="button"
+      class="create-quest-button"
+      mat-raised-button
+      color="primary"
+      (click)="nextQuestion()"
+    >
+      Next question
+    </button>
   </div>
-</div>
+</mat-card>

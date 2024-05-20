@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from 'src/shared/angular-material.module';
 import { QuestsRoutingModule } from './quests-routing.module';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [QuestsComponent],
@@ -16,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    MatDialogModule,
   ],
 })
 export class QuestsModule {}

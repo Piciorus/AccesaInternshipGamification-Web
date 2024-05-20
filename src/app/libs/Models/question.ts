@@ -7,7 +7,8 @@ export class Question {
   rewarded?: boolean;
   difficulty?: string;
   threshold?: number;
-  rewardTokens?: number;
+  checkByAdmin?: boolean;
+  questRewardTokens?: number;
   category?: Category;
 }
 
@@ -17,5 +18,9 @@ export class Category {
 
 export interface Filters {
   category?: string[];
-  difficulty?:string[];
+  difficulty?: string[];
+}
+
+export interface UserAnswerRequest {
+  userAnswer: string;
 }

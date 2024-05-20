@@ -1,48 +1,50 @@
 .gui-budget {
-	justify-content: flex-end;
-	font-weight: bold;
-	display: flex;
-	align-items: center;
-	height: 100%;
-	width: 100%;
+  justify-content: flex-end;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .gui-user-info {
-	display: inline-flex;
-	flex-direction: column;
-	align-items: stretch;
-	align-content: center;
-	justify-content: center;
-	margin-left: 10px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-content: center;
+  justify-content: center;
+  margin-left: 10px;
 }
-
+.gui-user-info.logged-in {
+  font-weight: 900;
+}
 .gui-user-info-name {
-	padding-bottom: 4px;
+  padding-bottom: 4px;
 }
 
 .gui-user-info-position {
-	color: #606060;
-	font-style: italic;
-	font-size: 13px;
-	overflow: hidden;
+  color: #606060;
+  font-style: italic;
+  font-size: 13px;
+  overflow: hidden;
 }
 
 .gui-team {
-	border-radius: 50%;
-	color: white;
-	display: inline-block;
-	font-weight: bold;
-	height: 30px;
-	width: 30px;
-	text-align: center;
-	line-height: 30px;
+  border-radius: 50%;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  line-height: 30px;
 }
 
 .gui-user-wrapper {
-	width: 30px;
-	height: 30px;
-	margin-right: 8px;
-	display: flex;
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  display: flex;
 }
 .user-avatar {
   width: 40px;
@@ -56,10 +58,10 @@
 }
 
 .gui-user-img {
-	width: 100%;
-	min-height: 100%;
-	display: block;
-	border-radius: 50%;
-	object-fit: cover;
-	object-position: center;
+  width: 100%;
+  min-height: 100%;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
 }

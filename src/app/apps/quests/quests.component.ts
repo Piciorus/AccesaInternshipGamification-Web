@@ -1,12 +1,15 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { Quest } from 'src/app/libs/models/quest';
+import { ConfirmActionModalService } from 'src/app/libs/services/confirmation-action-modal.sevice';
 import { QuestionService } from 'src/app/libs/services/question.service';
-import { UserService } from 'src/app/libs/services/user.service';
+import { CreateQuestionModalComponent } from '../home/create-question-modal/create-question-modal.component';
 
 @Component({
   selector: 'app-quests',
@@ -20,12 +23,12 @@ export class QuestsComponent implements OnInit {
     'answer2',
     'answer3',
     'correctAnswer',
-    'rewarded',
     'difficulty',
     'threshold',
     'questRewardTokens',
     'checkByAdmin',
     'category',
+    'actions',
   ];
 
   columnHeaders: string[] = [
@@ -34,19 +37,13 @@ export class QuestsComponent implements OnInit {
     'Second Answer',
     'Third Answer',
     'Correct Answer',
-    'Rewarded',
     'Difficulty',
     'Threshold',
     'Tokens',
     'Checked',
     'Category',
+    'Actions',
   ];
-  getImagePath(category: string): string {
-    const imageDataItem = this.imageData.find(
-      (item) => item.category === category
-    );
-    return imageDataItem ? imageDataItem.src : ''; // Return the image path if found, otherwise an empty string
-  }
 
   imageData = [
     { src: '../../../assets/society.png', category: 'Society & Culture' },
@@ -68,7 +65,10 @@ export class QuestsComponent implements OnInit {
 
   constructor(
     private readonly questionService: QuestionService,
-    private _liveAnnouncer: LiveAnnouncer
+    private _liveAnnouncer: LiveAnnouncer,
+    private readonly dialog: MatDialog,
+    private readonly toastr: ToastrService,
+    private confirmActionModalService: ConfirmActionModalService
   ) {}
 
   ngAfterViewInit() {
@@ -80,16 +80,14 @@ export class QuestsComponent implements OnInit {
     this.initQuestions();
   }
 
-  initQuestions() {
-    this.questionService
-      .getAllQuestions()
-      .pipe(take(1))
-      .subscribe((response: Quest[]) => {
-        this.dataSource.data = response;
-      });
+  public getImagePath(category: string): string {
+    const imageDataItem = this.imageData.find(
+      (item) => item.category === category
+    );
+    return imageDataItem ? imageDataItem.src : '';
   }
 
-  announceSortChange(sortState: Sort) {
+  public announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
@@ -97,8 +95,7 @@ export class QuestsComponent implements OnInit {
     }
   }
 
-  onCheckboxChange(checked: boolean, id: any, element: any) {
-    console.log(element);
+  public onCheckboxChange(checked: boolean, id: any, element: any) {
     if (checked) {
       const updateQuestionRequest: any = {
         questionText: element.questionText,
@@ -109,15 +106,14 @@ export class QuestsComponent implements OnInit {
         difficulty: element.difficulty,
         threshold: element.threshold,
         rewardTokens: element.rewardTokens,
+        category: element.category.name,
         checkedByAdmin: true,
       };
       this.questionService.updateQuestion(id, updateQuestionRequest).subscribe(
         (response) => {
-          console.log('Question updated successfully', response);
+          this.toastr.success('Question updated successfully');
         },
-        (error) => {
-          console.error('Error updating question', error);
-        }
+        (error) => {}
       );
     } else {
       const updateQuestionRequest: any = {
@@ -133,12 +129,51 @@ export class QuestsComponent implements OnInit {
       };
       this.questionService.updateQuestion(id, updateQuestionRequest).subscribe(
         (response) => {
-          console.log('Question updated successfully', response);
+          this.toastr.success('Question updated successfully');
         },
-        (error) => {
-          console.error('Error updating question', error);
-        }
+        (error) => {}
       );
     }
+  }
+
+  public openModal(element: Quest): any {
+    const dialogRef: MatDialogRef<CreateQuestionModalComponent, boolean> =
+      this.dialog.open(CreateQuestionModalComponent, {
+        width: '38rem',
+        disableClose: true,
+        data: { question: element, isOnEdit: true },
+      });
+    dialogRef.componentInstance.questionCreatedOrUpdated.subscribe(() => {
+      this.initQuestions();
+    });
+  }
+
+  public deleteQuestion(questionId: string): void {
+    console.log(questionId);
+    this.confirmActionModalService
+      .openModal('Are you sure you want to delete this question?')
+      .subscribe((confirmed) => {
+        if (confirmed) {
+          this.questionService.deleteQuestion(questionId).subscribe(
+            () => {
+              this.toastr.success('Question deleted successfully');
+              this.initQuestions(); // Refresh the list after deletion
+            },
+            (error) => {
+              console.error('Error deleting question', error);
+              this.toastr.error('Failed to delete question');
+            }
+          );
+        }
+      });
+  }
+  
+  private initQuestions() {
+    this.questionService
+      .getAllQuestions()
+      .pipe(take(1))
+      .subscribe((response: Quest[]) => {
+        this.dataSource.data = response;
+      });
   }
 }

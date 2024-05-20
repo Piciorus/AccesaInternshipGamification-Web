@@ -48,15 +48,27 @@
     </mat-form-field>
     <mat-form-field>
       <input
-        formControlName="rewardTokens"
+        formControlName="questRewardTokens"
         matInput
         placeholder="Reward Tokens*"
       />
       <mat-error>This field is mandatory.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="category" matInput placeholder="Category" />
+      <input
+        (mouseover)="onMouseOverCategory()"
+        formControlName="category"
+        matInput
+        placeholder="Category"
+      />
     </mat-form-field>
+    <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+  >
+    Predict category
+  </button>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button

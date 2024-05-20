@@ -95,7 +95,10 @@ button {
 button:hover {
   background-color: #0069d9;
 }
-
+.statistics{
+  border: #0069d9;
+  border-radius:1px;
+}
 button:disabled {
   background-color: #e9ecef;
   color: #6c757d;

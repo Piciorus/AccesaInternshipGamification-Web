@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Confirmation</h2>
+<div mat-dialog-content>
+  <p>{{ message }}</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="closeModal(false)">Cancel</button>
+  <button
+    mat-raised-button
+    class="button-submit"
+    color="warn"
+    (click)="closeModal(true)"
+  >
+    Delete
+  </button>
+</div>
