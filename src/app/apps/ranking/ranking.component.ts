@@ -5,7 +5,7 @@ import {
   GuiDataType,
   GuiPaging,
   GuiPagingDisplay,
-  GuiRowColoring,
+  GuiRowColoring
 } from '@generic-ui/ngx-grid';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { User } from 'src/app/libs/models/user';
@@ -18,6 +18,7 @@ import { UserService } from 'src/app/libs/services/user.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class RankingComponent implements OnInit {
+  
   columns: Array<GuiColumn> = [
     {
       field: (item) => item,
@@ -68,7 +69,7 @@ export class RankingComponent implements OnInit {
       type: GuiDataType.STRING,
       view: GuiCellView.TEXT,
       cellEditing: {
-        enabled: true,
+        enabled: false,
       },
     },
     {
@@ -77,7 +78,7 @@ export class RankingComponent implements OnInit {
       type: GuiDataType.STRING,
       view: GuiCellView.TEXT,
       cellEditing: {
-        enabled: true,
+        enabled: false,
       },
     },
     {
@@ -92,16 +93,20 @@ export class RankingComponent implements OnInit {
         }
       },
       cellEditing: {
-        enabled: true,
+        enabled: false,
       },
     },
   ];
   users: User[] = [];
   coloring = GuiRowColoring.ODD;
   source: Array<any> = [];
-  sorting = {
+  sorting: any = {
     enabled: true,
+    multiSorting: true, 
   };
+  setSortConfig(config: any): void {
+    this.sorting = config;
+  }
   columnMenu = {
     enabled: true,
     columnsManager: true,

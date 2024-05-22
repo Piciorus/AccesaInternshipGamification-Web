@@ -3,15 +3,16 @@ import {
   Component,
   ElementRef,
   HostListener,
-  Inject,
-  Input,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSidenav } from '@angular/material/sidenav';
+import { TranslateService } from '@ngx-translate/core';
 import { MenuItemModel } from '@syncfusion/ej2-angular-navigations';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ngx-webstorage';
 import {
   Observable,
   Subscription,
@@ -23,7 +24,6 @@ import {
 } from 'rxjs';
 import { CreateQuestionModalComponent } from 'src/app/apps/home/create-question-modal/create-question-modal.component';
 import { PlayTestComponent } from 'src/app/apps/play-test/play-test.component';
-import { QuestsComponent } from 'src/app/apps/quests/quests.component';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { ERole } from 'src/app/libs/models/erole';
 import { CategoryService } from 'src/app/libs/services/category.service';
@@ -40,6 +40,7 @@ export class LayoutComponent {
   protected readonly ERole = ERole;
   private dialogOpen = false;
   private userSubscription: Subscription | undefined;
+  selectedLanguage: string;
 
   constructor(
     private observer: BreakpointObserver,
@@ -47,27 +48,34 @@ export class LayoutComponent {
     private elementRef: ElementRef,
     private readonly dialog: MatDialog,
     private readonly categoryService: CategoryService,
-    private readonly toastr: ToastrService
+    private readonly toastr: ToastrService,
+    private readonly translateService: TranslateService,
+    private cookieService: CookieService,
+    private localStorage: LocalStorageService
   ) {}
+
   public logout(): void {
     this.authService.logout();
   }
 
   public getUser(): void {
     this.user = this.authService.getUser();
-
     this.username = this.user.username;
   }
+
   isOpen = false;
   resize: Subscription;
+
   openMenu(menuTrigger: MatMenuTrigger) {
     menuTrigger.openMenu();
   }
 
-  /**
-   * Listens for a click in document and then check for isOpen to be true.
-   * If so, then close it
-   */
+  public changeLanguage(language: string): void {
+    this.translateService.use(language);
+    this.localStorage.store('selectedLanguage', language);
+    this.selectedLanguage = language;
+  }
+
   @HostListener('document:click', ['$event']) onClick(event: { target: any }) {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.checkIfNavDropDown();
@@ -77,6 +85,7 @@ export class LayoutComponent {
   ngOnDestroy() {
     this.resize.unsubscribe();
   }
+
   private hasAdminRole(user: any): boolean {
     return (
       user &&
@@ -85,7 +94,6 @@ export class LayoutComponent {
     );
   }
 
-  // Menu items definition
   public menuItems: MenuItemModel[] = [
     {
       text: 'File',
@@ -137,21 +145,23 @@ export class LayoutComponent {
       text: 'Help',
     },
   ];
+
   ngOnInit() {
     this.getUser();
+    this.selectedLanguage = this.localStorage.retrieve('selectedLanguage') || this.translateService.currentLang;
+
     this.userSubscription = this.authService.user.subscribe((user) => {
       this.user = user;
       this.isAdmin = this.hasAdminRole(user);
     });
-    /**
-     * Although the application doesn't use this.resize. it is used for unsubscribing (memory cleanup)
-     */
+
     this.resize = fromEvent(window, 'resize')
       .pipe(
         throttleTime(500),
         filter(() => !!this.elementRef)
       )
       .subscribe(() => this.checkIfNavDropDown());
+
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
       if (screenSize.matches) {
         this.isMobile = true;
@@ -171,6 +181,7 @@ export class LayoutComponent {
   onMenu() {
     this.isOpen = !this.isOpen;
   }
+
   title = 'material-responsive-sidenav';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -180,12 +191,13 @@ export class LayoutComponent {
   toggleMenu() {
     if (this.isMobile) {
       this.sidenav.toggle();
-      this.isCollapsed = false; // On mobile, the menu can never be collapsed
+      this.isCollapsed = false;
     } else {
-      this.sidenav.open(); // On desktop/tablet, the menu can never be fully closed
+      this.sidenav.open();
       this.isCollapsed = !this.isCollapsed;
     }
   }
+
   imageData = [
     { src: '../../../assets/society.png', category: 'Society & Culture' },
     { src: '../../../assets/science.png', category: 'Science & Mathematics' },
@@ -198,7 +210,9 @@ export class LayoutComponent {
     { src: '../../../assets/family.png', category: 'Family & Relationships' },
     { src: '../../../assets/politics.png', category: 'Politics & Government' },
   ];
+
   @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
+
   public initCategories() {
     this.categoryService
       .getAllCategories()
@@ -207,11 +221,13 @@ export class LayoutComponent {
         this.categories = response;
       });
   }
+
   categories: any[] = [];
+
   selectCategory(category: any): void {
-    // console.log('Selected category:', category);
     this.menuTrigger.closeMenu();
   }
+
   public openModal(selectedCategory: any): Observable<boolean | undefined> {
     if (this.dialogOpen) {
       return of();
@@ -220,7 +236,7 @@ export class LayoutComponent {
       this.dialog.open(PlayTestComponent, {
         width: '35rem',
         disableClose: true,
-        data: { selectedCategory }, // Pass the selected category as data
+        data: { selectedCategory },
       });
 
     dialogRef.afterOpened().subscribe(() => {

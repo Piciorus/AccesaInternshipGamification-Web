@@ -1,6 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  Observable,
+  tap,
+  throwError,
+} from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
@@ -13,28 +20,33 @@ export class AuthService {
   private basePath = environment.apiUrl;
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
+  private isAuthenticated = false;
 
   constructor(private http: HttpClient, private router: Router) {
     this.userSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem('currentUser') || '{}')
     );
+    this.isAuthenticated = !!localStorage.getItem('token');
     this.user = this.userSubject.asObservable();
   }
 
-  public login(username: string, password: string) :Observable<any>{
+  public login(username: string, password: string): Observable<any> {
     return this.http
       .post<any>(this.basePath + '/auth/login', { username, password })
       .pipe(
         map((user: any) => {
+          console.log(user);
           localStorage.setItem('token', JSON.stringify(user.jwttoken));
-          localStorage.setItem('refreshToken', JSON.stringify(user.refreshToken));
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.userSubject.next(user);
+          this.isAuthenticated = true;
           return user;
         })
       );
   }
-
+  isAuthenticatedUser(): boolean {
+    return this.isAuthenticated;
+  }
   isLoggedIn(): boolean {
     return this.userSubject.getValue() != null;
   }
@@ -65,17 +77,19 @@ export class AuthService {
   }
   refreshAccessToken(): Observable<any> {
     const refreshToken = localStorage.getItem('refreshToken');
-    console.log("refersh")
-    return this.http.post<any>(`${this.basePath}/auth/refreshtoken`, { refreshToken }).pipe(
-      tap((response: { accessToken: string; }) => {
-        console.log(response)
-        localStorage.setItem('accessToken', response.accessToken);
-      }),
-      catchError((error) => {
-        console.error('Error refreshing access token:', error);
-        return throwError(error);
-      })
-    );
+    console.log('refersh');
+    return this.http
+      .post<any>(`${this.basePath}/auth/refreshtoken`, { refreshToken })
+      .pipe(
+        tap((response: { accessToken: string }) => {
+          console.log(response);
+          localStorage.setItem('accessToken', response.accessToken);
+        }),
+        catchError((error) => {
+          console.error('Error refreshing access token:', error);
+          return throwError(error);
+        })
+      );
   }
   public setUser(user: User): void {
     this.userSubject.next(user);
@@ -87,6 +101,6 @@ export class AuthService {
   }
 
   public getAuthtoken(): any {
-    return JSON.parse(localStorage.getItem('token') || '{}');
+    return localStorage.getItem('token');
   }
 }

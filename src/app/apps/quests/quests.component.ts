@@ -10,6 +10,7 @@ import { Quest } from 'src/app/libs/models/quest';
 import { ConfirmActionModalService } from 'src/app/libs/services/confirmation-action-modal.sevice';
 import { QuestionService } from 'src/app/libs/services/question.service';
 import { CreateQuestionModalComponent } from '../home/create-question-modal/create-question-modal.component';
+import { TranslateService } from '@ngx-translate/core'; // Import TranslateService
 
 @Component({
   selector: 'app-quests',
@@ -32,19 +33,23 @@ export class QuestsComponent implements OnInit {
   ];
 
   columnHeaders: string[] = [
-    'Question Text',
-    'First Answer',
-    'Second Answer',
-    'Third Answer',
-    'Correct Answer',
-    'Difficulty',
-    'Threshold',
-    'Tokens',
-    'Checked',
-    'Category',
-    'Actions',
+    'columnHeaders.questionText',
+    'columnHeaders.answer1',
+    'columnHeaders.answer2',
+    'columnHeaders.answer3',
+    'columnHeaders.correctAnswer',
+    'columnHeaders.difficulty',
+    'columnHeaders.threshold',
+    'columnHeaders.questRewardTokens',
+    'columnHeaders.checkByAdmin',
+    'columnHeaders.category',
+    'columnHeaders.actions',
   ];
-
+  private translateColumnHeaders() {
+    this.columnHeaders = this.columnHeaders.map((key) =>
+      this.translate.instant(key)
+    );
+  }
   imageData = [
     { src: '../../../assets/society.png', category: 'Society & Culture' },
     { src: '../../../assets/science.png', category: 'Science & Mathematics' },
@@ -68,7 +73,9 @@ export class QuestsComponent implements OnInit {
     private _liveAnnouncer: LiveAnnouncer,
     private readonly dialog: MatDialog,
     private readonly toastr: ToastrService,
-    private confirmActionModalService: ConfirmActionModalService
+    private confirmActionModalService: ConfirmActionModalService,
+    private translate: TranslateService // Inject TranslateService
+
   ) {}
 
   ngAfterViewInit() {
@@ -78,6 +85,7 @@ export class QuestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initQuestions();
+    this.translateColumnHeaders();
   }
 
   public getImagePath(category: string): string {
@@ -167,7 +175,7 @@ export class QuestsComponent implements OnInit {
         }
       });
   }
-  
+
   private initQuestions() {
     this.questionService
       .getAllQuestions()

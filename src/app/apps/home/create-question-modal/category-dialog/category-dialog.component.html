@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>{{ 'predictmodal.predictedCategoryTitle' | translate }}</h1>
+<div mat-dialog-content>
+  <p>{{ 'predictmodal.predictedCategoryMessage' | translate: { category: data.predictedCategory } }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" (click)="onClose()">{{ 'predictmodal.closeButton' | translate }}</button>
+</div>

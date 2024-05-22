@@ -35,17 +35,13 @@ export class LoginComponent {
             this.router.navigateByUrl('/app/home');
           } else {
             this.loginFailed = true;
-            console.log('failed')
           }
         });
     } catch (error) {
       this.loginFailed = true;
-      console.log('failed')
 
     } finally {
       this.isLoading = false; 
-      console.log('failed')
-
     }
   }
 

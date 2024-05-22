@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthRoutingModule } from './auth-routing.module';
 import { AngularMaterialModule } from 'src/shared/angular-material.module';
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -16,6 +17,7 @@ import { AngularMaterialModule } from 'src/shared/angular-material.module';
     RouterModule,
     AuthRoutingModule,
     AngularMaterialModule,
+    TranslateModule
   ],
 })
 export class AuthModule {}

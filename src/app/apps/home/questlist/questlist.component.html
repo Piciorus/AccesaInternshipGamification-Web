@@ -6,24 +6,22 @@
         src="https://cdn-icons-png.freepik.com/512/2762/2762403.png"
         alt="Quiz Image"
       />
-      <mat-card-title style="margin-left: 3rem; margin-bottom: 1rem"
-        >Knowledge Quiz</mat-card-title
-      >
-      <mat-card-subtitle style="margin-bottom: 1.5rem; font-size: 1rem"
-        >This interactive quiz is designed for learning purposes. Select your
-        options and answer the questions to test your
-        knowledge.</mat-card-subtitle
-      >
+      <mat-card-title style="margin-left: 3rem; margin-bottom: 1rem">
+        {{ 'quiz.title' | translate }}
+      </mat-card-title>
+      <mat-card-subtitle style="margin-bottom: 1.5rem; font-size: 1rem">
+        {{ 'quiz.subtitle' | translate }}
+      </mat-card-subtitle>
     </mat-card-title-group>
   </mat-card-header>
   <mat-card-content>
     <mat-form-field style="margin-left: 0.5rem; margin-top: 0.5rem">
-      <mat-label>Select Category</mat-label>
+      <mat-label>{{ 'quiz.selectCategory' | translate }}</mat-label>
       <mat-select
         [formControl]="selectedCategory"
         (selectionChange)="onSelectionChange($event)"
       >
-        <mat-option [value]="null">None</mat-option>
+        <mat-option [value]="null">{{ 'quiz.none' | translate }}</mat-option>
         <mat-option *ngFor="let category of categories" [value]="category.name">
           {{ category.name }}
         </mat-option>
@@ -31,15 +29,15 @@
     </mat-form-field>
 
     <mat-form-field class="mat-select">
-      <mat-label>Select Difficulty</mat-label>
+      <mat-label>{{ 'quiz.selectDifficulty' | translate }}</mat-label>
       <mat-select
         [formControl]="selectedDifficulty"
         (selectionChange)="onSelectionChange($event)"
       >
-        <mat-option [value]="null">None</mat-option>
-        <mat-option value="Easy">Easy</mat-option>
-        <mat-option value="Medium">Medium</mat-option>
-        <mat-option value="Hard">Hard</mat-option>
+        <mat-option [value]="null">{{ 'quiz.none' | translate }}</mat-option>
+        <mat-option value="Easy">{{ 'quiz.difficulty.easy' | translate }}</mat-option>
+        <mat-option value="Medium">{{ 'quiz.difficulty.medium' | translate }}</mat-option>
+        <mat-option value="Hard">{{ 'quiz.difficulty.hard' | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -59,45 +57,38 @@
           <form [formGroup]="answerForm">
             <div *ngIf="questionsList.length > 0" class="question-row">
               <h2 style="display: inline-block">
+                <div [style.backgroundColor]="questionsList[currentQuestionIndex]?.category.color" class="category-point"></div>
+
                 {{ questionsList[currentQuestionIndex]?.questionText }}
               </h2>
               <span
                 class="text-muted small threshold"
-                style="
-                  display: inline-flex;
-                  align-items: center;
-                  font-size: 18px;
-                "
+                style="display: inline-flex; align-items: center; font-size: 18px;"
               >
                 <img
                   src="../../../assets/trophy.png"
                   alt="image"
                   style="width: 30px; height: 30px; margin-right: 10px"
                 />
-                Threshold: {{ questionsList[currentQuestionIndex]?.threshold }}
+                {{ 'quiz.threshold' | translate }}:
+                {{ questionsList[currentQuestionIndex]?.threshold }}
               </span>
               <span
                 class="text-muted small threshold"
-                style="
-                  display: inline-flex;
-                  align-items: center;
-                  font-size: 18px;
-                "
+                style="display: inline-flex; align-items: center; font-size: 18px;"
               >
                 <img
                   src="../../../assets/token.png"
                   alt="image"
                   style="width: 30px; height: 30px; margin-right: 10px"
                 />
-                Tokens:
+                {{ 'quiz.tokens' | translate }}:
                 {{ questionsList[currentQuestionIndex]?.questRewardTokens }}
               </span>
 
               <div class="answers">
                 <div
-                  *ngFor="
-                    let answer of questionsList[currentQuestionIndex]?.answers
-                  "
+                  *ngFor="let answer of questionsList[currentQuestionIndex]?.answers"
                 >
                   <mat-checkbox
                     [checked]="answer === selectedAnswer"
@@ -113,6 +104,9 @@
               </div>
             </div>
           </form>
+          <div *ngIf="showNoQuestionsMessage" class="no-questions-message">
+            <p>{{ 'quiz.noMoreQuestions' | translate }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -126,7 +120,7 @@
       color="primary"
       (click)="submitAnswer()"
     >
-      Submit
+      {{ 'quiz.submit' | translate }}
     </button>
     <button
       type="button"
@@ -135,7 +129,7 @@
       color="primary"
       (click)="backQuestion()"
     >
-      Back question
+      {{ 'quiz.backQuestion' | translate }}
     </button>
     <button
       type="button"
@@ -144,7 +138,7 @@
       color="primary"
       (click)="nextQuestion()"
     >
-      Next question
+      {{ 'quiz.nextQuestion' | translate }}
     </button>
   </div>
 </mat-card>

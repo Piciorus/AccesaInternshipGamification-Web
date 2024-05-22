@@ -5,7 +5,7 @@
   <ng-container *ngIf="!showResults; else resultSection">
     <!-- Main content -->
     <p class="question-counter">
-      {{ currentQuestionIndex + 1 }}/{{ questionList.length }}
+      {{ 'test.questionCounter' | translate: { current: currentQuestionIndex + 1, total: questionList.length } }}
     </p>
     <h2 class="container">{{ currentQuestion?.questionText }}</h2>
 
@@ -32,10 +32,10 @@
         color="primary"
         (click)="submitAnswers()"
       >
-        Submit
+        {{ 'test.submit' | translate }}
       </button>
       <button mat-raised-button color="primary" (click)="nextQuestion()">
-        Next
+        {{ 'test.next' | translate }}
       </button>
     </div>
   </ng-container>
@@ -68,15 +68,15 @@
         <div class="button-close">
           <div>
             <mat-icon>{{
-              isCorrectChatGptResponse(i) ? "check_circle" : "cancel"
+              isCorrectChatGptResponse(i) ? 'check_circle' : 'cancel'
             }}</mat-icon>
-            <p>ChatGPT Response: {{ chatGptResponses[i] }}</p>
+            <p>{{ 'test.chatGptResponse' | translate }}: {{ chatGptResponses[i] }}</p>
           </div>
           <div>
             <mat-icon>{{
-              isCorrectUserResponse(i) ? "check_circle" : "cancel"
+              isCorrectUserResponse(i) ? 'check_circle' : 'cancel'
             }}</mat-icon>
-            <p>Your Response: {{ getSelectedAnswers(i) }}</p>
+            <p>{{ 'test.userResponse' | translate }}: {{ getSelectedAnswers(i) }}</p>
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@
           color="primary"
           (click)="closeModal()"
         >
-          Close
+          {{ 'test.close' | translate }}
         </button>
 
         <button
@@ -96,18 +96,18 @@
           color="primary"
           (click)="toggleSummary()"
         >
-          Summary
+          {{ 'test.summary' | translate }}
         </button>
       </div>
     </div>
 
     <div class="summary-container" *ngIf="showSummary">
-      <h2>Summary</h2>
-      <p>Total Questions: {{ questionList.length }}</p>
-      <p>Your Correct Answers: {{ countUserCorrectAnswers() }}</p>
-      <p>ChatGPT Correct Answers: {{ countChatGptCorrectAnswers() }}</p>
+      <h2>{{ 'test.summary' | translate }}</h2>
+      <p>{{ 'test.totalQuestions' | translate }}: {{ questionList.length }}</p>
+      <p>{{ 'test.userCorrectAnswers' | translate }}: {{ countUserCorrectAnswers() }}</p>
+      <p>{{ 'test.chatGptCorrectAnswers' | translate }}: {{ countChatGptCorrectAnswers() }}</p>
       <button mat-raised-button color="primary" (click)="showSummary = false">
-        Back to Questions
+        {{ 'test.backToQuestions' | translate }}
       </button>
     </div>
   </ng-template>

@@ -1,0 +1,157 @@
+{
+  "menu": {
+    "language": {
+      "title": "Limba",
+      "english": "Engleză",
+      "romanian": "Română"
+    },
+    "history": "Istoric",
+    "logout": "Deconectare",
+    "home": "Acasă",
+    "ranking": "Clasament",
+    "quests": "Intrebări",
+    "create_question": "Creează întrebare",
+    "test": "Test"
+  },
+  "common": {
+    "username": "Nume utilizator"
+  },
+  "quiz": {
+    "title": "Chestionar de Cunoștințe",
+    "subtitle": "Acest chestionar interactiv este conceput pentru scopuri educaționale. Selectează opțiunile tale și răspunde la întrebări pentru a-ți testa cunoștințele.",
+    "selectCategory": "Selectează Categoria",
+    "selectDifficulty": "Selectează Dificultatea",
+    "none": "Niciuna",
+    "difficulty": {
+      "easy": "Ușor",
+      "medium": "Mediu",
+      "hard": "Dificil"
+    },
+    "threshold": "Prag",
+    "tokens": "Jetoane",
+    "noMoreQuestions": "Nu mai sunt întrebări în listă.",
+    "submit": "Trimite",
+    "backQuestion": "Întrebarea anterioară",
+    "nextQuestion": "Întrebarea următoare"
+  },
+  "chart": {
+    "correctAnswers": "Numărul de răspunsuri corecte pentru fiecare categorie"
+  },
+  "sidebar": {
+    "badgeProgress": "Progres Insignă",
+    "yourStatistics": "Statisticile tale",
+    "tooltipInfo": "Insignele se bazează pe prag. Când pragul este între 0-100, insigna este de începător. Pentru insigna de nivel intermediar trebuie să ai între 100-200. Pentru insigna de expert trebuie să ai peste 200 prag.",
+    "info": "Informații",
+    "tokens": "Jetoane",
+    "badges": "Insigne",
+    "threshold": "Prag"
+  },
+  "dialog": {
+    "createQuestionTitle": "Creează o întrebare nouă",
+    "questionDescription": "Descrierea întrebării",
+    "typeText": "Scrie textul..",
+    "firstAnswer": "Prima variantă de răspuns",
+    "answer1Placeholder": "Răspuns 1*",
+    "secondAnswer": "A doua variantă de răspuns",
+    "answer2Placeholder": "Răspuns 2*",
+    "thirdAnswer": "A treia variantă de răspuns",
+    "answer3Placeholder": "Răspuns 3*",
+    "correctAnswer": "Răspunsul corect",
+    "correctAnswerPlaceholder": "Răspuns corect*",
+    "difficulty": "Dificultate",
+    "difficultyPlaceholder": "Selectează dificultatea",
+    "easy": "Ușor",
+    "medium": "Mediu",
+    "hard": "Greu",
+    "threshold": "Prag",
+    "thresholdPlaceholder": "Prag*",
+    "tokens": "Jetoane",
+    "rewardTokensPlaceholder": "Jetoane de recompensă*",
+    "category": "Categorie",
+    "categoryPlaceholder": "Categorie",
+    "mandatoryField": "Acest câmp este obligatoriu.",
+    "predictCategory": "Prezicere categorie",
+    "submit": "Trimite",
+    "clear": "Șterge"
+  },
+  "dashboard": {
+    "testsHistory": "Istoricul Testelor",
+    "testDate": "Data Testului",
+    "category": "Categorie",
+    "questionsAnswered": "Număr de întrebări",
+    "userCorrectAnswers": "Răspunsuri Corecte ale Utilizatorului",
+    "chatGptCorrectAnswers": "Răspunsuri Corecte ChatGPT",
+    "correctAnswersMatch": "Răspunsuri Corecte ale Utilizatorului și ChatGPT Corespund!",
+    "questionsHistory": "Istoricul Întrebărilor",
+    "question": "Întrebare",
+    "answerDate": "Data Răspunsului",
+    "correctAnswer": "Răspuns Corect",
+    "userAnswer": "Răspuns Utilizator",
+    "correct": "Corect",
+    "incorrect": "Incorect"
+  },
+  "test": {
+    "questionCounter": "{{ current }}/{{ total }}",
+    "answerSelection": "Selectare răspuns",
+    "submit": "Trimite",
+    "next": "Următorul",
+    "result": "Rezultat",
+    "chatGptResponse": "Răspuns ChatGPT",
+    "userResponse": "Răspunsul tău",
+    "close": "Închide",
+    "summary": "Sumar",
+    "totalQuestions": "Total întrebări",
+    "userCorrectAnswers": "Răspunsuri corecte ale tale",
+    "chatGptCorrectAnswers": "Răspunsuri corecte ChatGPT",
+    "backToQuestions": "Înapoi la întrebări"
+  },
+  "login": {
+    "usernamePlaceholder": "Nume utilizator",
+    "passwordPlaceholder": "Parolă",
+    "usernameRequired": "Numele utilizatorului este obligatoriu.",
+    "passwordRequired": "Parola este obligatorie.",
+    "usernameMinLength": "Numele utilizatorului trebuie să aibă cel puțin 4 caractere.",
+    "passwordMinLength": "Parola trebuie să aibă cel puțin 4 caractere.",
+    "invalidCredentials": "Nume de utilizator sau parolă incorectă.",
+    "loginButton": "Autentificare",
+    "goToRegister": "Mergi la Înregistrare"
+  },
+  "register": {
+    "emailPlaceholder": "Email",
+    "emailRequired": "Email este obligatoriu.",
+    "emailMinLength": "Emailul trebuie să aibă cel puțin 4 caractere.",
+    "usernamePlaceholder": "Nume utilizator",
+    "usernameRequired": "Numele utilizatorului este obligatoriu.",
+    "usernameMinLength": "Numele utilizatorului trebuie să aibă cel puțin 4 caractere.",
+    "passwordPlaceholder": "Parolă",
+    "passwordRequired": "Parola este obligatorie.",
+    "passwordMinLength": "Parola trebuie să aibă cel puțin 4 caractere.",
+    "registerButton": "Înregistrare",
+    "goToLogin": "Mergi la Autentificare"
+  },
+  "predictmodal": {
+    "predictedCategoryTitle": "Predicted Category",
+    "predictedCategoryMessage": "The predicted category is: {{ category }}",
+    "closeButton": "Close"
+  },
+  "confirmation": {
+    "confirmationTitle": "Confirmare",
+    "cancelButton": "Anulează",
+    "deleteButton": "Șterge",
+    "deleteMessage": "Sigur doriți să ștergeți acest element?"
+  },
+  "columnHeaders": {
+    "questionText": "Text întrebare",
+    "answer1": "Răspuns 1",
+    "answer2": "Răspuns 2",
+    "answer3": "Răspuns 3",
+    "correctAnswer": "Răspuns corect",
+    "difficulty": "Dificultate",
+    "threshold": "Prag",
+    "questRewardTokens": "Premiu (Token-uri)",
+    "checkByAdmin": "Verificat de Admin",
+    "category": "Categorie",
+    "actions": "Acțiuni"
+  },
+  "Actions": "Acțiuni"
+}

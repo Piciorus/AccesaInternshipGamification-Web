@@ -47,10 +47,35 @@ mat-sidenav {
 .expanded {
   width: 250px;   
 }
-// Move the content down so that it won't be hidden by the toolbar
 mat-sidenav-content{
   padding-top: 3.5rem;
   @media screen and (min-width: 600px) {
       padding-top: 4rem;
   }
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav-content {
+  height: 100%;
+  overflow: auto;
+}
+
+.footer {
+  background: #6670a9;
+  color: white;
+  padding: 0.2rem;
+  text-align: center;
 }

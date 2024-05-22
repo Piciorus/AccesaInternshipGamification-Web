@@ -1,0 +1,157 @@
+{
+  "menu": {
+    "language": {
+      "title": "Language",
+      "english": "English",
+      "romanian": "Romanian"
+    },
+    "history": "History",
+    "logout": "Log out",
+    "home": "Home",
+    "ranking": "Ranking",
+    "quests": "Quests",
+    "create_question": "Create question",
+    "test": "Test"
+  },
+  "common": {
+    "username": "Username"
+  },
+  "quiz": {
+    "title": "Knowledge Quiz",
+    "subtitle": "This interactive quiz is designed for learning purposes. Select your options and answer the questions to test your knowledge.",
+    "selectCategory": "Select Category",
+    "selectDifficulty": "Select Difficulty",
+    "none": "None",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "threshold": "Threshold",
+    "tokens": "Tokens",
+    "noMoreQuestions": "No more questions in the list.",
+    "submit": "Submit",
+    "backQuestion": "Back question",
+    "nextQuestion": "Next question"
+  },
+  "chart": {
+    "correctAnswers": "Number of correct answers for each category"
+  },
+  "sidebar": {
+    "badgeProgress": "Badge Progress",
+    "yourStatistics": "Your Statistics",
+    "tooltipInfo": "Badge are based on the threshold. When 0-100 threshold badge is beginner. For badge intermediate you need to have between 100-200. For badge expert you need to have over 200 threshold.",
+    "info": "Info",
+    "tokens": "Tokens",
+    "badges": "Badges",
+    "threshold": "Threshold"
+  },
+  "dialog": {
+    "createQuestionTitle": "Create a new question",
+    "questionDescription": "Questions description",
+    "typeText": "Type text..",
+    "firstAnswer": "First answer",
+    "answer1Placeholder": "Answer 1*",
+    "secondAnswer": "Second answer",
+    "answer2Placeholder": "Answer 2*",
+    "thirdAnswer": "Third answer",
+    "answer3Placeholder": "Answer 3*",
+    "correctAnswer": "Correct answer",
+    "correctAnswerPlaceholder": "Correct Answer*",
+    "difficulty": "Difficulty",
+    "difficultyPlaceholder": "Select difficulty",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "threshold": "Threshold",
+    "thresholdPlaceholder": "Threshold*",
+    "tokens": "Tokens",
+    "rewardTokensPlaceholder": "Reward Tokens*",
+    "category": "Category",
+    "categoryPlaceholder": "Category",
+    "mandatoryField": "This field is mandatory.",
+    "predictCategory": "Predict category",
+    "submit": "Submit",
+    "clear": "Clear"
+  },
+  "dashboard": {
+    "testsHistory": "Tests History",
+    "testDate": "Test Date",
+    "category": "Category",
+    "questionsAnswered": "Number of questions",
+    "userCorrectAnswers": "User Correct Answers",
+    "chatGptCorrectAnswers": "ChatGPT Correct Answers",
+    "correctAnswersMatch": "User and ChatGPT Correct Answers Match!",
+    "questionsHistory": "Questions History",
+    "question": "Question",
+    "answerDate": "Answer Date",
+    "correctAnswer": "Correct Answer",
+    "userAnswer": "User Answer",
+    "correct": "Correct",
+    "incorrect": "Incorrect"
+  },
+  "test": {
+    "questionCounter": "{{ current }}/{{ total }}",
+    "answerSelection": "Answer selection",
+    "submit": "Submit",
+    "next": "Next",
+    "result": "Result",
+    "chatGptResponse": "ChatGPT Response",
+    "userResponse": "Your Response",
+    "close": "Close",
+    "summary": "Summary",
+    "totalQuestions": "Total Questions",
+    "userCorrectAnswers": "Your Correct Answers",
+    "chatGptCorrectAnswers": "ChatGPT Correct Answers",
+    "backToQuestions": "Back to Questions"
+  },
+  "login": {
+    "usernamePlaceholder": "Username",
+    "passwordPlaceholder": "Password",
+    "usernameRequired": "Username is required.",
+    "passwordRequired": "Password is required.",
+    "usernameMinLength": "Username must be at least 4 characters long.",
+    "passwordMinLength": "Password must be at least 4 characters long.",
+    "invalidCredentials": "Incorrect username or password.",
+    "loginButton": "Login",
+    "goToRegister": "Go to Register"
+  },
+  "register": {
+    "emailPlaceholder": "Email",
+    "emailRequired": "Email is required.",
+    "emailMinLength": "Email must be at least 4 characters long.",
+    "usernamePlaceholder": "Username",
+    "usernameRequired": "Username is required.",
+    "usernameMinLength": "Username must be at least 4 characters long.",
+    "passwordPlaceholder": "Password",
+    "passwordRequired": "Password is required.",
+    "passwordMinLength": "Password must be at least 4 characters long.",
+    "registerButton": "Register",
+    "goToLogin": "Go to Login"
+  },
+  "predictmodal": {
+    "predictedCategoryTitle": "Predicted Category",
+    "predictedCategoryMessage": "The predicted category is: {{ category }}",
+    "closeButton": "Close"
+  },
+  "confirmation": {
+    "confirmationTitle": "Confirmation",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete",
+    "deleteMessage": "Are you sure you want to delete this item?"
+  },
+  "columnHeaders": {
+    "questionText": "Question Text",
+    "answer1": "First Answer",
+    "answer2": "Second Answer",
+    "answer3": "Third Answer",
+    "correctAnswer": "Correct Answer",
+    "difficulty": "Difficulty",
+    "threshold": "Threshold",
+    "questRewardTokens": "Tokens",
+    "checkByAdmin": "Checked",
+    "category": "Category",
+    "actions": "Actions"
+  },
+  "Actions": "Actions"
+}

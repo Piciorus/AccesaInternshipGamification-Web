@@ -7,6 +7,7 @@ import { Question } from 'src/app/libs/models/question';
 import { ChatGptService } from 'src/app/libs/services/chatgpt.service';
 import { QuestionService } from 'src/app/libs/services/question.service';
 import { take } from 'rxjs';
+import { CategoryDialogComponent } from './category-dialog/category-dialog.component';
 
 @Component({
   selector: 'app-create-question-modal',
@@ -45,7 +46,7 @@ export class CreateQuestionModalComponent {
     const originalValues = this.questionEdit;
 
     return (
-      formValues.questionText !== originalValues.questionText ||
+      formValues.questionText !== originalValues?.questionText ||
       formValues.answer1 !== originalValues.answer1 ||
       formValues.answer2 !== originalValues.answer2 ||
       formValues.answer3 !== originalValues.answer3 ||
@@ -63,7 +64,6 @@ export class CreateQuestionModalComponent {
       answer1: this.questForm.get('answer1')?.value,
       answer2: this.questForm.get('answer2')?.value,
       answer3: this.questForm.get('answer3')?.value,
-      checkByAdmin: this.questionEdit.checkByAdmin,
       correctAnswer: this.questForm.get('correctAnswer')?.value,
       difficulty: this.questForm.get('difficulty')?.value,
       threshold: this.questForm.get('threshold')?.value,
@@ -75,7 +75,6 @@ export class CreateQuestionModalComponent {
     const observer = {
       next: (response: { status: number }) => {
         this.closeModal();
-        this.questForm.reset();
         if (this.data?.isOnEdit) {
           this.questionCreatedOrUpdated.emit();
           this.toastr.success('Question updated successfully');
@@ -91,7 +90,7 @@ export class CreateQuestionModalComponent {
         }
       },
     };
-
+    console.log("questToSave",questToSave)
     if (this.data?.isOnEdit && isFormEdited) {
       this.questService
         .updateQuestion(this.data.question.id, questToSave)
@@ -114,7 +113,14 @@ export class CreateQuestionModalComponent {
       .predictCategory(requestData)
       .subscribe((response: any) => {
         this.predictedCategory = response.predicted_category;
-        this.questForm.patchValue({ category: this.predictedCategory });
+        this.dialog
+          .open(CategoryDialogComponent, {
+            data: { predictedCategory: this.predictedCategory },
+          })
+          .afterClosed()
+          .subscribe(() => {
+            this.questForm.patchValue({ category: this.predictedCategory });
+          });
       });
   }
 

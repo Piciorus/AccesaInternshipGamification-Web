@@ -1,74 +1,104 @@
-<form
-  [formGroup]="questForm"
-  class="dialog-form"
-  (ngSubmit)="onCreateQuestionSubmit()"
->
-  <div mat-dialog-title class="title">Create a new question</div>
+<form [formGroup]="questForm" class="dialog-form">
+  <div mat-dialog-title class="title">
+    {{ "dialog.createQuestionTitle" | translate }}
+  </div>
   <button mat-icon-button class="close-button" (click)="closeModal()">
     <mat-icon aria-label="Close modal" style="color: red">close</mat-icon>
   </button>
   <mat-dialog-content>
-    <input type="hidden" formControlName="$key" />
     <mat-form-field class="example-full-width">
-      <mat-label>Questions description</mat-label>
+      <mat-label>{{ "dialog.questionDescription" | translate }}</mat-label>
       <textarea
         formControlName="questionText"
         matInput
-        placeholder="Type text.."
+        placeholder="{{ 'dialog.typeText' | translate }}"
       ></textarea>
-      <mat-error>This field is mandatory.</mat-error>
+      <mat-error>{{ "dialog.mandatoryField" | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="answer1" matInput placeholder="Answer 1*" />
-      <mat-error>This field is mandatory.</mat-error>
+      <mat-label>{{ "dialog.firstAnswer" | translate }}</mat-label>
+      <input
+        formControlName="answer1"
+        matInput
+        placeholder="{{ 'dialog.answer1Placeholder' | translate }}"
+      />
+      <mat-error>{{ "dialog.mandatoryField" | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="answer2" matInput placeholder="Answer 2*" />
-      <mat-error>This field is mandatory.</mat-error>
+      <mat-label>{{ "dialog.secondAnswer" | translate }}</mat-label>
+      <input
+        formControlName="answer2"
+        matInput
+        placeholder="{{ 'dialog.answer2Placeholder' | translate }}"
+      />
+      <mat-error>{{ "dialog.mandatoryField" | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="answer3" matInput placeholder="Answer 3*" />
-      <mat-error>This field is mandatory.</mat-error>
+      <mat-label>{{ "dialog.thirdAnswer" | translate }}</mat-label>
+      <input
+        formControlName="answer3"
+        matInput
+        placeholder="{{ 'dialog.answer3Placeholder' | translate }}"
+      />
+      <mat-error>{{ "dialog.mandatoryField" | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field>
+      <mat-label>{{ "dialog.correctAnswer" | translate }}</mat-label>
       <input
         formControlName="correctAnswer"
         matInput
-        placeholder="Correct Answer*"
+        placeholder="{{ 'dialog.correctAnswerPlaceholder' | translate }}"
       />
-      <mat-error>This field is mandatory.</mat-error>
+      <mat-error>{{ "dialog.mandatoryField" | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="difficulty" matInput placeholder="Difficulty*" />
-      <mat-error>This field is mandatory.</mat-error>
+      <mat-label>{{ "dialog.difficulty" | translate }}</mat-label>
+      <mat-select
+        formControlName="difficulty"
+        placeholder="{{ 'dialog.difficultyPlaceholder' | translate }}"
+      >
+        <mat-option value="Easy">{{ "dialog.easy" | translate }}</mat-option>
+        <mat-option value="Medium">{{
+          "dialog.medium" | translate
+        }}</mat-option>
+        <mat-option value="Hard">{{ "dialog.hard" | translate }}</mat-option>
+      </mat-select>
+      <mat-error>{{ "dialog.mandatoryField" | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="threshold" matInput placeholder="Threshold*" />
-      <mat-error>This field is mandatory.</mat-error>
+      <mat-label>{{ "dialog.threshold" | translate }}</mat-label>
+      <input
+        formControlName="threshold"
+        matInput
+        placeholder="{{ 'dialog.thresholdPlaceholder' | translate }}"
+      />
+      <mat-error>{{ "dialog.mandatoryField" | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field>
+      <mat-label>{{ "dialog.tokens" | translate }}</mat-label>
       <input
         formControlName="questRewardTokens"
         matInput
-        placeholder="Reward Tokens*"
+        placeholder="{{ 'dialog.rewardTokensPlaceholder' | translate }}"
       />
-      <mat-error>This field is mandatory.</mat-error>
+      <mat-error>{{ "dialog.mandatoryField" | translate }}</mat-error>
     </mat-form-field>
     <mat-form-field>
+      <mat-label>{{ "dialog.category" | translate }}</mat-label>
       <input
-        (mouseover)="onMouseOverCategory()"
         formControlName="category"
         matInput
-        placeholder="Category"
+        placeholder="{{ 'dialog.categoryPlaceholder' | translate }}"
       />
     </mat-form-field>
     <button
-    mat-raised-button
-    color="primary"
-    type="submit"
-  >
-    Predict category
-  </button>
+      mat-raised-button
+      color="primary"
+      type="submit"
+      (click)="onMouseOverCategory()"
+    >
+      {{ "dialog.predictCategory" | translate }}
+    </button>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button
@@ -76,9 +106,10 @@
       class="button-submit"
       color="primary"
       type="submit"
+      (click)="onCreateQuestionSubmit()"
       [disabled]="questForm.invalid"
     >
-      Submit
+      {{ "dialog.submit" | translate }}
     </button>
     <button
       mat-raised-button
@@ -87,7 +118,7 @@
       type="button"
       (click)="questForm.reset()"
     >
-      Clear
+      {{ "dialog.clear" | translate }}
     </button>
   </mat-dialog-actions>
 </form>

@@ -9,7 +9,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/libs/auth/auth.service';
-import { Badge } from 'src/app/libs/models/Badge';
+import { Badge, CreateBadge } from 'src/app/libs/models/Badge';
 import { User } from 'src/app/libs/models/user';
 import { BadgeService } from 'src/app/libs/services/badge.service';
 import { PlayTestComponent } from '../../play-test/play-test.component';
@@ -39,10 +39,18 @@ export class StatisticsComponent {
 
   public ngOnInit(): void {
     this.getBadges();
+    this.getBadgeFromUser();
   }
 
   public getBadges(): void {
     this.badgeService.getAllBadges().subscribe((response: any) => {
+      this.barBadge = response;
+      this.getBadgeFromUser();
+    });
+  }
+
+  public createBadge(badge: CreateBadge, userId: string): void {
+    this.badgeService.createBadge(badge, userId).subscribe((response: any) => {
       this.barBadge = response;
       this.getBadgeFromUser();
     });
@@ -109,6 +117,7 @@ export class StatisticsComponent {
 
   private getBadgeFromUser(): void {
     const user: User = this.authService.getUser();
+    const id = this.authService.getUser().id;
     this.badgeList.push(this.barBadge[0]);
     if (user.threshold && user.threshold >= 100)
       this.badgeList.push(this.barBadge[1]);

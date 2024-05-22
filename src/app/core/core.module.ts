@@ -11,6 +11,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MenuModule } from '@syncfusion/ej2-angular-navigations';
+import { TranslateModule } from '@ngx-translate/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [LayoutComponent],
@@ -24,11 +26,12 @@ import { MenuModule } from '@syncfusion/ej2-angular-navigations';
     WavesModule,
     MenuModule,
     ButtonsModule,
+    FlexLayoutModule,
     MdbCheckboxModule,
     MatDialogModule,
     MatSidenavModule,
-    MatListModule
-
+    MatListModule,
+    TranslateModule
   ],
 })
 export class CoreModule {}

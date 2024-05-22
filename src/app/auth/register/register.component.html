@@ -13,7 +13,7 @@
       <form (ngSubmit)="onSubmit()">
         <div>
           <input
-            placeholder="Email"
+            placeholder="{{ 'register.emailPlaceholder' | translate }}"
             type="text"
             class="email"
             name="email"
@@ -27,14 +27,12 @@
           *ngIf="email1.invalid && (email1.dirty || email1.touched)"
           class="alert1"
         >
-          <div *ngIf="email1.errors?.['required']">Email is required.</div>
-          <div *ngIf="email1.errors?.['minlength']">
-            Email must be at least 4 characters long.
-          </div>
+          <div *ngIf="email1.errors?.['required']">{{ 'register.emailRequired' | translate }}</div>
+          <div *ngIf="email1.errors?.['minlength']">{{ 'register.emailMinLength' | translate }}</div>
         </div>
         <div>
           <input
-            placeholder="Username"
+            placeholder="{{ 'register.usernamePlaceholder' | translate }}"
             class="username"
             type="text"
             id="name"
@@ -46,14 +44,12 @@
           />
         </div>
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
-          <div *ngIf="name.errors?.['required']">Name is required.</div>
-          <div *ngIf="name.errors?.['minlength']">
-            Name must be at least 4 characters long.
-          </div>
+          <div *ngIf="name.errors?.['required']">{{ 'register.usernameRequired' | translate }}</div>
+          <div *ngIf="name.errors?.['minlength']">{{ 'register.usernameMinLength' | translate }}</div>
         </div>
         <div class="second-input">
           <input
-            placeholder="Password"
+            placeholder="{{ 'register.passwordPlaceholder' | translate }}"
             class="name"
             type="password"
             id="password"
@@ -68,13 +64,11 @@
           *ngIf="name1.invalid && (name1.dirty || name1.touched)"
           class="alert"
         >
-          <div *ngIf="name1.errors?.['required']">Password is required.</div>
-          <div *ngIf="name1.errors?.['minlength']">
-            Password must be at least 4 characters long.
-          </div>
+          <div *ngIf="name1.errors?.['required']">{{ 'register.passwordRequired' | translate }}</div>
+          <div *ngIf="name1.errors?.['minlength']">{{ 'register.passwordMinLength' | translate }}</div>
         </div>
-        <div *ngIf="isSuccessful" class="success-message">{{succesMessage}}</div>
-        <div *ngIf="isSignUpFailed" class="alert">{{errorMessage}}</div>
+        <div *ngIf="isSuccessful" class="success-message">{{ succesMessage | translate }}</div>
+        <div *ngIf="isSignUpFailed" class="alert">{{ errorMessage | translate }}</div>
         <div class="groupsubmit">
           <button
             type="submit"
@@ -82,12 +76,12 @@
             mat-raised-button
             [disabled]="!name1.valid || !name.valid || !email1.valid"
           >
-            Register
+            {{ 'register.registerButton' | translate }}
           </button>
         </div>
 
         <div class="register">
-          <a href="/auth/login">Go to Login</a>
+          <a href="/auth/login">{{ 'register.goToLogin' | translate }}</a>
         </div>
       </form>
     </div>

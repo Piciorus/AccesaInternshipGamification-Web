@@ -18,6 +18,8 @@ import { HomeComponent } from './home.component';
 import { QuestlistComponent } from './questlist/questlist.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { UsersStatisticsComponent } from './users-statistics/users-statistics.component';
+import { CategoryDialogComponent } from './create-question-modal/category-dialog/category-dialog.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { UsersStatisticsComponent } from './users-statistics/users-statistics.co
     PlayTestComponent,
     CreateQuestionModalComponent,
     UsersStatisticsComponent,
+    CategoryDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { UsersStatisticsComponent } from './users-statistics/users-statistics.co
     MatSelectModule,
     NgApexchartsModule,
     ToastrModule.forRoot(),
+    TranslateModule,
     NgCircleProgressModule.forRoot({}),
   ],
   providers: [ConfirmActionModalService],

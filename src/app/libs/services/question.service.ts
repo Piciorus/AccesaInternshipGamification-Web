@@ -1,14 +1,10 @@
 import {
-  HttpBackend,
   HttpClient,
-  HttpParams,
-  HttpResponse,
+  HttpParams
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Quest } from '../models/quest';
 import { Question, UserAnswerRequest } from '../models/question';
 
 @Injectable({

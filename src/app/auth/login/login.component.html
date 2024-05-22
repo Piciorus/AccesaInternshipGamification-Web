@@ -13,7 +13,7 @@
       <form (ngSubmit)="onSubmit()">
         <div>
           <input
-            placeholder="Username"
+            placeholder="{{ 'login.usernamePlaceholder' | translate }}"
             class="name"
             type="text"
             id="name"
@@ -25,14 +25,12 @@
           />
         </div>
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
-          <div *ngIf="name.errors?.['required']">Name is required.</div>
-          <div *ngIf="name.errors?.['minlength']">
-            Name must be at least 4 characters long.
-          </div>
+          <div *ngIf="name.errors?.['required']">{{ 'login.usernameRequired' | translate }}</div>
+          <div *ngIf="name.errors?.['minlength']">{{ 'login.usernameMinLength' | translate }}</div>
         </div>
         <div class="second-input">
           <input
-            placeholder="Password"
+            placeholder="{{ 'login.passwordPlaceholder' | translate }}"
             class="name"
             type="password"
             id="password"
@@ -43,28 +41,23 @@
             #name1="ngModel"
           />
         </div>
-        <div
-          *ngIf="name1.invalid && (name1.dirty || name1.touched)"
-          class="alert"
-        >
-          <div *ngIf="name1.errors?.['required']">Password is required.</div>
-          <div *ngIf="name1.errors?.['minlength']">
-            Password must be at least 4 characters long.
-          </div>
+        <div *ngIf="name1.invalid && (name1.dirty || name1.touched)" class="alert">
+          <div *ngIf="name1.errors?.['required']">{{ 'login.passwordRequired' | translate }}</div>
+          <div *ngIf="name1.errors?.['minlength']">{{ 'login.passwordMinLength' | translate }}</div>
         </div>
         <div *ngIf="isLoading" class="spinner-overlay">
           <mat-spinner class="spinner"></mat-spinner>
         </div>
         <div *ngIf="loginFailed" class="alert">
-          Incorrect username or password.
+          {{ 'login.invalidCredentials' | translate }}
         </div>
         <div class="groupsubmit">
           <button color="primary" mat-raised-button type="submit" [disabled]="!name1.valid || !name.valid">
-            Login
+            {{ 'login.loginButton' | translate }}
           </button>
         </div>
         <div class="register">
-          <a href="/auth/register">Go to Register</a>
+          <a href="/auth/register">{{ 'login.goToRegister' | translate }}</a>
         </div>
       </form>
     </div>

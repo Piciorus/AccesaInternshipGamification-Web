@@ -5,6 +5,7 @@ import {
   ApexResponsive,
   ChartComponent,
 } from 'ng-apexcharts';
+import { take } from 'rxjs';
 import { QuestionService } from 'src/app/libs/services/question.service';
 
 export type ChartOptions = {
@@ -12,7 +13,8 @@ export type ChartOptions = {
   chart: ApexChart;
   responsive: ApexResponsive[];
   labels: any;
-};
+  colors: string[];
+}
 
 @Component({
   selector: 'app-users-statistics',
@@ -21,7 +23,7 @@ export type ChartOptions = {
 })
 export class UsersStatisticsComponent {
   @ViewChild('chart') chart: ChartComponent;
-  chartOptions: any = {
+  chartOptions: ChartOptions = {
     series: [0],
     chart: {
       height: 800,
@@ -38,8 +40,22 @@ export class UsersStatisticsComponent {
       },
     ],
     labels: ['Loading...'],
+    colors: ['#FAEBD7', '#FAEBD7', '#FAEBD7', '#FAEBD7', '#FAEBD7', '#FAEBD7'],
   };
   loading: boolean = true;
+
+  categoryColorMap: { [key: string]: string } = {
+    'Society & Culture': '#008FFB',
+    'Science & Mathematics': '#FEB019',
+    'Health': '#775DD0',
+    'Education & Reference': '#00FFFF',
+    'Computers & Internet': '#B8860B',
+    'Sports': '#FF4560',
+    'Business & Finance': '#006400',
+    'Entertainment & Music': '#FF69B4',
+    'Family & Relationships': '#00E396',
+    'Politics & Government': '#FF1493',
+  };
 
   constructor(
     private readonly questionService: QuestionService,
@@ -53,15 +69,26 @@ export class UsersStatisticsComponent {
   public initQuestions() {
     this.questionService
       .getCorrectAnswersForEachCategory()
+      .pipe(take(1))
       .subscribe((response: any) => {
         this.chartOptions.labels = Object.keys(response);
         this.chartOptions.series = Object.values(response);
+        this.chartOptions.colors = this.generateColors(Object.keys(response));
         this.loading = false;
-        this.cdr.detectChanges();
       });
   }
-  
-  public onDataChangeDetected() {
-    this.initQuestions();
+
+  private generateColors(categories: string[]): string[] {
+    let generatedColors: string[] = [];
+
+    for (let category of categories) {
+      if (this.categoryColorMap[category]) {
+        generatedColors.push(this.categoryColorMap[category]);
+      } else {
+        generatedColors.push('#FAEBD7');
+      }
+    }
+
+    return generatedColors;
   }
 }

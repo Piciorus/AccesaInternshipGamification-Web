@@ -5,6 +5,7 @@ import { HistoryRoutingModule } from './history-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [HistoryQuestionsComponent],
@@ -14,6 +15,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatCardModule,
     MatButtonModule,
     NgApexchartsModule,
+    TranslateModule,
   ],
 })
 export class HistoryModule {}

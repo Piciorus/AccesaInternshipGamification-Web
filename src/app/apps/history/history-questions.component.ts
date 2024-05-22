@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import Chart, { ChartComponent, registerables } from 'chart.js';
+import { ChartComponent } from 'chart.js';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { QuestionService } from 'src/app/libs/services/question.service';
@@ -13,10 +13,7 @@ import { TestsHistoryService } from 'src/app/libs/services/tests-history.service
 export class HistoryQuestionsComponent {
   public userQuestionsHistory: any[];
   public testsHistory: any[];
-  public questionsAnsweredLast7Days = 4;
-  public incorrectAnswers = 0;
-  public totalQuestionsAnswered = 4;
-  public correctAnswers = 4;
+
   constructor(
     private readonly questionService: QuestionService,
     private readonly testsHistoryService: TestsHistoryService,
@@ -76,8 +73,21 @@ export class HistoryQuestionsComponent {
     const id = this.authService.getUser().id;
 
     this.questionService.getUserStatistics(id).subscribe((response: any) => {
-      this.chartOptions.labels = Object.keys(response);
-      this.chartOptions.series = Object.values(response);
+      this.chartOptions.labels = Object.keys(response).map((key) => {
+        // Map the original labels to the names you want
+        switch (key) {
+          case 'questionsAnsweredLast7Days':
+            return 'Number of questions answered last 7 days';
+          case 'incorrectAnswers':
+            return 'Number of incorrect answers';
+          case 'totalQuestionsAnswered':
+            return 'Number of total questions answered';
+          case 'correctAnswers':
+            return 'Number of total correct answers';
+          default:
+            return key;
+        }
+      });      this.chartOptions.series = Object.values(response);
     });
   }
   public onDataChangeDetected() {

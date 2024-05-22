@@ -3,7 +3,7 @@
 @use "@angular/material" as mat;
 // Plus imports for other components in your app.
 // regular style toast
-@import 'ngx-toastr/toastr';
+@import "ngx-toastr/toastr";
 @import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 // bootstrap style toast
@@ -11,18 +11,18 @@
 // should be after your bootstrap imports, it uses bs4 variables, mixins, functions
 
 // if you'd like to use it without importing all of bootstrap it requires
-@import 'bootstrap/scss/functions';
-@import 'bootstrap/scss/variables';
-@import 'bootstrap/scss/mixins';
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 // bootstrap 4
 // boostrap 5
-@import 'ngx-toastr/toastr-bs5-alert';
+@import "ngx-toastr/toastr-bs5-alert";
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
-@import 'media';
+@import "media";
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
@@ -66,7 +66,6 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-
 }
 
 body {
@@ -75,16 +74,14 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   border-radius: 10px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #94ab98; 
+  background: #3a54bd;
   border-radius: 10px;
 }

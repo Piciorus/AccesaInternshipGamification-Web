@@ -1,29 +1,29 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { HomeComponent } from './apps/home/home.component';
-import { RankingComponent } from './apps/ranking/ranking.component';
-import { LayoutComponent } from './core/layout/layout.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { QuestsComponent } from './apps/quests/quests.component';
-import { PlayTestComponent } from './apps/play-test/play-test.component';
-import { HasRolesDirective } from './libs/directives/has-roles.directive';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
-import { ToastrModule } from 'ngx-toastr';
-import { AuthorizationService } from './libs/auth/authorization.service';
 import { AuthService } from './libs/auth/auth.service';
-import { ERole } from './libs/models/erole';
+import { AuthorizationService } from './libs/auth/authorization.service';
 import { AuthInterceptorService } from './libs/interceptor/TokenBasedInterceptor';
+import { ERole } from './libs/models/erole';
 import { ConfirmActionModalComponent } from './libs/utils/confirm-action-modal/confirm-action-modal.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { DeactivateGuard } from './libs/auth/deactivate-guard.service';
 
 function initializeAppFactory(
   authorizationService: AuthorizationService,
@@ -32,9 +32,14 @@ function initializeAppFactory(
   return () => {
     return authenticationService.isLoggedIn()
       ? authorizationService.getUserRoles()
-      : []
+      : [];
   };
 }
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 @NgModule({
   declarations: [AppComponent, ConfirmActionModalComponent],
   imports: [
@@ -47,9 +52,22 @@ function initializeAppFactory(
     MatButtonModule,
     FormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
+    NgxWebstorageModule.forRoot({
+      prefix: 'app',
+      separator: '.',
+      caseSensitive: true,
+    }),
   ],
   providers: [
+    DeactivateGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

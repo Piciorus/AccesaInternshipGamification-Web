@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/libs/auth/auth.service';
-import { QuestService } from 'src/app/libs/services/quest.service';
-import { BadgeService } from 'src/app/libs/services/badge.service';
 import { Quest } from 'src/app/libs/models/quest';
 import { User } from 'src/app/libs/models/user';
+import { QuestService } from 'src/app/libs/services/quest.service';
+import { UsersStatisticsComponent } from './users-statistics/users-statistics.component';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +15,12 @@ export class HomeComponent implements OnInit {
   public questList: Array<Quest> = [];
   public statistics: any;
 
-  public constructor(
+  @ViewChild(UsersStatisticsComponent)
+  usersStatisticsComponent: UsersStatisticsComponent;
+  @ViewChild('usersStatisticsComponent', { read: ElementRef })
+  usersStatisticsComponentRef: ElementRef;
+
+  constructor(
     private readonly questService: QuestService,
     private readonly authService: AuthService
   ) {}
@@ -25,7 +30,7 @@ export class HomeComponent implements OnInit {
   }
 
   public updateStatistics(event: any): void {
-    if (event === 'updateStatistics') {
+    if (event === 'updateStatistics' || event === 'questionResolved') {
       this.authService
         .getMe()
         .pipe(take(1))
@@ -37,8 +42,19 @@ export class HomeComponent implements OnInit {
             tokens: this.authService.getUser().tokens,
             thresholdUser: this.authService.getUser().threshold,
           };
+        
           this.statistics = statistics;
+
+          this.updateUsersStatistics();
         });
+    }
+  }
+
+  private updateUsersStatistics() {
+    if (this.usersStatisticsComponent) {
+      this.usersStatisticsComponent.initQuestions();
+    } else {
+      console.error('UsersStatisticsComponent is not available');
     }
   }
 }

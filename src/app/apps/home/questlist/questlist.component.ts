@@ -1,23 +1,15 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { Category } from 'src/app/libs/models/category';
-import { Filters, UserAnswerRequest } from 'src/app/libs/models/question';
+import { UserAnswerRequest } from 'src/app/libs/models/question';
 import { User } from 'src/app/libs/models/user';
 import { CategoryService } from 'src/app/libs/services/category.service';
 import { QuestionService } from 'src/app/libs/services/question.service';
-import { UserService } from 'src/app/libs/services/user.service';
 
 @Component({
   selector: 'app-questlist',
@@ -33,6 +25,7 @@ export class QuestlistComponent implements OnInit {
   public categories: any[] = [];
   public selectedAnswer!: string | null;
   public currentQuestionIndex: number = 0;
+  public showNoQuestionsMessage: boolean = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -66,9 +59,9 @@ export class QuestlistComponent implements OnInit {
 
   public nextQuestion(): void {
     this.currentQuestionIndex++;
-
     if (this.currentQuestionIndex >= this.questionsList.length) {
-      this.currentQuestionIndex = 0;
+      this.showNoQuestionsMessage = true;
+      return;
     }
 
     const nextQuestionText =
@@ -79,13 +72,14 @@ export class QuestlistComponent implements OnInit {
   public backQuestion(): void {
     this.currentQuestionIndex--;
 
-    if (this.currentQuestionIndex >= this.questionsList.length) {
-      this.currentQuestionIndex = 0;
+    if (this.currentQuestionIndex < 0) {
+      this.currentQuestionIndex = this.questionsList.length - 1;
     }
 
     const nextQuestionText =
       this.questionsList[this.currentQuestionIndex].questionText;
     this._liveAnnouncer.announce(`Next question: ${nextQuestionText}`);
+    this.showNoQuestionsMessage = false;
   }
 
   submitAnswer() {
@@ -107,14 +101,23 @@ export class QuestlistComponent implements OnInit {
     if (isCorrect) {
       this.updateThreshold(idQuestion, id);
       this.resolveQuestionForUser(id, idQuestion, request);
-      this.toastr.success('Correct answer!');
+      this.toastr.success(`Correct answer! You got ${currentQuestion.threshold} threshold and ${currentQuestion.questRewardTokens} tokens `);
     } else {
       this.resolveQuestionForUser(id, idQuestion, request);
-      this.toastr.error('Incorect answer!');
+      this.toastr.error('Incorrect answer!');
     }
 
     setTimeout(() => {
       this.nextQuestion();
+      if (this.currentQuestionIndex === 0) {
+        this.showNoQuestionsMessage = true;
+        const noMoreQuestionsMessage = 'No more questions in the list!';
+        this._liveAnnouncer.announce(noMoreQuestionsMessage);
+        this.toastr.info(noMoreQuestionsMessage);
+      }
+
+      this.answerForm.reset({ selectedAnswer: null });
+      this.selectedAnswer = null;
     }, 1000);
   }
 
@@ -136,7 +139,9 @@ export class QuestlistComponent implements OnInit {
   ) {
     this.questionService
       .markResolvedQuestion(idUser, idQuestion, userAnswer)
-      .subscribe(() => {});
+      .subscribe(() => {
+        this.newItemEvent.emit('questionResolved');
+      });
     this.update();
   }
 
@@ -178,6 +183,7 @@ export class QuestlistComponent implements OnInit {
         this.categories = response;
       });
   }
+
   public initQuestions() {
     const category = this.selectedCategory.value;
     const difficulty = this.selectedDifficulty.value;
@@ -201,8 +207,8 @@ export class QuestlistComponent implements OnInit {
         }));
         this.questionsList = transformedData.filter(
           (question) => question.checkByAdmin
-        );        console.log(this.questionsList)
-
+        );
+        this.showNoQuestionsMessage = this.questionsList.length === 0;
       });
   }
 
