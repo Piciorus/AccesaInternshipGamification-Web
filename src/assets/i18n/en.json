@@ -47,6 +47,7 @@
     "threshold": "Threshold"
   },
   "dialog": {
+    "info": "Info about question",
     "createQuestionTitle": "Create a new question",
     "questionDescription": "Questions description",
     "typeText": "Type text..",
@@ -72,7 +73,8 @@
     "mandatoryField": "This field is mandatory.",
     "predictCategory": "Predict category",
     "submit": "Submit",
-    "clear": "Clear"
+    "clear": "Clear",
+    "close": "Close"
   },
   "dashboard": {
     "testsHistory": "Tests History",
@@ -153,5 +155,15 @@
     "category": "Category",
     "actions": "Actions"
   },
-  "Actions": "Actions"
+  "Actions": "Actions",
+  "category": "Category",
+  "description": "Description",
+  "firstAnswer": "First answer",
+  "secondAnswer": "Second answer",
+  "thirdAnswer": "Third answer",
+  "correctAnswer": "Correct answer",
+  "difficulty": "Difficulty",
+  "threshold": "Threshold",
+  "tokens": "Tokens",
+  "close": "Close"
 }

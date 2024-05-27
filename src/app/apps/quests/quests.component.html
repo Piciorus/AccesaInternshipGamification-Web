@@ -30,7 +30,7 @@
               ></mat-checkbox>
             </ng-container>
             <ng-container *ngIf="column === 'questionText'">
-              <div style="display: inline-flex; align-items: center">
+              <div style="display: inline-flex; align-items: center; cursor: pointer;" (click)="openModalInfoQuestionComponent(element)">
                 <img
                   *ngIf="element['category']"
                   [src]="getImagePath(element['category'].name)"

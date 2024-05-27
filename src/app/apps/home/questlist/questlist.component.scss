@@ -60,14 +60,14 @@
 
 .button-container {
   display: flex;
-  justify-content: flex-start; /* Align buttons to the left */
+  justify-content: flex-start;
   align-items: center;
   padding: 1rem;
-  margin-top: auto; /* Push the button container to the bottom */
+  margin-top: auto;
 }
 
 .create-quest-button {
-  margin-left: 1rem; /* Adjust spacing between buttons */
+  margin-left: 1rem;
 }
 
 img[mat-card-avatar] {

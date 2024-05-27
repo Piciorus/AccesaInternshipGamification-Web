@@ -3,7 +3,6 @@ import { take } from 'rxjs';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { Quest } from 'src/app/libs/models/quest';
 import { User } from 'src/app/libs/models/user';
-import { QuestService } from 'src/app/libs/services/quest.service';
 import { UsersStatisticsComponent } from './users-statistics/users-statistics.component';
 
 @Component({
@@ -20,10 +19,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('usersStatisticsComponent', { read: ElementRef })
   usersStatisticsComponentRef: ElementRef;
 
-  constructor(
-    private readonly questService: QuestService,
-    private readonly authService: AuthService
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   public ngOnInit(): void {
     this.updateStatistics('updateStatistics');
@@ -42,7 +38,7 @@ export class HomeComponent implements OnInit {
             tokens: this.authService.getUser().tokens,
             thresholdUser: this.authService.getUser().threshold,
           };
-        
+
           this.statistics = statistics;
 
           this.updateUsersStatistics();
@@ -52,7 +48,7 @@ export class HomeComponent implements OnInit {
 
   private updateUsersStatistics() {
     if (this.usersStatisticsComponent) {
-      this.usersStatisticsComponent.initQuestions();
+      this.usersStatisticsComponent.initCorrectAnswersForEachCategory();
     } else {
       console.error('UsersStatisticsComponent is not available');
     }

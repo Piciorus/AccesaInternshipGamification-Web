@@ -21,13 +21,18 @@ export class UserService {
   }
 
   public getUsersSortedByTokensDescending(): Observable<User[]> {
-    return this.http.get<User[]>(this.basePath + '/users/getAllUsers?sort=desc');
+    return this.http.get<User[]>(
+      this.basePath + '/users/getAllUsers?sort=desc'
+    );
   }
 
   public updateTokens(userId: number, tokens: number): Observable<User> {
-    return this.http.put<User>(this.basePath + '/users/updateTokens/' + userId, {
-      tokens,
-    });
+    return this.http.put<User>(
+      this.basePath + '/users/updateTokens/' + userId,
+      {
+        tokens,
+      }
+    );
   }
 
   public rewardBadge(idBadge: number, idUser: number): Observable<void> {

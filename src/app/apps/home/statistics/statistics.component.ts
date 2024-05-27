@@ -42,13 +42,6 @@ export class StatisticsComponent {
     this.getBadgeFromUser();
   }
 
-  public getBadges(): void {
-    this.badgeService.getAllBadges().subscribe((response: any) => {
-      this.barBadge = response;
-      this.getBadgeFromUser();
-    });
-  }
-
   public createBadge(badge: CreateBadge, userId: string): void {
     this.badgeService.createBadge(badge, userId).subscribe((response: any) => {
       this.barBadge = response;
@@ -123,5 +116,12 @@ export class StatisticsComponent {
       this.badgeList.push(this.barBadge[1]);
     if (user.threshold && user.threshold >= 200)
       this.badgeList.push(this.barBadge[2]);
+  }
+
+  private getBadges(): void {
+    this.badgeService.getAllBadges().subscribe((response: any) => {
+      this.barBadge = response;
+      this.getBadgeFromUser();
+    });
   }
 }

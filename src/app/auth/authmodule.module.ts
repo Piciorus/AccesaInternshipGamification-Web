@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AuthRoutingModule } from './auth-routing.module';
+import { TranslateModule } from '@ngx-translate/core';
 import { AngularMaterialModule } from 'src/shared/angular-material.module';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import { AuthRoutingModule } from './auth-routing.module';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -17,7 +17,7 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
     RouterModule,
     AuthRoutingModule,
     AngularMaterialModule,
-    TranslateModule
+    TranslateModule,
   ],
 })
 export class AuthModule {}

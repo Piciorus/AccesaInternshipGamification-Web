@@ -6,7 +6,7 @@ import { TestHistory } from 'src/app/libs/models/test-history';
 import { ChatGptService } from 'src/app/libs/services/chatgpt.service';
 import { QuestionService } from 'src/app/libs/services/question.service';
 import { TestsHistoryService } from 'src/app/libs/services/tests-history.service';
-import { TranslateService } from '@ngx-translate/core'; // Import TranslateService
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-play-test',
@@ -29,7 +29,7 @@ export class PlayTestComponent implements OnInit {
     private readonly questionService: QuestionService,
     private readonly chatGptService: ChatGptService,
     private readonly authService: AuthService,
-    private readonly translateService:TranslateService,
+    private readonly translateService: TranslateService,
     private readonly testsHistoryService: TestsHistoryService,
     private dialogRef: MatDialogRef<PlayTestComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -190,9 +190,7 @@ export class PlayTestComponent implements OnInit {
     const id = this.authService.getUser().id;
 
     this.testsHistoryService.saveTestHistory(testHistory, id).subscribe(
-      (response) => {
-        console.log('Test history saved successfully', response);
-      },
+      (response) => {},
       (error) => {
         console.error('Error saving test history', error);
       }

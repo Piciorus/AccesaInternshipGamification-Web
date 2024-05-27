@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   ApexChart,
   ApexNonAxisChartSeries,
@@ -14,7 +14,7 @@ export type ChartOptions = {
   responsive: ApexResponsive[];
   labels: any;
   colors: string[];
-}
+};
 
 @Component({
   selector: 'app-users-statistics',
@@ -23,7 +23,8 @@ export type ChartOptions = {
 })
 export class UsersStatisticsComponent {
   @ViewChild('chart') chart: ChartComponent;
-  chartOptions: ChartOptions = {
+  public loading: boolean = true;
+  public chartOptions: ChartOptions = {
     series: [0],
     chart: {
       height: 800,
@@ -42,31 +43,27 @@ export class UsersStatisticsComponent {
     labels: ['Loading...'],
     colors: ['#FAEBD7', '#FAEBD7', '#FAEBD7', '#FAEBD7', '#FAEBD7', '#FAEBD7'],
   };
-  loading: boolean = true;
 
-  categoryColorMap: { [key: string]: string } = {
+  public categoryColorMap: { [key: string]: string } = {
     'Society & Culture': '#008FFB',
     'Science & Mathematics': '#FEB019',
-    'Health': '#775DD0',
+    Health: '#775DD0',
     'Education & Reference': '#00FFFF',
     'Computers & Internet': '#B8860B',
-    'Sports': '#FF4560',
+    Sports: '#FF4560',
     'Business & Finance': '#006400',
     'Entertainment & Music': '#FF69B4',
     'Family & Relationships': '#00E396',
     'Politics & Government': '#FF1493',
   };
 
-  constructor(
-    private readonly questionService: QuestionService,
-    private readonly cdr: ChangeDetectorRef
-  ) {}
+  constructor(private readonly questionService: QuestionService) {}
 
   ngOnInit() {
-    this.initQuestions();
+    this.initCorrectAnswersForEachCategory();
   }
 
-  public initQuestions() {
+  public initCorrectAnswersForEachCategory() {
     this.questionService
       .getCorrectAnswersForEachCategory()
       .pipe(take(1))

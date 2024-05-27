@@ -82,7 +82,7 @@ export class QuestlistComponent implements OnInit {
     this.showNoQuestionsMessage = false;
   }
 
-  submitAnswer() {
+  public submitAnswer() {
     const selectedAnswer = this.answerForm.value.selectedAnswer;
     const currentQuestion = this.questionsList[this.currentQuestionIndex];
 
@@ -175,7 +175,15 @@ export class QuestlistComponent implements OnInit {
     );
   }
 
-  public initCategories() {
+  public announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
+
+  private initCategories() {
     this.categoryService
       .getAllCategories()
       .pipe(take(1))
@@ -184,7 +192,7 @@ export class QuestlistComponent implements OnInit {
       });
   }
 
-  public initQuestions() {
+  private initQuestions() {
     const category = this.selectedCategory.value;
     const difficulty = this.selectedDifficulty.value;
     const id = this.authService.getUser().id;
@@ -210,14 +218,6 @@ export class QuestlistComponent implements OnInit {
         );
         this.showNoQuestionsMessage = this.questionsList.length === 0;
       });
-  }
-
-  public announceSortChange(sortState: Sort) {
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
   }
 
   private initForm() {

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   BehaviorSubject,
   catchError,
@@ -10,8 +11,6 @@ import {
 } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
-import { Router } from '@angular/router';
-import { RefreshTokenResponse } from '../models/refresh-token-response';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +34,6 @@ export class AuthService {
       .post<any>(this.basePath + '/auth/login', { username, password })
       .pipe(
         map((user: any) => {
-          console.log(user);
           localStorage.setItem('token', JSON.stringify(user.jwttoken));
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.userSubject.next(user);
@@ -44,12 +42,15 @@ export class AuthService {
         })
       );
   }
+
   isAuthenticatedUser(): boolean {
     return this.isAuthenticated;
   }
+
   isLoggedIn(): boolean {
     return this.userSubject.getValue() != null;
   }
+
   public register(
     username: string,
     password: string,
@@ -75,14 +76,13 @@ export class AuthService {
       this.basePath + '/users/getUserById/' + this.userSubject.getValue().id
     );
   }
+
   refreshAccessToken(): Observable<any> {
     const refreshToken = localStorage.getItem('refreshToken');
-    console.log('refersh');
     return this.http
       .post<any>(`${this.basePath}/auth/refreshtoken`, { refreshToken })
       .pipe(
         tap((response: { accessToken: string }) => {
-          console.log(response);
           localStorage.setItem('accessToken', response.accessToken);
         }),
         catchError((error) => {
@@ -91,6 +91,7 @@ export class AuthService {
         })
       );
   }
+  
   public setUser(user: User): void {
     this.userSubject.next(user);
     localStorage.setItem('currentUser', JSON.stringify(user));

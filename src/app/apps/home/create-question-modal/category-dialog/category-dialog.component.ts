@@ -12,7 +12,7 @@ export class CategoryDialogComponent {
     private dialogRef: MatDialogRef<CategoryDialogComponent>
   ) {}
 
-  onClose(): void {
+  public onClose(): void {
     this.dialogRef.close();
   }
 }

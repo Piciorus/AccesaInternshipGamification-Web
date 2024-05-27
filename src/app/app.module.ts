@@ -1,5 +1,4 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 import {
   HTTP_INTERCEPTORS,
@@ -24,6 +23,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { DeactivateGuard } from './libs/auth/deactivate-guard.service';
+import { TranslateService } from '@ngx-translate/core';
 
 function initializeAppFactory(
   authorizationService: AuthorizationService,
@@ -68,6 +68,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     DeactivateGuard,
+    TranslateService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

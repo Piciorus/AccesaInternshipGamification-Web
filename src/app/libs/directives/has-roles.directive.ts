@@ -12,7 +12,7 @@ import { ERole } from '../models/erole';
 
 @Directive({
   selector: '[appHasPermission]',
-  standalone:true
+  standalone: true,
 })
 export class HasRolesDirective implements OnInit {
   readonly USER_ROLES = ERole;
@@ -24,9 +24,7 @@ export class HasRolesDirective implements OnInit {
     private viewContainer: ViewContainerRef,
     private authorizationService: AuthorizationService,
     private ref: ChangeDetectorRef
-  ) {
-
-  }
+  ) {}
 
   @Input() set appHasPermission(condition: string[]) {
     this.permissions = condition;
@@ -38,7 +36,6 @@ export class HasRolesDirective implements OnInit {
   ngOnInit() {
     this.currentUserRoles = this.authorizationService.getUserRoles();
     if (this.permissions && this.currentUserRoles) {
-
       this.updateView();
     }
 

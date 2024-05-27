@@ -1,11 +1,11 @@
 .chart-section {
-  flex: 1; /* Allow chart section to take equal space */
+  flex: 1;
   display: flex;
-  justify-content: center; /* Center align the chart inside the chart-section */
-  align-items: center; /* Align items in the center vertically */
+  justify-content: center;
+  align-items: center;
 }
 
 #chart {
-  width: 100%; /* Ensure the chart takes full width */
-  max-width: 600px; /* Limit the max width of the chart */
+  width: 100%;
+  max-width: 600px;
 }

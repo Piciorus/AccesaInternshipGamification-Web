@@ -15,7 +15,7 @@ export class AuthorizationService implements OnInit {
     this.getUserRoles();
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getUserRoles();
   }
 

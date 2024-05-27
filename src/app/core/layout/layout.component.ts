@@ -1,16 +1,10 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  ViewChild
-} from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatSidenav } from '@angular/material/sidenav';
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItemModel } from '@syncfusion/ej2-angular-navigations';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ngx-webstorage';
 import {
@@ -40,60 +34,19 @@ export class LayoutComponent {
   protected readonly ERole = ERole;
   private dialogOpen = false;
   private userSubscription: Subscription | undefined;
-  selectedLanguage: string;
-
-  constructor(
-    private observer: BreakpointObserver,
-    private readonly authService: AuthService,
-    private elementRef: ElementRef,
-    private readonly dialog: MatDialog,
-    private readonly categoryService: CategoryService,
-    private readonly toastr: ToastrService,
-    private readonly translateService: TranslateService,
-    private cookieService: CookieService,
-    private localStorage: LocalStorageService
-  ) {}
-
-  public logout(): void {
-    this.authService.logout();
-  }
-
-  public getUser(): void {
-    this.user = this.authService.getUser();
-    this.username = this.user.username;
-  }
-
-  isOpen = false;
-  resize: Subscription;
-
-  openMenu(menuTrigger: MatMenuTrigger) {
-    menuTrigger.openMenu();
-  }
-
-  public changeLanguage(language: string): void {
-    this.translateService.use(language);
-    this.localStorage.store('selectedLanguage', language);
-    this.selectedLanguage = language;
-  }
-
+  public selectedLanguage: string;
+  public isOpen = false;
+  public resize: Subscription;
+  public title = 'material-responsive-sidenav';
+  @ViewChild(MatSidenav)
+  public sidenav!: MatSidenav;
+  public isMobile = true;
+  public isCollapsed = true;
   @HostListener('document:click', ['$event']) onClick(event: { target: any }) {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.checkIfNavDropDown();
     }
   }
-
-  ngOnDestroy() {
-    this.resize.unsubscribe();
-  }
-
-  private hasAdminRole(user: any): boolean {
-    return (
-      user &&
-      user.roles &&
-      user.roles.some((role: any) => role.name === ERole.Admin)
-    );
-  }
-
   public menuItems: MenuItemModel[] = [
     {
       text: 'File',
@@ -145,10 +98,37 @@ export class LayoutComponent {
       text: 'Help',
     },
   ];
+  public imageData = [
+    { src: '../../../assets/society.png', category: 'Society & Culture' },
+    { src: '../../../assets/science.png', category: 'Science & Mathematics' },
+    { src: '../../../assets/health.png', category: 'Health' },
+    { src: '../../../assets/education.png', category: 'Education & Reference' },
+    { src: '../../../assets/computer.png', category: 'Computers & Internet' },
+    { src: '../../../assets/sports.png', category: 'Sports' },
+    { src: '../../../assets/business.png', category: 'Business & Finance' },
+    { src: '../../../assets/music.png', category: 'Entertainment & Music' },
+    { src: '../../../assets/family.png', category: 'Family & Relationships' },
+    { src: '../../../assets/politics.png', category: 'Politics & Government' },
+  ];
+  public categories: any[] = [];
+  @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
+
+  constructor(
+    private observer: BreakpointObserver,
+    private readonly authService: AuthService,
+    private elementRef: ElementRef,
+    private readonly dialog: MatDialog,
+    private readonly categoryService: CategoryService,
+    private readonly toastr: ToastrService,
+    private readonly translateService: TranslateService,
+    private localStorage: LocalStorageService
+  ) {}
 
   ngOnInit() {
     this.getUser();
-    this.selectedLanguage = this.localStorage.retrieve('selectedLanguage') || this.translateService.currentLang;
+    this.selectedLanguage =
+      this.localStorage.retrieve('selectedLanguage') ||
+      this.translateService.currentLang;
 
     this.userSubscription = this.authService.user.subscribe((user) => {
       this.user = user;
@@ -172,23 +152,48 @@ export class LayoutComponent {
     this.initCategories();
   }
 
-  checkIfNavDropDown() {
+  ngOnDestroy() {
+    this.resize.unsubscribe();
+  }
+
+  public logout(): void {
+    this.authService.logout();
+  }
+
+  public getUser(): void {
+    this.user = this.authService.getUser();
+    this.username = this.user.username;
+  }
+
+  public openMenu(menuTrigger: MatMenuTrigger) {
+    menuTrigger.openMenu();
+  }
+
+  public changeLanguage(language: string): void {
+    this.translateService.use(language);
+    this.localStorage.store('selectedLanguage', language);
+    this.selectedLanguage = language;
+  }
+
+  private hasAdminRole(user: any): boolean {
+    return (
+      user &&
+      user.roles &&
+      user.roles.some((role: any) => role.name === ERole.Admin)
+    );
+  }
+
+  public checkIfNavDropDown() {
     if (this.isOpen) {
       this.isOpen = false;
     }
   }
 
-  onMenu() {
+  public onMenu() {
     this.isOpen = !this.isOpen;
   }
 
-  title = 'material-responsive-sidenav';
-  @ViewChild(MatSidenav)
-  sidenav!: MatSidenav;
-  isMobile = true;
-  isCollapsed = true;
-
-  toggleMenu() {
+  public toggleMenu() {
     if (this.isMobile) {
       this.sidenav.toggle();
       this.isCollapsed = false;
@@ -197,21 +202,6 @@ export class LayoutComponent {
       this.isCollapsed = !this.isCollapsed;
     }
   }
-
-  imageData = [
-    { src: '../../../assets/society.png', category: 'Society & Culture' },
-    { src: '../../../assets/science.png', category: 'Science & Mathematics' },
-    { src: '../../../assets/health.png', category: 'Health' },
-    { src: '../../../assets/education.png', category: 'Education & Reference' },
-    { src: '../../../assets/computer.png', category: 'Computers & Internet' },
-    { src: '../../../assets/sports.png', category: 'Sports' },
-    { src: '../../../assets/business.png', category: 'Business & Finance' },
-    { src: '../../../assets/music.png', category: 'Entertainment & Music' },
-    { src: '../../../assets/family.png', category: 'Family & Relationships' },
-    { src: '../../../assets/politics.png', category: 'Politics & Government' },
-  ];
-
-  @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
 
   public initCategories() {
     this.categoryService
@@ -222,9 +212,7 @@ export class LayoutComponent {
       });
   }
 
-  categories: any[] = [];
-
-  selectCategory(category: any): void {
+  publicselectCategory(category: any): void {
     this.menuTrigger.closeMenu();
   }
 
@@ -250,11 +238,10 @@ export class LayoutComponent {
     return dialogRef.afterClosed();
   }
 
-  openModalCreateQuestion(): any {
-    const dialogRef: MatDialogRef<CreateQuestionModalComponent, boolean> =
-      this.dialog.open(CreateQuestionModalComponent, {
-        width: '38rem',
-        disableClose: true,
-      });
+  public openModalCreateQuestion(): any {
+    this.dialog.open(CreateQuestionModalComponent, {
+      width: '38rem',
+      disableClose: true,
+    });
   }
 }

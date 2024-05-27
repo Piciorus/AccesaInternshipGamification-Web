@@ -31,7 +31,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatDialogModule,
     MatSidenavModule,
     MatListModule,
-    TranslateModule
+    TranslateModule,
   ],
 })
 export class CoreModule {}

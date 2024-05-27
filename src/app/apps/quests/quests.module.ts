@@ -6,9 +6,11 @@ import { AngularMaterialModule } from 'src/shared/angular-material.module';
 import { QuestsRoutingModule } from './quests-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { InfoQuestionComponent } from './info-question/info-question.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [QuestsComponent],
+  declarations: [QuestsComponent, InfoQuestionComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -17,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    TranslateModule,
     MatDialogModule,
   ],
 })

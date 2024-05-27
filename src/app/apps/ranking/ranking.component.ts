@@ -5,7 +5,7 @@ import {
   GuiDataType,
   GuiPaging,
   GuiPagingDisplay,
-  GuiRowColoring
+  GuiRowColoring,
 } from '@generic-ui/ngx-grid';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { User } from 'src/app/libs/models/user';
@@ -18,8 +18,7 @@ import { UserService } from 'src/app/libs/services/user.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class RankingComponent implements OnInit {
-  
-  columns: Array<GuiColumn> = [
+  public columns: Array<GuiColumn> = [
     {
       field: (item) => item,
       header: 'Username',
@@ -97,29 +96,26 @@ export class RankingComponent implements OnInit {
       },
     },
   ];
-  users: User[] = [];
-  coloring = GuiRowColoring.ODD;
-  source: Array<any> = [];
-  sorting: any = {
+  public users: User[] = [];
+  public coloring = GuiRowColoring.ODD;
+  public source: Array<any> = [];
+  public sorting: any = {
     enabled: true,
-    multiSorting: true, 
+    multiSorting: true,
   };
-  setSortConfig(config: any): void {
-    this.sorting = config;
-  }
-  columnMenu = {
+  public columnMenu = {
     enabled: true,
     columnsManager: true,
   };
-  paging: GuiPaging = {
+  public paging: GuiPaging = {
     enabled: true,
     page: 1,
     pageSize: 10,
     pageSizes: [5, 10, 25, 50],
     display: GuiPagingDisplay.ADVANCED,
   };
-  randomColors: string[] = [];
-  loggedInUser: any;
+  public randomColors: string[] = [];
+  public loggedInUser: any;
 
   constructor(
     private readonly userService: UserService,

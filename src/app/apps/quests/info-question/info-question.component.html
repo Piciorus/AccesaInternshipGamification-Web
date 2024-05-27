@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>{{ "dialog.info" | translate }}</h1>
+<div mat-dialog-content style="margin-top: 1rem">
+  <p>
+    <strong style="font-weight: bold; color: black"
+      >{{ "dialog.category" | translate }}:
+    </strong>
+    <span>{{ data.question.category?.name }}</span>
+  </p>
+  <p>
+    <strong style="font-weight: bold; color: black"
+      >{{ "dialog.questionDescription" | translate }}:
+    </strong>
+    <span>{{ data.question.questionText }}</span>
+  </p>
+  <p>
+    <strong style="font-weight: bold; color: black"
+      >{{ "dialog.firstAnswer" | translate }}:
+    </strong>
+    <span>{{ data.question.answer1 }}</span>
+  </p>
+  <p>
+    <strong style="font-weight: bold; color: black"
+      >{{ "dialog.secondAnswer" | translate }}:
+    </strong>
+    <span>{{ data.question.answer2 }}</span>
+  </p>
+  <p>
+    <strong style="font-weight: bold; color: black"
+      >{{ "dialog.thirdAnswer" | translate }}:
+    </strong>
+    <span>{{ data.question.answer3 }}</span>
+  </p>
+  <p>
+    <strong style="font-weight: bold; color: black"
+      >{{ "dialog.correctAnswer" | translate }}:
+    </strong>
+    <span>{{ data.question.correctAnswer }}</span>
+  </p>
+  <p>
+    <strong style="font-weight: bold; color: black"
+      >{{ "dialog.difficulty" | translate }}:
+    </strong>
+    <span>{{ data.question.difficulty }}</span>
+  </p>
+  <p>
+    <strong style="font-weight: bold; color: black"
+      >{{ "dialog.threshold" | translate }}:
+    </strong>
+    <span>{{ data.question.threshold }}</span>
+  </p>
+  <p>
+    <strong style="font-weight: bold; color: black"
+      >{{ "dialog.tokens" | translate }}:
+    </strong>
+    <span>{{ data.question.questRewardTokens }}</span>
+  </p>
+</div>
+<div mat-dialog-actions>
+  <button
+    color="warn"
+    style="margin-left: 1rem"
+    mat-button
+    [mat-dialog-close]="'close'"
+  >
+    {{ "dialog.close" | translate }}
+  </button>
+</div>

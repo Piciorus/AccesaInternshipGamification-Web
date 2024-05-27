@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
-import { DeactivateGuard } from '../libs/auth/deactivate-guard.service';
-import { ERole } from '../libs/models/erole';
 
 const routes: Routes = [
   {

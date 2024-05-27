@@ -41,22 +41,7 @@ export class CreateQuestionModalComponent {
     this.tokens = this.authService.getUser().tokens;
     this.questionEdit = this.data?.question;
   }
-  private isFormEdited(): boolean {
-    const formValues = this.questForm.value;
-    const originalValues = this.questionEdit;
 
-    return (
-      formValues.questionText !== originalValues?.questionText ||
-      formValues.answer1 !== originalValues.answer1 ||
-      formValues.answer2 !== originalValues.answer2 ||
-      formValues.answer3 !== originalValues.answer3 ||
-      formValues.correctAnswer !== originalValues.correctAnswer ||
-      formValues.difficulty !== originalValues.difficulty ||
-      formValues.threshold !== originalValues.threshold ||
-      formValues.questRewardTokens !== originalValues.questRewardTokens ||
-      formValues.category !== originalValues.category?.name
-    );
-  }
   public onCreateQuestionSubmit(): void {
     if (this.questForm?.invalid) return;
     const questToSave: Question = {
@@ -90,7 +75,6 @@ export class CreateQuestionModalComponent {
         }
       },
     };
-    console.log("questToSave",questToSave)
     if (this.data?.isOnEdit && isFormEdited) {
       this.questService
         .updateQuestion(this.data.question.id, questToSave)
@@ -126,6 +110,23 @@ export class CreateQuestionModalComponent {
 
   public closeModal() {
     this.dialog.closeAll();
+  }
+
+  private isFormEdited(): boolean {
+    const formValues = this.questForm.value;
+    const originalValues = this.questionEdit;
+
+    return (
+      formValues.questionText !== originalValues?.questionText ||
+      formValues.answer1 !== originalValues.answer1 ||
+      formValues.answer2 !== originalValues.answer2 ||
+      formValues.answer3 !== originalValues.answer3 ||
+      formValues.correctAnswer !== originalValues.correctAnswer ||
+      formValues.difficulty !== originalValues.difficulty ||
+      formValues.threshold !== originalValues.threshold ||
+      formValues.questRewardTokens !== originalValues.questRewardTokens ||
+      formValues.category !== originalValues.category?.name
+    );
   }
 
   private initForm(): FormGroup {

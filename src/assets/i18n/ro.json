@@ -47,6 +47,7 @@
     "threshold": "Prag"
   },
   "dialog": {
+    "info": "Informații despre intrebare",
     "createQuestionTitle": "Creează o întrebare nouă",
     "questionDescription": "Descrierea întrebării",
     "typeText": "Scrie textul..",
@@ -72,7 +73,8 @@
     "mandatoryField": "Acest câmp este obligatoriu.",
     "predictCategory": "Prezicere categorie",
     "submit": "Trimite",
-    "clear": "Șterge"
+    "clear": "Șterge",
+    "close": "Închide"
   },
   "dashboard": {
     "testsHistory": "Istoricul Testelor",
@@ -153,5 +155,15 @@
     "category": "Categorie",
     "actions": "Acțiuni"
   },
-  "Actions": "Acțiuni"
+  "Actions": "Acțiuni",
+  "category": "Categorie",
+  "description": "Descriere",
+  "firstAnswer": "Prima răspuns",
+  "secondAnswer": "Al doilea răspuns",
+  "thirdAnswer": "Al treilea răspuns",
+  "correctAnswer": "Răspuns corect",
+  "difficulty": "Dificultate",
+  "threshold": "Prag",
+  "tokens": "Jetoane",
+  "close": "Închide"
 }

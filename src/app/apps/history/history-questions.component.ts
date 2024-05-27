@@ -13,44 +13,9 @@ import { TestsHistoryService } from 'src/app/libs/services/tests-history.service
 export class HistoryQuestionsComponent {
   public userQuestionsHistory: any[];
   public testsHistory: any[];
-
-  constructor(
-    private readonly questionService: QuestionService,
-    private readonly testsHistoryService: TestsHistoryService,
-    private readonly authService: AuthService
-  ) {}
-
-  ngOnInit(): void {
-    this.initTestsHistoryService();
-    this.initUserQuestionHistory();
-    this.initQuestions();
-  }
-
-  initUserQuestionHistory() {
-    const id = this.authService.getUser().id;
-
-    this.questionService
-      .getUserQuestionHistory(id)
-      .pipe(take(1))
-      .subscribe((response: any[]) => {
-        this.userQuestionsHistory = response;
-      });
-  }
-
-  initTestsHistoryService() {
-    const id = this.authService.getUser().id;
-
-    this.testsHistoryService
-      .findAllTestsHistoryByUserId(id)
-      .pipe(take(1))
-      .subscribe((response: any[]) => {
-        this.testsHistory = response;
-      });
-  }
-
-  statistics: any[];
+  public statistics: any[];
   @ViewChild('chart') chart: ChartComponent;
-  chartOptions: any = {
+  public chartOptions: any = {
     series: [0],
     chart: {
       height: 800,
@@ -69,12 +34,43 @@ export class HistoryQuestionsComponent {
     labels: ['Loading...'],
   };
 
-  public initQuestions() {
+  constructor(
+    private readonly questionService: QuestionService,
+    private readonly testsHistoryService: TestsHistoryService,
+    private readonly authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.initTestsHistoryService();
+    this.initUserQuestionHistory();
+    this.initQuestions();
+  }
+
+  private initUserQuestionHistory() {
+    const id = this.authService.getUser().id;
+    this.questionService
+      .getUserQuestionHistory(id)
+      .pipe(take(1))
+      .subscribe((response: any[]) => {
+        this.userQuestionsHistory = response;
+      });
+  }
+
+  private initTestsHistoryService() {
+    const id = this.authService.getUser().id;
+    this.testsHistoryService
+      .findAllTestsHistoryByUserId(id)
+      .pipe(take(1))
+      .subscribe((response: any[]) => {
+        this.testsHistory = response;
+      });
+  }
+
+  private initQuestions() {
     const id = this.authService.getUser().id;
 
     this.questionService.getUserStatistics(id).subscribe((response: any) => {
       this.chartOptions.labels = Object.keys(response).map((key) => {
-        // Map the original labels to the names you want
         switch (key) {
           case 'questionsAnsweredLast7Days':
             return 'Number of questions answered last 7 days';
@@ -87,10 +83,8 @@ export class HistoryQuestionsComponent {
           default:
             return key;
         }
-      });      this.chartOptions.series = Object.values(response);
+      });
+      this.chartOptions.series = Object.values(response);
     });
-  }
-  public onDataChangeDetected() {
-    this.initQuestions();
   }
 }

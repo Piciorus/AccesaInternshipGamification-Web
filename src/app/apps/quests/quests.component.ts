@@ -10,7 +10,8 @@ import { Quest } from 'src/app/libs/models/quest';
 import { ConfirmActionModalService } from 'src/app/libs/services/confirmation-action-modal.sevice';
 import { QuestionService } from 'src/app/libs/services/question.service';
 import { CreateQuestionModalComponent } from '../home/create-question-modal/create-question-modal.component';
-import { TranslateService } from '@ngx-translate/core'; // Import TranslateService
+import { TranslateService } from '@ngx-translate/core';
+import { InfoQuestionComponent } from './info-question/info-question.component';
 
 @Component({
   selector: 'app-quests',
@@ -74,8 +75,7 @@ export class QuestsComponent implements OnInit {
     private readonly dialog: MatDialog,
     private readonly toastr: ToastrService,
     private confirmActionModalService: ConfirmActionModalService,
-    private translate: TranslateService // Inject TranslateService
-
+    private translate: TranslateService
   ) {}
 
   ngAfterViewInit() {
@@ -84,8 +84,8 @@ export class QuestsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initQuestions();
     this.translateColumnHeaders();
+    this.initQuestions();
   }
 
   public getImagePath(category: string): string {
@@ -143,7 +143,14 @@ export class QuestsComponent implements OnInit {
       );
     }
   }
+  openModalInfoQuestionComponent(question: any): void {
+    const dialogRef = this.dialog.open(InfoQuestionComponent, {
+      width: '600px',
+      data: { question: question },
+    });
 
+    dialogRef.afterClosed().subscribe(() => {});
+  }
   public openModal(element: Quest): any {
     const dialogRef: MatDialogRef<CreateQuestionModalComponent, boolean> =
       this.dialog.open(CreateQuestionModalComponent, {
@@ -157,7 +164,6 @@ export class QuestsComponent implements OnInit {
   }
 
   public deleteQuestion(questionId: string): void {
-    console.log(questionId);
     this.confirmActionModalService
       .openModal('Are you sure you want to delete this question?')
       .subscribe((confirmed) => {
@@ -165,7 +171,7 @@ export class QuestsComponent implements OnInit {
           this.questionService.deleteQuestion(questionId).subscribe(
             () => {
               this.toastr.success('Question deleted successfully');
-              this.initQuestions(); // Refresh the list after deletion
+              this.initQuestions();
             },
             (error) => {
               console.error('Error deleting question', error);
