@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/libs/auth/auth.service';
+import * as CryptoJS from 'crypto-js';
+import { ERole } from 'src/app/libs/models/erole';
+import { ERoleMapping } from 'src/app/libs/models/erole-mapping';
 
 @Component({
   selector: 'app-register',
@@ -15,12 +18,18 @@ export class RegisterComponent {
   isSignUpFailed = false;
   errorMessage = '';
   succesMessage = '';
-
+  private key: string = '1234567890123456';
+  protected readonly ERoleMapping = ERoleMapping;
+  protected roleList: ERole[] = [ERole.Admin, ERole.User];
+  public role1:any;
   constructor(private readonly authService: AuthService) {}
 
   public onSubmit(): void {
+    const encryptedPassword = this.encrypt(this.key, this.password);
+    const role = ERole.User;
+
     this.authService
-      .register(this.username, this.password, this.email)
+      .register(this.username, encryptedPassword, this.email, role)
       .subscribe({
         next: (response) => {
           this.isSuccessful = true;
@@ -33,5 +42,10 @@ export class RegisterComponent {
           }
         },
       });
+  }
+
+  encrypt(key: any, value: string) {
+    key = CryptoJS.enc.Utf8.parse(key);
+    return CryptoJS.AES.encrypt(value, key, { iv: key }).toString();
   }
 }

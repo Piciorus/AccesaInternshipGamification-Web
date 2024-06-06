@@ -47,4 +47,18 @@ export class UserService {
       threshold,
     });
   }
+
+  public updateUser(idUser: string, user: any): Observable<any> {
+    return this.http.put<any>(
+      this.basePath + '/users/updateUser/' + idUser,
+      user
+    );
+  }
+
+  public deleteUser(idUser: string): Observable<any> {
+    return this.http.delete(
+      this.basePath + '/users/deleteUser/' + idUser,
+      {}
+    );
+  }
 }

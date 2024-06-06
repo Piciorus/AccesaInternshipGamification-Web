@@ -6,6 +6,7 @@ import { TableModule } from 'ngx-easy-table';
 import { AngularMaterialModule } from 'src/shared/angular-material.module';
 import { RankingRoutingModule } from './ranking-routing.module';
 import { RankingComponent } from './ranking.component';
+import { HasRolesDirective } from 'src/app/libs/directives/has-roles.directive';
 
 @NgModule({
   declarations: [RankingComponent],
@@ -16,6 +17,7 @@ import { RankingComponent } from './ranking.component';
     RankingRoutingModule,
     AngularMaterialModule,
     GuiGridModule,
+    HasRolesDirective,
   ],
 })
 export class RankingModule {}

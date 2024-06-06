@@ -94,7 +94,7 @@ export class RankingComponent implements OnInit {
       cellEditing: {
         enabled: false,
       },
-    },
+    }
   ];
   public users: User[] = [];
   public coloring = GuiRowColoring.ODD;

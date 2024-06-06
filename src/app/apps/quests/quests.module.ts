@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { QuestsComponent } from './quests.component';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularMaterialModule } from 'src/shared/angular-material.module';
-import { QuestsRoutingModule } from './quests-routing.module';
-import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
+import { AngularMaterialModule } from 'src/shared/angular-material.module';
 import { InfoQuestionComponent } from './info-question/info-question.component';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { QuestsRoutingModule } from './quests-routing.module';
+import { QuestsComponent } from './quests.component';
 
 @NgModule({
   declarations: [QuestsComponent, InfoQuestionComponent],

@@ -11,7 +11,8 @@
     "ranking": "Ranking",
     "quests": "Quests",
     "create_question": "Create question",
-    "test": "Test"
+    "test": "Test",
+    "users": "Users"
   },
   "common": {
     "username": "Username"
@@ -165,5 +166,21 @@
   "difficulty": "Difficulty",
   "threshold": "Threshold",
   "tokens": "Tokens",
-  "close": "Close"
+  "close": "Close",
+  "FILTER": "Filter",
+  "USERNAME": "Username",
+  "TOKENS": "Tokens",
+  "THRESHOLD": "Threshold",
+  "ROLES": "Roles",
+  "BADGES": "Badges",
+  "ACTIONS": "Actions",
+  "NO_DATA": "No data matching the filter \"{{ input.value }}\"",
+  "EDIT_USER": "Edit User",
+  "CANCEL": "Cancel",
+  "SUBMIT": "Submit",
+  "SELECT_ROLE": "Select Role",
+  "USERNAME_LABEL": "Username",
+  "TOKENS_LABEL": "Tokens",
+  "THRESHOLD_LABEL": "Threshold",
+  "ROLES_LABEL": "Roles"
 }

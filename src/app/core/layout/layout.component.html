@@ -63,7 +63,11 @@
             <span *ngIf="!isCollapsed">{{ "menu.ranking" | translate }}</span>
           </span>
         </a>
-        <a mat-list-item *ngIf="isAdmin" [routerLink]="['/app/quests']">
+        <a
+          mat-list-item
+          *appHasPermission="[ERole.Admin]"
+          [routerLink]="['/app/quests']"
+        >
           <span class="entry">
             <mat-icon>question_answer</mat-icon>
             <span *ngIf="!isCollapsed">{{ "menu.quests" | translate }}</span>
@@ -97,6 +101,16 @@
           <span class="entry">
             <mat-icon>insert_chart_outlined</mat-icon>
             <span *ngIf="!isCollapsed">{{ "menu.history" | translate }}</span>
+          </span>
+        </a>
+        <a
+          mat-list-item
+          *appHasPermission="[ERole.Admin]"
+          [routerLink]="['/app/users']"
+        >
+          <span class="entry">
+            <mat-icon>supervised_user_circle</mat-icon>
+            <span *ngIf="!isCollapsed">{{ "menu.users" | translate }}</span>
           </span>
         </a>
       </mat-nav-list>

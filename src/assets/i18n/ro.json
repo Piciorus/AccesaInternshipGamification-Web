@@ -11,7 +11,8 @@
     "ranking": "Clasament",
     "quests": "Intrebări",
     "create_question": "Creează întrebare",
-    "test": "Test"
+    "test": "Test",
+    "users": "Utilizatori"
   },
   "common": {
     "username": "Nume utilizator"
@@ -165,5 +166,21 @@
   "difficulty": "Dificultate",
   "threshold": "Prag",
   "tokens": "Jetoane",
-  "close": "Închide"
+  "close": "Închide",
+  "FILTER": "Filtru",
+  "USERNAME": "Nume de utilizator",
+  "TOKENS": "Jetoni",
+  "THRESHOLD": "Limită",
+  "ROLES": "Roluri",
+  "BADGES": "Insigne",
+  "ACTIONS": "Acțiuni",
+  "NO_DATA": "Nu există date care să corespundă filtrului \"{{ input.value }}\"",
+  "EDIT_USER": "Editează utilizator",
+  "CANCEL": "Anulează",
+  "SUBMIT": "Salvează",
+  "SELECT_ROLE": "Selectați rolul",
+  "USERNAME_LABEL": "Nume de utilizator",
+  "TOKENS_LABEL": "Tokeni",
+  "THRESHOLD_LABEL": "Limită",
+  "ROLES_LABEL": "Roluri"
 }

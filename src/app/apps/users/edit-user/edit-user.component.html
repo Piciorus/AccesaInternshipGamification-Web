@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>{{ "EDIT_USER" | translate }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="userForm" class="modal-form">
+    <mat-form-field>
+      <mat-label>{{ "USERNAME_LABEL" | translate }}</mat-label>
+      <input
+        formControlName="username"
+        matInput
+        placeholder="{{ 'USERNAME' | translate }}"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ "TOKENS_LABEL" | translate }}</mat-label>
+      <input
+        formControlName="tokens"
+        matInput
+        placeholder="{{ 'TOKENS' | translate }}"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ "THRESHOLD_LABEL" | translate }}</mat-label>
+
+      <input
+        formControlName="threshold"
+        matInput
+        placeholder="{{ 'THRESHOLD' | translate }}"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ "ROLES_LABEL" | translate }}</mat-label>
+      <mat-select
+        formControlName="role"
+        placeholder="{{ 'SELECT_ROLE' | translate }}"
+      >
+        <mat-option *ngFor="let role of roles" [value]="role.value">
+          {{ role.viewValue | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="modal-actions">
+  <button mat-button mat-dialog-close>{{ "CANCEL" | translate }}</button>
+  <button
+    mat-button
+    color="primary"
+    mat-raised-button
+    class="button-submit"
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    (click)="updateUser()"
+  >
+    {{ "SUBMIT" | translate }}
+  </button>
+</mat-dialog-actions>
