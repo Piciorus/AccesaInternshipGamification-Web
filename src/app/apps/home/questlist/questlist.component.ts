@@ -98,7 +98,7 @@ export class QuestlistComponent implements OnInit {
       userAnswer: selectedAnswer,
     };
 
-    this.saveAttemptedQuestion(idQuestion); // Save attempted question
+    this.saveAttemptedQuestion(idQuestion);
 
     if (isCorrect) {
       this.updateThreshold(idQuestion, id);
@@ -119,6 +119,7 @@ export class QuestlistComponent implements OnInit {
         this.selectedAnswer = null;
       }, 1000);
     } else {
+      this.resolveQuestionForUser(id, idQuestion, request);
       this.toastr.error('Incorrect answer! Please try again.');
     }
   }
