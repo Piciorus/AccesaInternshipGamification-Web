@@ -34,7 +34,6 @@ export class EditUserComponent {
       const selectedRole = this.roles?.find(
         (role) => role.value === user.roles[0].name
       );
-      console.log(selectedRole);
       this.userForm.patchValue({
         username: user.username,
         tokens: user.tokens,

@@ -27,8 +27,12 @@
           *ngIf="email1.invalid && (email1.dirty || email1.touched)"
           class="alert1"
         >
-          <div *ngIf="email1.errors?.['required']">{{ 'register.emailRequired' | translate }}</div>
-          <div *ngIf="email1.errors?.['minlength']">{{ 'register.emailMinLength' | translate }}</div>
+          <div *ngIf="email1.errors?.['required']">
+            {{ "register.emailRequired" | translate }}
+          </div>
+          <div *ngIf="email1.errors?.['minlength']">
+            {{ "register.emailMinLength" | translate }}
+          </div>
         </div>
         <div>
           <input
@@ -44,8 +48,12 @@
           />
         </div>
         <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
-          <div *ngIf="name.errors?.['required']">{{ 'register.usernameRequired' | translate }}</div>
-          <div *ngIf="name.errors?.['minlength']">{{ 'register.usernameMinLength' | translate }}</div>
+          <div *ngIf="name.errors?.['required']">
+            {{ "register.usernameRequired" | translate }}
+          </div>
+          <div *ngIf="name.errors?.['minlength']">
+            {{ "register.usernameMinLength" | translate }}
+          </div>
         </div>
         <div class="second-input">
           <input
@@ -64,11 +72,13 @@
           *ngIf="name1.invalid && (name1.dirty || name1.touched)"
           class="alert"
         >
-          <div *ngIf="name1.errors?.['required']">{{ 'register.passwordRequired' | translate }}</div>
-          <div *ngIf="name1.errors?.['minlength']">{{ 'register.passwordMinLength' | translate }}</div>
+          <div *ngIf="name1.errors?.['required']">
+            {{ "register.passwordRequired" | translate }}
+          </div>
+          <div *ngIf="name1.errors?.['minlength']">
+            {{ "register.passwordMinLength" | translate }}
+          </div>
         </div>
-        <div *ngIf="isSuccessful" class="success-message">{{ succesMessage | translate }}</div>
-        <div *ngIf="isSignUpFailed" class="alert">{{ errorMessage | translate }}</div>
         <div class="groupsubmit">
           <button
             type="submit"
@@ -76,12 +86,12 @@
             mat-raised-button
             [disabled]="!name1.valid || !name.valid || !email1.valid"
           >
-            {{ 'register.registerButton' | translate }}
+            {{ "register.registerButton" | translate }}
           </button>
         </div>
 
         <div class="register">
-          <a href="/auth/login">{{ 'register.goToLogin' | translate }}</a>
+          <a href="/auth/login">{{ "register.goToLogin" | translate }}</a>
         </div>
       </form>
     </div>

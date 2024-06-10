@@ -2,11 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-import {
-  BehaviorSubject,
-  map,
-  Observable
-} from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ERole } from '../models/erole';
 import { User } from '../models/user';
@@ -87,14 +83,13 @@ export class AuthService {
   logout() {
     sessionStorage.removeItem('token');
     this.setCurrentUser(null);
-
     this.router.navigate(['/auth/login']);
   }
 
   public getUser(): any {
     return this.userSubject.value;
   }
-  
+
   public getAuthtoken(): any {
     return localStorage.getItem('token');
   }

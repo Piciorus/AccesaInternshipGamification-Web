@@ -2,7 +2,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
+  OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -10,7 +13,6 @@ import { MatSelect } from '@angular/material/select';
 import { Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/libs/auth/auth.service';
 import { Badge, CreateBadge } from 'src/app/libs/models/Badge';
-import { User } from 'src/app/libs/models/user';
 import { BadgeService } from 'src/app/libs/services/badge.service';
 import { PlayTestComponent } from '../../play-test/play-test.component';
 import { CreateQuestionModalComponent } from '../create-question-modal/create-question-modal.component';
@@ -20,7 +22,7 @@ import { CreateQuestionModalComponent } from '../create-question-modal/create-qu
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss'],
 })
-export class StatisticsComponent {
+export class StatisticsComponent implements OnInit, OnChanges {
   @Input() public statistics: any;
   @Output() public newItemEvent: EventEmitter<string> =
     new EventEmitter<string>();
@@ -39,29 +41,34 @@ export class StatisticsComponent {
 
   public ngOnInit(): void {
     this.getBadges();
-    this.getBadgeFromUser();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['statistics'] && changes['statistics'].currentValue) {
+      this.updateBadgeList();
+      this.circleProgressValue = this.calculateProgress();
+    }
   }
 
   public createBadge(badge: CreateBadge, userId: string): void {
     this.badgeService.createBadge(badge, userId).subscribe((response: any) => {
       this.barBadge = response;
-      this.getBadgeFromUser();
+      this.updateBadgeList();
     });
   }
 
-  public calculateProgress(): any {
-    const user: User = this.authService.getUser();
-    if (user && user.threshold !== undefined) {
-      if (user.threshold < 100) {
-        return (user.threshold / 100) * 100;
-      } else if (user.threshold >= 100 && user.threshold < 200) {
-        return ((user.threshold - 100) / 100) * 100;
-      } else if (user.threshold >= 200) {
+  public calculateProgress(): number {
+    const threshold = this.statistics?.thresholdUser;
+    if (threshold !== undefined) {
+      if (threshold < 100) {
+        return (threshold / 100) * 100;
+      } else if (threshold >= 100 && threshold < 200) {
+        return ((threshold - 100) / 100) * 100;
+      } else if (threshold >= 200) {
         return 100;
       }
-    } else {
-      return 0;
     }
+    return 0;
   }
 
   public openModal(): Observable<boolean | undefined> {
@@ -108,20 +115,28 @@ export class StatisticsComponent {
     return dialogRef.afterClosed();
   }
 
-  private getBadgeFromUser(): void {
-    const user: User = this.authService.getUser();
-    const id = this.authService.getUser().id;
-    this.badgeList.push(this.barBadge[0]);
-    if (user.threshold && user.threshold >= 100)
-      this.badgeList.push(this.barBadge[1]);
-    if (user.threshold && user.threshold >= 200)
-      this.badgeList.push(this.barBadge[2]);
+  private updateBadgeList(): void {
+    this.badgeList = [];
+    const threshold = this.statistics?.thresholdUser;
+    if (threshold !== undefined) {
+      if (threshold < 100 && this.barBadge[0]) {
+        this.badgeList.push(this.barBadge[0]);
+      } else if (threshold >= 100 && threshold < 200 && this.barBadge[1]) {
+        this.badgeList.push(this.barBadge[0], this.barBadge[1]);
+      } else if (threshold >= 200 && this.barBadge[2]) {
+        this.badgeList.push(
+          this.barBadge[0],
+          this.barBadge[1],
+          this.barBadge[2]
+        );
+      }
+    }
   }
 
   private getBadges(): void {
     this.badgeService.getAllBadges().subscribe((response: any) => {
       this.barBadge = response;
-      this.getBadgeFromUser();
+      this.updateBadgeList();
     });
   }
 }

@@ -85,3 +85,10 @@ mat-sidenav-content {
   padding: 0.2rem;
   text-align: center;
 }
+
+app-collapsible-chat {
+  position: fixed;
+  bottom: 20px; /* Adjust bottom offset as needed */
+  right: 20px; /* Adjust right offset as needed */
+  z-index: 1000; /* Ensure it appears above other content */
+}

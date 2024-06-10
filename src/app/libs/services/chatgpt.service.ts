@@ -18,4 +18,8 @@ export class ChatGptService {
   predictCategory(request: any): Observable<any> {
     return this.http.post<any>(this.url + '/predict_category', request);
   }
+
+  chatBot(request: any): Observable<any> {
+    return this.http.post<any>(this.url + '/message_chat_bot', request);
+  }
 }

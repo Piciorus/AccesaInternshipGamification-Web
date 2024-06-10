@@ -27,12 +27,10 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log(this.authService.isLoggedIn())
         if (error.status == 403 && this.authService.isLoggedIn()) {
           return this.refreshTokenMethod(req, next);
         }
 
-        // this.toastrService.handleError(error.error as CustomErrorResponse);
         return throwError('');
       })
     );

@@ -98,27 +98,42 @@ export class QuestlistComponent implements OnInit {
       userAnswer: selectedAnswer,
     };
 
+    this.saveAttemptedQuestion(idQuestion); // Save attempted question
+
     if (isCorrect) {
       this.updateThreshold(idQuestion, id);
       this.resolveQuestionForUser(id, idQuestion, request);
-      this.toastr.success(`Correct answer! You got ${currentQuestion.threshold} threshold and ${currentQuestion.questRewardTokens} tokens `);
+      this.toastr.success(
+        `Correct answer! You got ${currentQuestion.threshold} threshold and ${currentQuestion.questRewardTokens} tokens `
+      );
+      setTimeout(() => {
+        this.nextQuestion();
+        if (this.currentQuestionIndex === 0) {
+          this.showNoQuestionsMessage = true;
+          const noMoreQuestionsMessage = 'No more questions in the list!';
+          this._liveAnnouncer.announce(noMoreQuestionsMessage);
+          this.toastr.info(noMoreQuestionsMessage);
+        }
+
+        this.answerForm.reset({ selectedAnswer: null });
+        this.selectedAnswer = null;
+      }, 1000);
     } else {
-      this.resolveQuestionForUser(id, idQuestion, request);
-      this.toastr.error('Incorrect answer!');
+      this.toastr.error('Incorrect answer! Please try again.');
     }
+  }
 
-    setTimeout(() => {
-      this.nextQuestion();
-      if (this.currentQuestionIndex === 0) {
-        this.showNoQuestionsMessage = true;
-        const noMoreQuestionsMessage = 'No more questions in the list!';
-        this._liveAnnouncer.announce(noMoreQuestionsMessage);
-        this.toastr.info(noMoreQuestionsMessage);
-      }
-
-      this.answerForm.reset({ selectedAnswer: null });
-      this.selectedAnswer = null;
-    }, 1000);
+  private saveAttemptedQuestion(idQuestion: number) {
+    let attemptedQuestions = JSON.parse(
+      localStorage.getItem('attemptedQuestions') || '[]'
+    );
+    if (!attemptedQuestions.includes(idQuestion)) {
+      attemptedQuestions.push(idQuestion);
+    }
+    localStorage.setItem(
+      'attemptedQuestions',
+      JSON.stringify(attemptedQuestions)
+    );
   }
 
   public update() {
@@ -201,6 +216,9 @@ export class QuestlistComponent implements OnInit {
       .getUnansweredQuestionsForUser(id, category, difficulty)
       .pipe(take(1))
       .subscribe((response: any[]) => {
+        const attemptedQuestions = JSON.parse(
+          localStorage.getItem('attemptedQuestions') || '[]'
+        );
         const transformedData: any[] = response.map((item) => ({
           id: item.id,
           questionText: item.questionText,
@@ -214,7 +232,8 @@ export class QuestlistComponent implements OnInit {
           category: item.category,
         }));
         this.questionsList = transformedData.filter(
-          (question) => question.checkByAdmin
+          (question) =>
+            question.checkByAdmin && !attemptedQuestions.includes(question.id)
         );
         this.showNoQuestionsMessage = this.questionsList.length === 0;
       });

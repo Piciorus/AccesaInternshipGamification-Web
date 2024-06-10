@@ -81,7 +81,6 @@
             }}</span>
           </span>
         </a>
-
         <a mat-list-item [matMenuTriggerFor]="menu">
           <span class="entry">
             <mat-icon>extension</mat-icon>
@@ -103,6 +102,7 @@
             <span *ngIf="!isCollapsed">{{ "menu.history" | translate }}</span>
           </span>
         </a>
+
         <a
           mat-list-item
           *appHasPermission="[ERole.Admin]"
@@ -121,7 +121,8 @@
   </mat-sidenav-container>
   <footer class="footer">
     <div class="footer-content">
-      &copy; 2024 Culture Challenge. All rights reserved.
+      &copy; 2024 Culture Challenge. {{ "menu.footer" | translate }}
     </div>
   </footer>
+  <app-collapsible-chat></app-collapsible-chat>
 </div>

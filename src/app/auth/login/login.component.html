@@ -48,9 +48,6 @@
         <div *ngIf="isLoading" class="spinner-overlay">
           <mat-spinner class="spinner"></mat-spinner>
         </div>
-        <div *ngIf="loginFailed" class="alert">
-          {{ 'login.invalidCredentials' | translate }}
-        </div>
         <div class="groupsubmit">
           <button color="primary" mat-raised-button type="submit" [disabled]="!name1.valid || !name.valid">
             {{ 'login.loginButton' | translate }}

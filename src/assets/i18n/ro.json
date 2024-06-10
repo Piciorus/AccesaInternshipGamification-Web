@@ -12,7 +12,8 @@
     "quests": "Intrebări",
     "create_question": "Creează întrebare",
     "test": "Test",
-    "users": "Utilizatori"
+    "users": "Utilizatori",
+    "footer": "Toate drepturile rezervate."
   },
   "common": {
     "username": "Nume utilizator"
@@ -182,5 +183,11 @@
   "USERNAME_LABEL": "Nume de utilizator",
   "TOKENS_LABEL": "Tokeni",
   "THRESHOLD_LABEL": "Limită",
-  "ROLES_LABEL": "Roluri"
+  "ROLES_LABEL": "Roluri",
+  "chat": {
+    "message": "Mesaj",
+    "mandatoryField": "Acest câmp este obligatoriu",
+    "placeholder": "Scrieți mesajul dvs. aici.."
+  },
+  "menu.footer": "Toate drepturile rezervate."
 }

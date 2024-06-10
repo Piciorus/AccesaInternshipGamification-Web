@@ -12,7 +12,8 @@
     "quests": "Quests",
     "create_question": "Create question",
     "test": "Test",
-    "users": "Users"
+    "users": "Users",
+    "footer": "All rights reserved."
   },
   "common": {
     "username": "Username"
@@ -182,5 +183,10 @@
   "USERNAME_LABEL": "Username",
   "TOKENS_LABEL": "Tokens",
   "THRESHOLD_LABEL": "Threshold",
-  "ROLES_LABEL": "Roles"
+  "ROLES_LABEL": "Roles",
+  "chat": {
+    "message": "Message",
+    "mandatoryField": "This field is mandatory",
+    "placeholder": "Type your message here..."
+  }
 }

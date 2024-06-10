@@ -1,0 +1,44 @@
+<form [formGroup]="form" class="chat-container">
+    <mat-card [ngClass]="display">
+      <mat-card-header class="chat-header">
+        <img mat-card-avatar src="./assets/bot.png" class="chat-icon">
+        <mat-card-title class="chat-title">QuizzyBot</mat-card-title>
+        <mat-card-subtitle class="chat-subtitle">
+          <div class="status-icon"></div>
+          <span>Online</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="chat-content" #messageContainer>
+        <div *ngFor="let message of messages" class="messages">
+          <div [ngClass]="'message ' + message.type">
+            {{ message.text }}
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="chat-actions">
+        <mat-form-field class="chat-form">
+          <mat-label>{{ "chat.message" | translate }}</mat-label>
+          <input
+            class="chat-input"
+            formControlName="message"
+            matInput
+            type="text"
+            (keydown.enter)="onClickEnter($event)"
+            placeholder="{{ 'chat.placeholder' | translate }}"
+          />
+          <mat-error>{{ "chat.mandatoryField" | translate }}</mat-error>
+        </mat-form-field>
+        <button
+          class="send-button"
+          matSuffix
+          mat-icon-button
+          aria-label="Send"
+          (click)="onClickSendMessage()"
+          [disableRipple]="true"
+        >
+          <mat-icon class="send-icon">send</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  

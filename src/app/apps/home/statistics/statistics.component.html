@@ -1,13 +1,17 @@
 <div class="sidebar">
   <ul *ngIf="barBadge && barBadge.length > 0">
     <li *ngIf="statistics?.thresholdUser < 100">
-      <h2>{{ 'sidebar.badgeProgress' | translate }} {{ barBadge[0].name }}</h2>
+      <h2>{{ "sidebar.badgeProgress" | translate }} {{ barBadge[0].name }}</h2>
     </li>
-    <li *ngIf="statistics?.thresholdUser >= 100 && statistics?.thresholdUser < 200">
-      <h2>{{ 'sidebar.badgeProgress' | translate }} {{ barBadge[1].name }}</h2>
+    <li
+      *ngIf="
+        statistics?.thresholdUser >= 100 && statistics?.thresholdUser < 200
+      "
+    >
+      <h2>{{ "sidebar.badgeProgress" | translate }} {{ barBadge[1].name }}</h2>
     </li>
     <li *ngIf="statistics?.thresholdUser >= 200">
-      <h2>{{ 'sidebar.badgeProgress' | translate }} {{ barBadge[2].name }}</h2>
+      <h2>{{ "sidebar.badgeProgress" | translate }} {{ barBadge[2].name }}</h2>
     </li>
   </ul>
   <circle-progress
@@ -22,7 +26,7 @@
   ></circle-progress>
 
   <h2>
-    {{ 'sidebar.yourStatistics' | translate }}
+    {{ "sidebar.yourStatistics" | translate }}
 
     <button
       mat-raised-button
@@ -30,27 +34,27 @@
       aria-label="Button that displays a tooltip when focused or hovered over"
       class="tooltip"
     >
-      {{ 'sidebar.info' | translate }}
+      {{ "sidebar.info" | translate }}
     </button>
   </h2>
 
   <table>
     <tr>
-      <td>{{ 'sidebar.tokens' | translate }}</td>
+      <td>{{ "sidebar.tokens" | translate }}</td>
       <td>{{ statistics?.tokens }}</td>
     </tr>
     <tr>
-      <td>{{ 'sidebar.badges' | translate }}</td>
+      <td>{{ "sidebar.badges" | translate }}</td>
       <td>
         <ul>
           <li *ngFor="let badge of badgeList">
-            {{ badge && badge?.name ? badge.name : "" }}
+            {{ badge?.name }}
           </li>
         </ul>
       </td>
     </tr>
     <tr>
-      <td>{{ 'sidebar.threshold' | translate }}</td>
+      <td>{{ "sidebar.threshold" | translate }}</td>
       <td>{{ statistics?.thresholdUser }}</td>
     </tr>
   </table>

@@ -113,7 +113,7 @@ export class QuestsComponent implements OnInit {
         correctAnswer: element.correctAnswer,
         difficulty: element.difficulty,
         threshold: element.threshold,
-        rewardTokens: element.rewardTokens,
+        questRewardTokens: element.questRewardTokens,
         category: element.category.name,
         checkedByAdmin: true,
       };
@@ -132,7 +132,7 @@ export class QuestsComponent implements OnInit {
         correctAnswer: element.correctAnswer,
         difficulty: element.difficulty,
         threshold: element.threshold,
-        rewardTokens: element.rewardTokens,
+        questRewardTokens: element.questRewardTokens,
         checkedByAdmin: false,
       };
       this.questionService.updateQuestion(id, updateQuestionRequest).subscribe(

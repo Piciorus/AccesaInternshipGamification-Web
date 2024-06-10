@@ -28,34 +28,41 @@ export class LoginComponent {
     key = CryptoJS.enc.Utf8.parse(key);
     return CryptoJS.AES.encrypt(value, key, { iv: key }).toString();
   }
+
   public onSubmit() {
     const encryptedPassword = this.encrypt(this.key, this.password);
 
-    try {
-      this.isLoading = true; 
-      this.authService
-        .login(this.username, encryptedPassword )
-        .subscribe((response: any) => {
-          if (response.jwttoken) {
-            sessionStorage.setItem('token', response.jwttoken);
-
-            this.authorizationService.getUserRoles();
-            this.toastrService.success('Log in succesfully!')
-            this.authService.setUser(this.authService.getUser());
-            this.authService.setCurrentUser(
-              this.authService.getLoggedInUsername()
-            );
-            this.router.navigateByUrl('/app/home');
-          } else {
-            this.loginFailed = true;
-          }
-        });
-    } catch (error) {
-      this.loginFailed = true;
-
-    } finally {
-      this.isLoading = false; 
-    }
+    this.isLoading = true;
+    this.authService.login(this.username, encryptedPassword).subscribe({
+      next: (response: any) => {
+        if (response.jwttoken) {
+          sessionStorage.setItem('token', response.jwttoken);
+          this.authService.firstLogin = response.firstLogin;
+          this.authorizationService.getUserRoles();
+          this.toastrService.success('Log in successfully!');
+          this.authService.setUser(this.authService.getUser());
+          this.authService.setCurrentUser(
+            this.authService.getLoggedInUsername()
+          );
+          this.router.navigateByUrl('/app/home');
+        } else {
+          this.loginFailed = true;
+          this.toastrService.error(
+            'Login failed, please try again.',
+            'Login Failed'
+          );
+        }
+      },
+      error: (err: any) => {
+        this.isLoading = false;
+        this.loginFailed = true;
+        const errorMessage = err.message || 'Credentials are invalid!';
+        this.toastrService.error(errorMessage, 'Login Failed');
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
   }
 
   public async logout(): Promise<void> {

@@ -13,9 +13,17 @@ import { MatListModule } from '@angular/material/list';
 import { MenuModule } from '@syncfusion/ej2-angular-navigations';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { ChatComponent } from '../apps/chat/chat.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CollapsibleChatComponent } from '../apps/chat/collapsible-chat/collapsible-chat.component';
 @NgModule({
-  declarations: [LayoutComponent],
+  declarations: [LayoutComponent, ChatComponent,CollapsibleChatComponent],
   imports: [
     CommonModule,
     CoreRoutingModule,
@@ -25,7 +33,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     NavbarModule,
     WavesModule,
     MenuModule,
+    ReactiveFormsModule,
+    MatIconModule,
     ButtonsModule,
+    MatInputModule,
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatCardModule,
+    ClipboardModule,
     FlexLayoutModule,
     MdbCheckboxModule,
     MatDialogModule,

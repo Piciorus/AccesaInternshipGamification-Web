@@ -66,7 +66,6 @@ export class UsersComponent implements OnInit {
   private getAllUser(): void {
     this.userService.getAllUsers().subscribe((response: User[]) => {
       const filteredUsers = this.filterUsers(response);
-      console.log(filteredUsers);
       this.dataSource.data = filteredUsers;
       const name = this.authService.getUser().username;
       this.loggedInUsername = this.dataSource.data.find(

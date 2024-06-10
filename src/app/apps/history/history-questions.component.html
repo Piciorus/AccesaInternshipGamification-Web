@@ -2,7 +2,9 @@
   <!-- Tests History -->
   <mat-card class="full-screen-card">
     <mat-card-header>
-      <mat-card-title>{{ 'dashboard.testsHistory' | translate }}</mat-card-title>
+      <mat-card-title>{{
+        "dashboard.testsHistory" | translate
+      }}</mat-card-title>
     </mat-card-header>
     <mat-card-content class="card-content">
       <div class="card-container">
@@ -10,18 +12,47 @@
           <div *ngFor="let test of testsHistory" class="history-item">
             <div class="test-details">
               <p>
-                <strong>{{ 'dashboard.testDate' | translate }}:</strong>
+                <strong>{{ "dashboard.testDate" | translate }}:</strong>
                 {{ test.testDate | date : "yyyy-MM-dd HH:mm:ss" }}
               </p>
               <div class="test-info">
-                <p><strong>{{ 'dashboard.category' | translate }}:</strong> {{ test.category.name }}</p>
-                <p><strong>{{ 'dashboard.questionsAnswered' | translate }}:</strong> {{ test.questionsAnswered }}</p>
-                <p><strong>{{ 'dashboard.userCorrectAnswers' | translate }}:</strong> {{ test.userCorrectAnswers }}</p>
-                <p><strong>{{ 'dashboard.chatGptCorrectAnswers' | translate }}:</strong> {{ test.chatGptCorrectAnswers }}</p>
+                <p>
+                  <strong>{{ "dashboard.category" | translate }}:</strong>
+                  {{ test.category.name }}
+                </p>
+                <p>
+                  <strong
+                    >{{ "dashboard.questionsAnswered" | translate }}:</strong
+                  >
+                  {{ test.questionsAnswered }}
+                </p>
+                <p>
+                  <strong
+                    >{{ "dashboard.userCorrectAnswers" | translate }}:</strong
+                  >
+                  {{ test.userCorrectAnswers }}
+                </p>
+                <p>
+                  <strong
+                    >{{
+                      "dashboard.chatGptCorrectAnswers" | translate
+                    }}:</strong
+                  >
+                  {{ test.chatGptCorrectAnswers }}
+                </p>
               </div>
-              <div class="checkmark-container" *ngIf="test.userCorrectAnswers === test.chatGptCorrectAnswers">
-                <img src="../../../assets/medal.png" alt="Medal" class="checkmark-image" />
-                <strong style="color: green">{{ 'dashboard.correctAnswersMatch' | translate }}</strong>
+              <div
+                class="checkmark-container"
+                *ngIf="test.userCorrectAnswers === test.chatGptCorrectAnswers"
+              >
+                <img
+                  src="../../../assets/medal.png"
+                  alt="Medal"
+                  class="checkmark-image"
+                />
+                <strong style="color: green">{{
+                  "dashboard.correctAnswersMatch" | translate
+                }}</strong>
               </div>
             </div>
           </div>
@@ -33,35 +64,48 @@
   <!-- Questions History -->
   <mat-card class="full-screen-card">
     <mat-card-header>
-      <mat-card-title>{{ 'dashboard.questionsHistory' | translate }}</mat-card-title>
+      <mat-card-title>{{
+        "dashboard.questionsHistory" | translate
+      }}</mat-card-title>
     </mat-card-header>
     <mat-card-content class="card-content">
       <div class="card-container">
         <div class="history-list">
-          <div *ngFor="let historyItem of userQuestionsHistory" class="history-item">
+          <div
+            *ngFor="let historyItem of userQuestionsHistory"
+            class="history-item"
+          >
             <div class="question-details">
               <p>
-                <strong>{{ 'dashboard.question' | translate }}:</strong>
+                <strong>{{ "dashboard.question" | translate }}:</strong>
                 {{ historyItem.question.questionText }}
               </p>
               <p>
-                <strong>{{ 'dashboard.category' | translate }}:</strong>
-                {{ historyItem.question.category.name }}
+                <strong>{{ "dashboard.category" | translate }}:</strong>
+                {{ historyItem.question.category?.name }}
               </p>
               <p>
-                <strong>{{ 'dashboard.answerDate' | translate }}:</strong>
+                <strong>{{ "dashboard.answerDate" | translate }}:</strong>
                 {{ historyItem.answerDate | date : "yyyy-MM-dd HH:mm:ss" }}
               </p>
               <p>
-                <strong>{{ 'dashboard.correctAnswer' | translate }}:</strong>
+                <strong>{{ "dashboard.correctAnswer" | translate }}:</strong>
                 {{ historyItem.question.correctAnswer }}
               </p>
-              <p><strong>{{ 'dashboard.userAnswer' | translate }}:</strong> {{ historyItem.userAnswer }}</p>
-              <p *ngIf="historyItem.correct; else incorrectAnswer" class="correct-answer">
-                {{ 'dashboard.correct' | translate }}
+              <p>
+                <strong>{{ "dashboard.userAnswer" | translate }}:</strong>
+                {{ historyItem.userAnswer }}
+              </p>
+              <p
+                *ngIf="historyItem.correct; else incorrectAnswer"
+                class="correct-answer"
+              >
+                {{ "dashboard.correct" | translate }}
               </p>
               <ng-template #incorrectAnswer>
-                <p class="incorrect-answer">{{ 'dashboard.incorrect' | translate }}</p>
+                <p class="incorrect-answer">
+                  {{ "dashboard.incorrect" | translate }}
+                </p>
               </ng-template>
             </div>
           </div>
