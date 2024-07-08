@@ -1,7 +1,14 @@
 <form [formGroup]="questForm" class="dialog-form">
-  <div mat-dialog-title class="title">
+  <ng-container *ngIf="data?.isOnEdit; else createTitle">
+    <div mat-dialog-title class="title">
+    {{ "dialog.editQuestionTitle" | translate }}
+    </div>
+  </ng-container>
+  <ng-template #createTitle>
+    <div mat-dialog-title class="title">
     {{ "dialog.createQuestionTitle" | translate }}
   </div>
+  </ng-template>
   <button mat-icon-button class="close-button" (click)="closeModal()">
     <mat-icon aria-label="Close modal" style="color: red">close</mat-icon>
   </button>

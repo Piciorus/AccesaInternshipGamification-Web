@@ -51,6 +51,7 @@
   "dialog": {
     "info": "Info about question",
     "createQuestionTitle": "Create a new question",
+    "editQuestionTitle": "Edit Question",
     "questionDescription": "Questions description",
     "typeText": "Type text..",
     "firstAnswer": "First answer",

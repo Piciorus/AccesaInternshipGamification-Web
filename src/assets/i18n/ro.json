@@ -51,6 +51,7 @@
   "dialog": {
     "info": "Informații despre intrebare",
     "createQuestionTitle": "Creează o întrebare nouă",
+    "editQuestionTitle": "Editează intrebarea",
     "questionDescription": "Descrierea întrebării",
     "typeText": "Scrie textul..",
     "firstAnswer": "Prima variantă de răspuns",
